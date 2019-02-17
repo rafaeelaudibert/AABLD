@@ -27,7 +27,7 @@ default: &default
 development:
   <<: *default
   database: aabld_development
-  
+
 test:
   <<: *default
   database: aabld_test
