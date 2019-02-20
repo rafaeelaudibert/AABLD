@@ -22,5 +22,8 @@ module Aabld
     config.i18n.enforce_available_locales = false
     config.i18n.available_locales = [:'pt-BR']
     config.i18n.default_locale = :'pt-BR'
+
+    # Precompile assets
+    Rails.application.config.assets.precompile += ['welcome.js', 'welcome.css']
   end
 end
