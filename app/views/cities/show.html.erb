@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>ID:</strong>
+  <%= @city.id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @city.name %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= "#{@city.state} - #{@city.state_abbreviation}"  %>
+</p>
+
+<%= link_to 'Back', cities_path %>
