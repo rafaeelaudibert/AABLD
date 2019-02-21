@@ -62,3 +62,7 @@ gem 'devise'
 gem 'bootstrap-sass'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'rails-ujs', '~> 0.1.0'
+
+# Adding some useful validators
+gem 'cpf_cnpj'
+gem 'validators'
