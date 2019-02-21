@@ -77,7 +77,8 @@ We use [Gitmoji](https://gitmoji.carloscuesta.me/) :tada: in our commits, so ple
 ## :1234: Versioning
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
-## :construction_worker: Authors(https://github.com/rafaeelaudibert)
+## :construction_worker: Author
+Built with love by [Rafa Audibert](https://github.com/rafaeelaudibert)
 
 ## :globe_with_meridians: Website
 There is no live version of this project yet.
