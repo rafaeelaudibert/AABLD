@@ -25,5 +25,12 @@ module Aabld
 
     # Precompile assets
     Rails.application.config.assets.precompile += ['welcome.js', 'welcome.css']
+
+    # Stylesheet generation conflict
+    config.generators do |g|
+      g.stylesheets false
+      g.javascripts false
+      g.helper false
+    end
   end
 end
