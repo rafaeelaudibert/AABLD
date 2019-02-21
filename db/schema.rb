@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_20_235750) do
+ActiveRecord::Schema.define(version: 2019_02_21_002125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 2019_02_20_235750) do
   create_table "cities", force: :cascade do |t|
     t.string "name", null: false
     t.index ["name"], name: "index_cities_on_name"
+  end
+
+  create_table "universities", force: :cascade do |t|
+    t.string "name"
+    t.string "cnpj"
+    t.bigint "city_id"
+    t.string "neighborhood"
+    t.string "address"
+    t.index ["city_id"], name: "index_universities_on_city_id"
+    t.index ["cnpj"], name: "index_universities_on_cnpj"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,4 +52,5 @@ ActiveRecord::Schema.define(version: 2019_02_20_235750) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "universities", "cities"
 end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :cities
   root to: 'welcome#index'
 
   ## Devise Views
@@ -16,4 +15,7 @@ Rails.application.routes.draw do
     get 'users/edit', to: 'devise/registrations#edit', as: 'edit_user_registration'
     put 'users', to: 'devise/registrations#update', as: 'user_registration'
   end
+
+  resources :universities
+  resources :cities
 end

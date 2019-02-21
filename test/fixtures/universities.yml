@@ -1,0 +1,8 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Universidade 1
+  cnpj: '011.011.011-0123/23'
+  city: 2
+  neighborhood: Bairrinho
+  address: Endereço
