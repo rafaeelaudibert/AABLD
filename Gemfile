@@ -52,11 +52,21 @@ group :test do
   gem 'chromedriver-helper'
 end
 
+# Development + Tests only gems, related to the console
+group :development, :test do
+  gem 'awesome_rails_console'
+  gem 'binding_of_caller'
+  gem 'hirb'
+  gem 'hirb-unicode-steakknife', require: 'hirb-unicode'
+  gem 'pry-stack_explorer'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Adding devise
 gem 'devise'
+gem 'devise_invitable', '~> 1.7.0'
 
 # Adding bootstrap and jquery
 gem 'bootstrap-sass'
@@ -66,3 +76,6 @@ gem 'rails-ujs', '~> 0.1.0'
 # Adding some useful validators
 gem 'cpf_cnpj'
 gem 'validators'
+
+# Random data generator
+gem 'faker'
