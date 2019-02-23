@@ -3,6 +3,7 @@ AllCops:
     - 'db/schema.rb'
     - 'db/migrate/*'
     - 'db/seeds/*'
+    - 'db/seeds.rb'
     - 'bin/*'
 
 Metrics/ClassLength:
