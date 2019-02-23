@@ -24,5 +24,15 @@ class User < ApplicationRecord
   validates :semester_end, presence: true
 
   enum bank_option: %i[checking savings]
-  enum role: %i[admin president treasurer secretary vice_president vice_treasurer vice_secretary staff member]
+  enum role: {
+    member: 0,
+    president: 1,
+    treasurer: 2,
+    secretary: 3,
+    vice_president: 4,
+    vice_treasurer: 5,
+    vice_secretary: 6,
+    staff: 7,
+    admin: 8
+  }
 end

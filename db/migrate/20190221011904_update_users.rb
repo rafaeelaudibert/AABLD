@@ -20,7 +20,7 @@ class UpdateUsers < ActiveRecord::Migration[5.2]
             t.date :semester_start                  # Non-nullity defined on model
             t.date :semester_end                    # Non-nullity defined on model
             t.integer :ticket_responsible_id, index: true
-            t.integer :role, index: true            # Non-nullity defined on model
+            t.integer :role, index: true, default: 0    # Non-nullity defined on model
         end
             
         add_foreign_key :users, :users, column: :ticket_responsible_id
