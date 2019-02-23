@@ -5,9 +5,7 @@ Rails.application.routes.draw do
 
   ## Devise Views
   devise_scope :user do
-    # custom path to login/sign_in to sign_up/registration
-    get '/sign_in', to: 'devise/sessions#new'
-    get '/sign_up', to: 'devise/registrations#new', as: 'new_user_registration'
+    get '/sign_in', to: 'devise/sessions#new' # custom path to login/sign_in
   end
 
   devise_for :users, skip: %i[registrations]
