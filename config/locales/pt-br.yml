@@ -29,5 +29,23 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-pt-br:
-  hello: "Olá mundo!"
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            cpf:
+              invalid_cpf: "inválido"
+        university:
+          attributes:
+            cnpj:
+              invalid_cnpj: "inválido"
+      messages:
+        blank: "não pode ficar em branco"
+        required: "inválido(a)"
+        taken: "já foi utilizado(a)"
+        record_invalid: "A validação falhou: %{errors}"
+        restrict_dependent_destroy:
+          has_one: "Não é possível excluir o registro pois existe um %{record} dependente"
+          has_many: "Não é possível excluir o registro pois existem %{record} dependentes"
