@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     put 'users', to: 'devise/registrations#update', as: 'user_registration'
   end
 
+  # Resources
   resources :universities
   resources :cities
+  resources :bus_companies
 end

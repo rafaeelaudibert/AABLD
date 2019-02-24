@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @bus_company.name %>
+</p>
+
+<p>
+  <strong>Cnpj:</strong>
+  <%= @bus_company.cnpj %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @bus_company.city %>
+</p>
+
+<p>
+  <strong>Neighborhood:</strong>
+  <%= @bus_company.neighborhood %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @bus_company.address %>
+</p>
+
+<%= link_to 'Edit', edit_bus_company_path(@bus_company) %> |
+<%= link_to 'Back', bus_companies_path %>

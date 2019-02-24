@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bus Companies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Cnpj</th>
+      <th>City</th>
+      <th>Neighborhood</th>
+      <th>Address</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bus_companies.each do |bus_company| %>
+      <tr>
+        <td><%= bus_company.name %></td>
+        <td><%= bus_company.cnpj %></td>
+        <td><%= bus_company.city %></td>
+        <td><%= bus_company.neighborhood %></td>
+        <td><%= bus_company.address %></td>
+        <td><%= link_to 'Show', bus_company %></td>
+        <td><%= link_to 'Edit', edit_bus_company_path(bus_company) %></td>
+        <td><%= link_to 'Destroy', bus_company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bus Company', new_bus_company_path %>

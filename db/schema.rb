@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_21_011904) do
+ActiveRecord::Schema.define(version: 2019_02_24_035636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bus_companies", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "cnpj", limit: 18, null: false
+    t.string "city", default: "Não se aplica"
+    t.string "neighborhood", default: "Não se aplica"
+    t.string "address", default: "Não se aplica"
+    t.index ["cnpj"], name: "index_bus_companies_on_cnpj"
+  end
 
   create_table "cities", force: :cascade do |t|
     t.string "name", null: false
@@ -23,7 +32,7 @@ ActiveRecord::Schema.define(version: 2019_02_21_011904) do
   create_table "universities", force: :cascade do |t|
     t.string "name", null: false
     t.string "abbreviation", null: false
-    t.string "cnpj", null: false
+    t.string "cnpj", limit: 18, null: false
     t.bigint "city_id"
     t.string "neighborhood", default: "Não se aplica"
     t.string "address", default: "Não se aplica"
@@ -72,7 +81,7 @@ ActiveRecord::Schema.define(version: 2019_02_21_011904) do
     t.date "semester_start"
     t.date "semester_end"
     t.integer "ticket_responsible_id"
-    t.integer "role"
+    t.integer "role", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"

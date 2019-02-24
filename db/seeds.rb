@@ -44,6 +44,25 @@ def seed_universities
   Rails.logger.info('[FINISH] -- Universities insertion')
 end
 
+def seed_bus_companies
+  Rails.logger.info('[START]  -- Bus Companies insertion')
+  CSV.foreach('./db/bus_companies.csv', headers: true) do |row|
+    bus_company = BusCompany.new(name: row['NOME'],
+                                 cnpj: row['CNPJ'],
+                                 city: row['CIDADE'],
+                                 neighborhood: row['BAIRRO'],
+                                 address: row['ENDERECO'])
+    if bus_company.save
+      Rails.logger.debug("[DEBUG]  -- INSERTED a BUS COMPANY in the database: #{bus_company.id}")
+    else
+      Rails.logger.error("[ERROR]  -- ERROR inserting BUS COMPANY #{bus_company.name}")
+      Rails.logger.error(bus_company.errors.full_messages)
+      raise
+    end
+  end
+  Rails.logger.info('[FINISH] -- Bus Companies insertion')
+end
+
 def seed_users
   Rails.logger.info('[START]  -- Users insertion')
   admin = User.new(name: 'Administrator',
@@ -64,6 +83,7 @@ end
 def main
   seed_cities
   seed_universities
+  seed_bus_companies
   seed_users
 end
 
