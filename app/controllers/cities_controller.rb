@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CitiesController < ApplicationController
+  before_action :authenticate_user!
+
   # GET /cities
   # GET /cities.json
   def index
