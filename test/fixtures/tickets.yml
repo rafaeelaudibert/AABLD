@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  source_city: one
+  destination_city: one
+  value: 1.5
+  bus_company: one
+
+two:
+  source_city: two
+  destination_city: two
+  value: 1.5
+  bus_company: two

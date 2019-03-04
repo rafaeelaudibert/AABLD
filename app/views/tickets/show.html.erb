@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Source city:</strong>
+  <%= @ticket.source_city.name %>
+</p>
+
+<p>
+  <strong>Destination city:</strong>
+  <%= @ticket.destination_city.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= format_currency @ticket.value %>
+</p>
+
+<p>
+  <strong>Bus company:</strong>
+  <%= @ticket.bus_company.name %>
+</p>
+
+<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+<%= link_to 'Back', tickets_path %>
