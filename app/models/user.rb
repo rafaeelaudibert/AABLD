@@ -8,6 +8,7 @@ class User < ApplicationRecord
          :timeoutable
 
   has_many :transactions
+  has_many :user_tickets
   belongs_to :ticket_responsible, optional: true, class_name: 'User'
   belongs_to :university
 

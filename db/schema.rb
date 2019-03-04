@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_04_022358) do
+ActiveRecord::Schema.define(version: 2019_03_04_034729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,15 @@ ActiveRecord::Schema.define(version: 2019_03_04_022358) do
     t.index ["cnpj"], name: "index_universities_on_cnpj"
   end
 
+  create_table "user_tickets", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "ticket_id"
+    t.integer "quantity", default: 1, null: false
+    t.decimal "original_value", precision: 5, scale: 2, null: false
+    t.index ["ticket_id"], name: "index_user_tickets_on_ticket_id"
+    t.index ["user_id"], name: "index_user_tickets_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -117,5 +126,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_022358) do
   add_foreign_key "tickets", "bus_companies"
   add_foreign_key "transactions", "users"
   add_foreign_key "universities", "cities"
+  add_foreign_key "user_tickets", "tickets"
+  add_foreign_key "user_tickets", "users"
   add_foreign_key "users", "users", column: "ticket_responsible_id"
 end
