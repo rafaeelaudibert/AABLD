@@ -43,11 +43,15 @@ ActiveRecord::Schema.define(version: 2019_03_04_022358) do
 
   create_table "transactions", force: :cascade do |t|
     t.bigint "user_id"
-    t.integer "month"
-    t.integer "year"
+    t.integer "month", null: false
+    t.integer "year", null: false
+    t.decimal "value", precision: 6, scale: 2, default: "0.0"
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["month"], name: "index_transactions_on_month"
     t.index ["user_id"], name: "index_transactions_on_user_id"
+    t.index ["year"], name: "index_transactions_on_year"
   end
 
   create_table "universities", force: :cascade do |t|

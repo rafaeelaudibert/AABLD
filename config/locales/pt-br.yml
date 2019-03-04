@@ -50,6 +50,7 @@ pt-BR:
         required: "inválido(a)"
         taken: "já foi utilizado(a)"
         record_invalid: "A validação falhou: %{errors}"
+        not_a_number: "não é um número"
         restrict_dependent_destroy:
           has_one: "Não é possível excluir o registro pois existe um %{record} dependente"
           has_many: "Não é possível excluir o registro pois existem %{record} dependentes"

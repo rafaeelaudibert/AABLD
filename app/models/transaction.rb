@@ -6,12 +6,13 @@ class Transaction < ApplicationRecord
   validates :month, presence: true
   validates :year, presence: true,
                    numericality: { only_integer: true, greater_than_or_equal_to: 2019 }
-  validates :not_duplicated
+  validate :not_duplicated
 
   MONTH_LIST = %w[january february march april may june
                   july august september october november december].each(&:freeze)
 
   enum month: MONTH_LIST.each_with_index.to_h { |month, idx| [month, idx + 1] }
+  enum status: { open: 0, closed: 1 }
 
   private
 
