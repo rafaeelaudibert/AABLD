@@ -54,7 +54,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/sign_in" class="btn btn-danger btn-fill">Login</a>
+                        <%= link_to 'Login', new_user_session_path, class: 'btn btn-danger btn-fill' %>
                     </li>
                 </ul>
             </div>
@@ -78,9 +78,7 @@
                     </div>
 
                     <div class="button-get-started">
-                        <a href="/sign_in" class="btn btn-white btn-fill btn-lg">
-                            Acesse seu painel de informações
-                        </a>
+                        <%= link_to 'Acesse seu painel de informações', new_user_session_path, class: 'btn btn-white btn-fill btn-lg' %>
                     </div>
                 </div>
 

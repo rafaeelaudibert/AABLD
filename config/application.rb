@@ -18,6 +18,10 @@ module Aabld
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    # Logger
+    config.logger = Logger.new(STDOUT)
+    config.logger.level = Logger::ERROR
+
     # Locales
     config.i18n.enforce_available_locales = false
     config.i18n.available_locales = [:'pt-BR']
