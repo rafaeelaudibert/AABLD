@@ -24,7 +24,8 @@ module Aabld
     config.i18n.default_locale = :'pt-BR'
 
     # Precompile assets
-    Rails.application.config.assets.precompile += ['welcome.js', 'welcome.css']
+    Rails.application.config.assets.precompile += ['welcome.js', 'welcome.css',
+                                                   'dashboard.js', 'dashboard.css']
 
     # Stylesheet generation conflict
     config.generators do |g|
