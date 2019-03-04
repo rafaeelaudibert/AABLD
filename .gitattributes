@@ -41,4 +41,7 @@
 .gitignore export-ignore
 
 # Remove vendored
-public/* linguist-vendored
+public/assets/css/* linguist-vendored
+public/assets/fonts/* linguist-vendored
+public/assets/img/* linguist-vendored
+public/assets/js/* linguist-vendored
