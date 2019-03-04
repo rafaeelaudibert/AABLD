@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_04_015431) do
+ActiveRecord::Schema.define(version: 2019_03_04_022358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,15 @@ ActiveRecord::Schema.define(version: 2019_03_04_015431) do
     t.index ["bus_company_id"], name: "index_tickets_on_bus_company_id"
     t.index ["destination_city_id"], name: "index_tickets_on_destination_city_id"
     t.index ["source_city_id"], name: "index_tickets_on_source_city_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "month"
+    t.integer "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "universities", force: :cascade do |t|
@@ -102,6 +111,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_015431) do
   end
 
   add_foreign_key "tickets", "bus_companies"
+  add_foreign_key "transactions", "users"
   add_foreign_key "universities", "cities"
   add_foreign_key "users", "users", column: "ticket_responsible_id"
 end

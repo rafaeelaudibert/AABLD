@@ -7,6 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable,
          :timeoutable
 
+  has_many :transactions
   belongs_to :ticket_responsible, optional: true, class_name: 'User'
   belongs_to :university
 

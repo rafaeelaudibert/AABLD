@@ -41,6 +41,10 @@ pt-BR:
           attributes:
             cnpj:
               invalid_cnpj: "inválido"
+        transaction:
+          attributes:
+            year:
+              greater_than_or_equal_to: "precisa ser maior do que %{count}"
       messages:
         blank: "não pode ficar em branco"
         required: "inválido(a)"
