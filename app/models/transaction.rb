@@ -2,6 +2,7 @@
 
 class Transaction < ApplicationRecord
   belongs_to :user
+  has_many :user_tickets
 
   validates :month, presence: true
   validates :year, presence: true,
@@ -13,6 +14,10 @@ class Transaction < ApplicationRecord
 
   enum month: MONTH_LIST.each_with_index.to_h { |month, idx| [month, idx + 1] }
   enum status: { open: 0, closed: 1 }
+
+  def breadcrumb
+    "#{user.name} @ #{month.capitalize}-#{year}"
+  end
 
   private
 

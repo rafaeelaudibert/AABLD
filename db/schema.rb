@@ -69,9 +69,11 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
   create_table "user_tickets", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "ticket_id"
+    t.bigint "transaction_id"
     t.integer "quantity", default: 1, null: false
     t.decimal "original_value", precision: 5, scale: 2, null: false
     t.index ["ticket_id"], name: "index_user_tickets_on_ticket_id"
+    t.index ["transaction_id"], name: "index_user_tickets_on_transaction_id"
     t.index ["user_id"], name: "index_user_tickets_on_user_id"
   end
 
@@ -127,6 +129,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
   add_foreign_key "transactions", "users"
   add_foreign_key "universities", "cities"
   add_foreign_key "user_tickets", "tickets"
+  add_foreign_key "user_tickets", "transactions"
   add_foreign_key "user_tickets", "users"
   add_foreign_key "users", "users", column: "ticket_responsible_id"
 end
