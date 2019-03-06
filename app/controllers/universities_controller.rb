@@ -5,6 +5,9 @@ class UniversitiesController < ApplicationController
   before_action :set_university, only: %i[show edit update destroy]
 
   breadcrumb 'Universidades', :universities_path
+  breadcrumb -> { set_university.abbreviation },
+             -> { university_path(set_university) },
+             only: %i[show edit]
   breadcrumb 'Criar', :new_university_path, only: [:new]
   breadcrumb 'Editar', :edit_university_path, only: [:edit]
 

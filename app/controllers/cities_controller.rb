@@ -4,6 +4,7 @@ class CitiesController < ApplicationController
   before_action :authenticate_user!
 
   breadcrumb 'Cidades', :cities_path
+  breadcrumb -> { set_city.name }, -> { city_path(set_city) }, only: %i[show edit]
 
   # GET /cities
   # GET /cities.json

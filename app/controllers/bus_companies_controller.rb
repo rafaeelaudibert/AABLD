@@ -5,6 +5,9 @@ class BusCompaniesController < ApplicationController
   before_action :set_bus_company, only: %i[show edit update destroy]
 
   breadcrumb 'Empresas', :bus_companies_path
+  breadcrumb -> { set_bus_company.name },
+             -> { bus_company_path(set_bus_company) },
+             only: %i[show edit]
   breadcrumb 'Criar', :new_bus_company_path, only: [:new]
   breadcrumb 'Editar', :edit_bus_company_path, only: [:edit]
 

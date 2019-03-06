@@ -4,6 +4,9 @@ class TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[show edit update destroy]
 
   breadcrumb 'Transações', :transactions_path
+  breadcrumb -> { set_transaction.breadcrumb },
+             -> { transaction_path(set_transaction) },
+             only: [:show]
   breadcrumb 'Criar', :new_transaction_path, only: [:new]
   breadcrumb 'Editar', :edit_transaction_path, only: [:edit]
 

@@ -5,6 +5,7 @@ class TicketsController < ApplicationController
   before_action :set_ticket, only: %i[show edit update destroy]
 
   breadcrumb 'Passagens', :tickets_path
+  breadcrumb -> { set_ticket.itinerary }, -> { ticket_path(set_ticket) }, only: %i[show edit]
   breadcrumb 'Criar', :new_ticket_path, only: [:new]
   breadcrumb 'Editar', :edit_ticket_path, only: [:edit]
 
