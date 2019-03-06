@@ -29,6 +29,10 @@ module Aabld
     config.i18n.available_locales = [:'pt-BR']
     config.i18n.default_locale = :'pt-BR'
 
+    # Timezone
+    config.time_zone = 'Brasilia'
+    config.active_record.default_timezone = :local
+
     # Precompile assets
     Rails.application.config.assets.precompile += ['welcome.js', 'welcome.css',
                                                    'dashboard.js', 'dashboard.css']

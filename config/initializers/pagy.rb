@@ -113,7 +113,7 @@ Pagy::VARS[:size] = [1,2,2,1]
 #
 # Examples:
 # load the "de" built-in locale:
-# Pagy::I18n.load(locale: 'de')
+Pagy::I18n.load(locale: 'pt-br')
 #
 # load the "de" locale defined in the custom file at :filepath:
 # Pagy::I18n.load(locale: 'de', filepath: 'path/to/pagy-de.yml')
