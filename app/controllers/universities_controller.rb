@@ -14,7 +14,7 @@ class UniversitiesController < ApplicationController
   # GET /universities
   # GET /universities.json
   def index
-    @universities = University.all
+    @pagy, @universities = pagy University.all
   end
 
   # GET /universities/:id

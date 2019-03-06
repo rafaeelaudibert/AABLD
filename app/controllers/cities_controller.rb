@@ -10,7 +10,7 @@ class CitiesController < ApplicationController
   # GET /cities
   # GET /cities.json
   def index
-    @cities = City.all
+    @pagy, @cities = pagy City.all
   end
 
   # GET /cities/:id

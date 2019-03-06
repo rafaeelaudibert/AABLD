@@ -12,7 +12,7 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+    @pagy, @tickets = pagy Ticket.all
   end
 
   # GET /tickets/:id

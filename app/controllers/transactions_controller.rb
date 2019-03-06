@@ -13,7 +13,7 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.all
+    @pagy, @transactions = pagy Transaction.all
   end
 
   # GET /transactions/:id

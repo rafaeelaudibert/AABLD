@@ -82,3 +82,6 @@ gem 'faker'
 
 # Breadcrumbs generator
 gem 'loaf'
+
+# Pagination
+gem 'pagy'

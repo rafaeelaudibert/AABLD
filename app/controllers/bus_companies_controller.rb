@@ -14,7 +14,7 @@ class BusCompaniesController < ApplicationController
   # GET /bus_companies
   # GET /bus_companies.json
   def index
-    @bus_companies = BusCompany.all
+    @pagy, @bus_companies = pagy BusCompany.all
   end
 
   # GET /bus_companies/:id
