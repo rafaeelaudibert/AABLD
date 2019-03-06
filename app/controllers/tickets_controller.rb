@@ -4,6 +4,10 @@ class TicketsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_ticket, only: %i[show edit update destroy]
 
+  breadcrumb 'Passagens', :tickets_path
+  breadcrumb 'Criar', :new_ticket_path, only: [:new]
+  breadcrumb 'Editar', :edit_ticket_path, only: [:edit]
+
   # GET /tickets
   # GET /tickets.json
   def index

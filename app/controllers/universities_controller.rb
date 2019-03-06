@@ -4,6 +4,10 @@ class UniversitiesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_university, only: %i[show edit update destroy]
 
+  breadcrumb 'Universidades', :universities_path
+  breadcrumb 'Criar', :new_university_path, only: [:new]
+  breadcrumb 'Editar', :edit_university_path, only: [:edit]
+
   # GET /universities
   # GET /universities.json
   def index

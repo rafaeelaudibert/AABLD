@@ -4,6 +4,15 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+  scope :dashboard do
+    # General Resources
+    resources :universities
+    resources :cities
+    resources :bus_companies
+    resources :user_tickets
+    resources :transactions
+    resources :tickets
+  end
 
   ## Devise Views
   # devise_scope :user do
@@ -18,11 +27,5 @@ Rails.application.routes.draw do
     put 'users', to: 'devise/registrations#update', as: 'user_registration'
   end
 
-  # Resources
-  resources :universities
-  resources :cities
-  resources :bus_companies
-  resources :user_tickets
-  resources :transactions
-  resources :tickets
+  
 end

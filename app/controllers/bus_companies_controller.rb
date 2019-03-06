@@ -4,6 +4,10 @@ class BusCompaniesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_bus_company, only: %i[show edit update destroy]
 
+  breadcrumb 'Empresas', :bus_companies_path
+  breadcrumb 'Criar', :new_bus_company_path, only: [:new]
+  breadcrumb 'Editar', :edit_bus_company_path, only: [:edit]
+
   # GET /bus_companies
   # GET /bus_companies.json
   def index

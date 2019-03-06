@@ -79,3 +79,6 @@ gem 'validators'
 
 # Random data generator
 gem 'faker'
+
+# Breadcrumbs generator
+gem 'loaf'

@@ -3,6 +3,8 @@
 class CitiesController < ApplicationController
   before_action :authenticate_user!
 
+  breadcrumb 'Cidades', :cities_path
+
   # GET /cities
   # GET /cities.json
   def index

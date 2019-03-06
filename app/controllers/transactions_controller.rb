@@ -3,6 +3,10 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[show edit update destroy]
 
+  breadcrumb 'Transações', :transactions_path
+  breadcrumb 'Criar', :new_transaction_path, only: [:new]
+  breadcrumb 'Editar', :edit_transaction_path, only: [:edit]
+
   # GET /transactions
   # GET /transactions.json
   def index
