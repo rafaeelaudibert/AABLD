@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: %i[show edit update destroy]
+  before_action :set_transaction, only: %i[show destroy]
 
   breadcrumb 'Transações', :transactions_path
   breadcrumb -> { set_transaction.breadcrumb },
@@ -16,17 +16,14 @@ class TransactionsController < ApplicationController
     @transactions = Transaction.all
   end
 
-  # GET /transactions/1
-  # GET /transactions/1.json
+  # GET /transactions/:id
+  # GET /transactions/:id.json
   def show; end
 
   # GET /transactions/new
   def new
     @transaction = Transaction.new
   end
-
-  # GET /transactions/1/edit
-  def edit; end
 
   # POST /transactions
   # POST /transactions.json
@@ -44,22 +41,8 @@ class TransactionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /transactions/1
-  # PATCH/PUT /transactions/1.json
-  def update
-    respond_to do |format|
-      if @transaction.update(transaction_params)
-        format.html { redirect_to @transaction, notice: 'Transação atualizada com sucesso.' }
-        format.json { render :show, status: :ok, location: @transaction }
-      else
-        format.html { render :edit }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /transactions/1
-  # DELETE /transactions/1.json
+  # DELETE /transactions/:id
+  # DELETE /transactions/:id.json
   def destroy
     @transaction.destroy
     respond_to do |format|

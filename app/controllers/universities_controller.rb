@@ -17,8 +17,8 @@ class UniversitiesController < ApplicationController
     @universities = University.all
   end
 
-  # GET /universities/1
-  # GET /universities/1.json
+  # GET /universities/:id
+  # GET /universities/:id.json
   def show; end
 
   # GET /universities/new
@@ -26,7 +26,7 @@ class UniversitiesController < ApplicationController
     @university = University.new
   end
 
-  # GET /universities/1/edit
+  # GET /universities/:id/edit
   def edit; end
 
   # POST /universities
@@ -45,8 +45,8 @@ class UniversitiesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /universities/1
-  # PATCH/PUT /universities/1.json
+  # PATCH/PUT /universities/:id
+  # PATCH/PUT /universities/:id.json
   def update
     respond_to do |format|
       if @university.update(university_params)
@@ -59,8 +59,8 @@ class UniversitiesController < ApplicationController
     end
   end
 
-  # DELETE /universities/1
-  # DELETE /universities/1.json
+  # DELETE /universities/:id
+  # DELETE /universities/:id.json
   def destroy
     @university.destroy
     respond_to do |format|

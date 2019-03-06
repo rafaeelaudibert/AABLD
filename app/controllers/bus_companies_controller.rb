@@ -17,8 +17,8 @@ class BusCompaniesController < ApplicationController
     @bus_companies = BusCompany.all
   end
 
-  # GET /bus_companies/1
-  # GET /bus_companies/1.json
+  # GET /bus_companies/:id
+  # GET /bus_companies/:id.json
   def show; end
 
   # GET /bus_companies/new
@@ -26,7 +26,7 @@ class BusCompaniesController < ApplicationController
     @bus_company = BusCompany.new
   end
 
-  # GET /bus_companies/1/edit
+  # GET /bus_companies/:id/edit
   def edit; end
 
   # POST /bus_companies
@@ -45,8 +45,8 @@ class BusCompaniesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /bus_companies/1
-  # PATCH/PUT /bus_companies/1.json
+  # PATCH/PUT /bus_companies/:id
+  # PATCH/PUT /bus_companies/:id.json
   def update
     respond_to do |format|
       if @bus_company.update(bus_company_params)
@@ -59,8 +59,8 @@ class BusCompaniesController < ApplicationController
     end
   end
 
-  # DELETE /bus_companies/1
-  # DELETE /bus_companies/1.json
+  # DELETE /bus_companies/:id
+  # DELETE /bus_companies/:id.json
   def destroy
     @bus_company.destroy
     respond_to do |format|
