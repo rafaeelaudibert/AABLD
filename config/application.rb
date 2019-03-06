@@ -19,7 +19,9 @@ module Aabld
     # the framework and any gems in your application.
 
     # Logger
-    config.logger = Logger.new(STDOUT)
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
     config.logger.level = Logger::ERROR
 
     # Locales
