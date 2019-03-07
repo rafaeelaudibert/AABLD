@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # :lockable, :confirmable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable,
-         :timeoutable
+         :timeoutable, :async
 
   has_many :transactions
   has_many :user_tickets

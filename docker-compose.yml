@@ -26,3 +26,14 @@ services:
       - app
     ports:
       - "8081:80"
+  redis:
+    image: redis:latest
+  sidekiq:
+     build: .
+     command: bundle exec sidekiq -C config/sidekiq.yml
+     env_file:
+       - config/.env
+     depends_on:
+       - redis
+     volumes:
+       - .:/var/www/PIUBS

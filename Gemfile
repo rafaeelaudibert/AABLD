@@ -66,6 +66,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Adding devise
 gem 'devise'
+gem 'devise-async'
 gem 'devise_invitable', '~> 1.7.0'
 
 # Adding bootstrap and jquery
@@ -85,3 +86,6 @@ gem 'loaf'
 
 # Pagination
 gem 'pagy'
+
+# Sidekiq (Background Worker)
+gem 'sidekiq'
