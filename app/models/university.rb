@@ -7,4 +7,8 @@ class University < ApplicationRecord
   validates_cnpj_format_of :cnpj, options: { allow_blank: true, allow_nil: true }
 
   delegate :state, to: :city
+
+  def name_and_abbr
+    "#{abbreviation} | #{name}"
+  end
 end

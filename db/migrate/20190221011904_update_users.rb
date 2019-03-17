@@ -1,7 +1,8 @@
 class UpdateUsers < ActiveRecord::Migration[5.2]
     def change
         change_table :users do |t|
-            t.string :name, null: false
+            t.string :first_name, null: false
+            t.string :last_name, null: false, default: ''
             t.string :cpf, index: true, limit: 14   # Non-nullity defined on model
             t.string :rg, index: true, limit: 10    # Non-nullity defined on model
             t.date :birthdate                       # Non-nullity defined on model
@@ -19,11 +20,12 @@ class UpdateUsers < ActiveRecord::Migration[5.2]
             t.string :place                         # Non-nullity defined on model
             t.date :semester_start                  # Non-nullity defined on model
             t.date :semester_end                    # Non-nullity defined on model
-            t.integer :ticket_responsible_id, index: true
+            t.integer :responsible_id, index: true
+            t.boolean :ticket_responsible, index: true, null: false, default: false
             t.integer :role, index: true, default: 0    # Non-nullity defined on model
         end
             
-        add_foreign_key :users, :users, column: :ticket_responsible_id
+        add_foreign_key :users, :users, column: :responsible_id
     end
 end
   

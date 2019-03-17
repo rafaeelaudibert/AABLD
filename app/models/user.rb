@@ -9,10 +9,10 @@ class User < ApplicationRecord
 
   has_many :transactions
   has_many :user_tickets
-  belongs_to :ticket_responsible, optional: true, class_name: 'User'
+  belongs_to :responsible, optional: true, class_name: 'User'
   belongs_to :university
 
-  validates :name, presence: true
+  validates :first_name, presence: true
   validates :rg, presence: true, uniqueness: true
   validates :cpf, presence: true, uniqueness: true
   validates_cpf_format_of :cpf, options: { allow_blank: true, allow_nil: true }
@@ -22,8 +22,6 @@ class User < ApplicationRecord
   validates :bank_agency, presence: true
   validates :course, presence: true
   validates :semester, presence: true
-  validates :semester_start, presence: true
-  validates :semester_end, presence: true
 
   enum bank_option: %i[checking savings]
   enum role: {
@@ -37,4 +35,19 @@ class User < ApplicationRecord
     staff: 7,
     admin: 8
   }
+
+  # Returns the User instance full name, concatenating <tt>first_name</tt> and <tt>last_name</tt>
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  # Returns true, if the user is a Ticket Responsible
+  def ticket_responsible?
+    ticket_reponsible == true
+  end
+
+  # Users which are ticket responsibles
+  def self.ticket_responsibles
+    where(ticket_responsible: true)
+  end
 end

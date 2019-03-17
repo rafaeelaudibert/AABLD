@@ -65,7 +65,8 @@ end
 
 def seed_users
   Rails.logger.info('[START]  -- Users insertion')
-  admin = User.new(name: 'Administrator',
+  admin = User.new(first_name: 'Administrator',
+                   last_name: '',
                    email: 'admin@aabld.com',
                    password: 'changeme',
                    university: University.find_by_abbreviation('AABLD'),

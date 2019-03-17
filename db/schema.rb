@@ -98,7 +98,8 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.string "name", null: false
+    t.string "first_name", null: false
+    t.string "last_name", default: "", null: false
     t.string "cpf", limit: 14
     t.string "rg", limit: 10
     t.date "birthdate"
@@ -116,7 +117,8 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
     t.string "place"
     t.date "semester_start"
     t.date "semester_end"
-    t.integer "ticket_responsible_id"
+    t.integer "responsible_id"
+    t.boolean "ticket_responsible", default: false, null: false
     t.integer "role", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
@@ -131,5 +133,5 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
   add_foreign_key "user_tickets", "tickets"
   add_foreign_key "user_tickets", "transactions"
   add_foreign_key "user_tickets", "users"
-  add_foreign_key "users", "users", column: "ticket_responsible_id"
+  add_foreign_key "users", "users", column: "responsible_id"
 end

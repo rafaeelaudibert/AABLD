@@ -1,12 +1,331 @@
-<h2><%= t "devise.invitations.new.header" %></h2>
+<div id="app">
+  <section class="section">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+          <div class="login-brand">
+            <img src="/assets/img/logo.png" alt="logo" height="100">
+          </div>
 
-<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
-  <%= devise_error_messages! %>
+          <div class="card card-primary">
+            <div class="card-header"><h4><%= t "devise.invitations.new.header" %></h4></div>
 
-<% resource.class.invite_key_fields.each do |field| -%>
-  <p><%= f.label field %><br />
-  <%= f.text_field field %></p>
-<% end -%>
+            <div class="card-body">
+              <p class="text-muted">Enviar convite para participar da AABLD</p>
+              <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f| %>
+                <%= devise_error_messages! %>
 
-  <p><%= f.submit t("devise.invitations.new.submit_button") %></p>
+                <div class="form-group">
+                  <%= f.label :email %><br />
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-envelope"></i>
+                      </div>
+                    </div>
+                    <%= f.email_field :email, class: 'form-control', tabindex: 1, required: true %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :first_name %><br />
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-user"></i>
+                      </div>
+                    </div>
+                    <%= f.text_field :first_name, class: 'form-control', tabindex: 2, required: true %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :last_name %><br />
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-user"></i>
+                      </div>
+                    </div>
+                    <%= f.text_field :last_name, class: 'form-control', tabindex: 3, required: true %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :cpf %><br />
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-id-card"></i>
+                      </div>
+                    </div>
+                    <%= f.text_field :cpf, class: 'form-control cleave-cpf', tabindex: 4, required: true %>
+                    <div class="invalid-feedback">Oops, esse CPF é inválido. Por favor, verifique!</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :rg %><br />
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-id-card"></i>
+                      </div>
+                    </div>
+                    <%= f.text_field :rg, class: 'form-control cleave-rg', tabindex: 5, required: true %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :birthdate %><br />
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                    </div>
+                    <%= f.text_field :birthdate, class: 'form-control cleave-birthdate', tabindex: 6, required: true %>
+                    <div class="invalid-feedback">Oops, tem certeza que essa data está com o ano correto?</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :father_name %><br />
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-male"></i>
+                      </div>
+                    </div>
+                    <%= f.text_field :father_name, class: 'form-control', tabindex: 7, required: true, value: '' %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :mother_name %><br />
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-female"></i>
+                      </div>
+                    </div>
+                    <%= f.text_field :mother_name, class: 'form-control', tabindex: 8, required: true, value: '' %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :address %><br />
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-map-pin"></i>
+                      </div>
+                    </div>
+                    <%= f.text_field :address, class: 'form-control', tabindex: 9, required: true, value: '' %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :phone %><br />
+                  
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-phone"></i>
+                      </div>
+                    </div>
+                    <%= f.text_field :phone, class: 'form-control cleave-phone-number', tabindex: 10, required: true, value: '' %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :mobile_phone %><br />
+                  
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-phone"></i>
+                      </div>
+                    </div>
+                    <%= f.text_field :mobile_phone, class: 'form-control cleave-mobile-phone-number', tabindex: 11, required: true, value: '' %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :bank_agency %><br />
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-university"></i>
+                      </div>
+                    </div>
+                    <%= f.text_field :bank_agency, class: 'form-control', tabindex: 12, required: true, value: '' %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :bank_account %><br />
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-credit-card"></i>
+                      </div>
+                    </div>
+                    <%= f.text_field :bank_account, class: 'form-control', tabindex: 13, required: true, value: '' %>
+                  </div>
+                </div>                
+
+                <div class="form-group">
+                  <%= f.label :bank_option %><br />
+                  <%= f.select :bank_option, User.bank_options.map {|option, _| [option.capitalize, option]}, {include_blank: "Selecione a opção de conta"}, {class: 'form-control', required: true} %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :university %><br />
+                  <%= f.select :university, University.all.map {|university| [university.name_and_abbr, university.id]}, {include_blank: "Selecione a universidade"}, {class: 'form-control', required: true} %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :course %><br />
+                  <%= f.text_field :course, class: 'form-control', tabindex: 15, required: true %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :semester %><br />
+                  <%= f.text_field :semester, class: 'form-control', tabindex: 16, required: true %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :place %><br />
+                  <%= f.text_field :place, class: 'form-control', tabindex: 17, required: true %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :responsible %><br />
+                  <%= f.select :responsible, User.ticket_responsibles.map {|user| [user.full_name, user.id]}, {include_blank: "Selecione o usuário responsável"}, {class: 'form-control', required: true} %>
+                </div>  
+
+                <div class="form-group">
+                  <%= f.submit t("devise.invitations.new.submit_button"), class: 'btn btn-primary btn-lg btn-block' %>
+                </div>
+              <% end %>
+              <div class="float-right">
+                <%= link_to 'Voltar', dashboard_path %>
+              </div>          
+            </div>
+          </div>
+          <div class="simple-footer">
+            Copyright &copy; AABLD <%= Time.current.year %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<% content_for :javascript do %>
+  <script>
+    function validateCPF(cpf) {	
+      cpf = cpf.replace(/[^\d]+/g,'');	
+      if(cpf == '') return false;	
+      // Elimina CPFs invalidos conhecidos	
+      if (cpf.length != 11 || 
+        cpf == "00000000000" || 
+        cpf == "11111111111" || 
+        cpf == "22222222222" || 
+        cpf == "33333333333" || 
+        cpf == "44444444444" || 
+        cpf == "55555555555" || 
+        cpf == "66666666666" || 
+        cpf == "77777777777" || 
+        cpf == "88888888888" || 
+        cpf == "99999999999")
+          return false;
+
+      // Valida 1o digito	
+      add = 0;	
+      for (i=0; i < 9; i ++)		
+        add += parseInt(cpf.charAt(i)) * (10 - i);	
+        rev = 11 - (add % 11);	
+        if (rev == 10 || rev == 11)		
+          rev = 0;	
+        if (rev != parseInt(cpf.charAt(9)))		
+          return false;
+      
+      // Valida 2o digito	
+      add = 0;	
+      for (i = 0; i < 10; i ++)		
+        add += parseInt(cpf.charAt(i)) * (11 - i);	
+      rev = 11 - (add % 11);	
+      if (rev == 10 || rev == 11)	
+        rev = 0;	
+      if (rev != parseInt(cpf.charAt(10)))
+        return false;
+      
+      return true;   
+    };
+
+    const cleaveCPF = new Cleave('.cleave-cpf', {
+      numericOnly: true,
+      blocks: [3, 3, 3, 2],
+      delimiters: ['.', '.', '-'],
+      onValueChanged: e => {
+        const cpf = e.target.rawValue;
+        const target = document.getElementsByClassName('cleave-cpf')[0];
+
+        if (cpf.length == 11 && !validateCPF(cpf)) {
+          target.classList.add('is-invalid');
+        } else {
+          target.classList.remove('is-invalid');
+        }
+      }
+    });
+
+    const cleaveRG = new Cleave('.cleave-rg', {
+      numericOnly: true
+    });
+
+    const cleaveBD = new Cleave('.cleave-birthdate', {
+      date: true,
+      datePattern: ['d', 'm', 'Y'],
+      onValueChanged: e => {
+        const [_day, _month, year] = e.target.value.split('/');
+        const target = document.getElementsByClassName('cleave-birthdate')[0]
+        const thisYear = parseInt(new Date().getFullYear());
+
+        if (thisYear - year < 16) {
+          target.classList.add('is-invalid');
+        } else {
+          target.classList.remove('is-invalid');
+        }
+      }
+    });
+
+    const cleavePN = new Cleave('.cleave-phone-number', {
+      delimiters: ['(', ') ', '-'],
+      blocks: [0, 2, 4, 4],
+      numericOnly: true
+    });
+
+    const cleaveMPN = new Cleave('.cleave-mobile-phone-number', {
+      delimiters: ['(', ') ', '-'],
+      blocks: [0, 2, 5, 4],
+      numericOnly: true
+    });
+  </script
+<% end %>
+
+<% content_for :extra_javascript do %>
+  <script src="/assets/js/cleave.min.js"></script>
 <% end %>
