@@ -1,12 +1,15 @@
-<!-- <p><%= t("devise.mailer.invitation_instructions.hello", email: @resource.email) %></p>
+<div style="text-align: center;background-color: #FFFFFF; width: 80%; box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.2); padding:1rem 1rem; margin: 2.5rem auto">
+  <div style="width: 100%; height: 4rem; background-color: #444444; vertical-align: middle; border-top:1rem; margin-bottom: 1rem">
+    <h1 style="font-size: 3rem;color: #ffffff;">AABLD</h1>
+  </div>
 
-<p><%= t("devise.mailer.invitation_instructions.someone_invited_you", url: root_url) %></p>
+  <p>
+    <span style="font-size: 1.4rem">Olá, <%= @resource.name %></span>
+  </p>
 
-<p><%= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token) %></p>
+  <p>
+    Agora você possui uma conta para utilizar o sistema da AABLD!
+  </p>
 
-<% if @resource.invitation_due_at %>
-  <p><%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %></p>
-<% end %>
-
-<p><%= t("devise.mailer.invitation_instructions.ignore") %></p> -->
-Teste
+  <p><%= link_to "Clique aqui para informar seus dados e definir a sua senha de acesso ao sistema", accept_invitation_url(@resource, invitation_token: @token) %></p>
+</div>
