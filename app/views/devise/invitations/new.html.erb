@@ -192,8 +192,8 @@
                 </div>
 
                 <div class="form-group">
-                  <%= f.label :university %><br />
-                  <%= f.select :university, University.all.map {|university| [university.name_and_abbr, university.id]}, {include_blank: "Selecione a universidade"}, {class: 'form-control', required: true} %>
+                  <%= f.label :university_id %><br />
+                  <%= f.select :university_id, University.all.map {|university| [university.name_and_abbr, university.id]}, {include_blank: "Selecione a universidade"}, {class: 'form-control', required: true} %>
                 </div>
 
                 <div class="form-group">
@@ -213,7 +213,7 @@
 
                 <div class="form-group">
                   <%= f.label :responsible %><br />
-                  <%= f.select :responsible, User.ticket_responsibles.map {|user| [user.full_name, user.id]}, {include_blank: "Selecione o usuário responsável"}, {class: 'form-control', required: true} %>
+                  <%= f.select :responsible, User.ticket_responsibles.map {|user| [user.full_name, user.id]}, {include_blank: "Responsável próprio"}, {class: 'form-control'} %>
                 </div>  
 
                 <div class="form-group">

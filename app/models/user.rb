@@ -12,6 +12,8 @@ class User < ApplicationRecord
   belongs_to :responsible, optional: true, class_name: 'User'
   belongs_to :university
 
+  after_save :validate_responsible
+
   validates :first_name, presence: true
   validates :rg, presence: true, uniqueness: true
   validates :cpf, presence: true, uniqueness: true
@@ -49,5 +51,13 @@ class User < ApplicationRecord
   # Users which are ticket responsibles
   def self.ticket_responsibles
     where(ticket_responsible: true)
+  end
+
+  private
+
+  # Update responsible foreign_key, if not present, to point to himself, as well
+  # as mark itself as a ticket_responsible
+  def validate_responsible
+    update_attributes(responsible_id: id, ticket_responsible: true) if responsible_id.nil?
   end
 end
