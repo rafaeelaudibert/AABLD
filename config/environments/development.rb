@@ -33,8 +33,6 @@ Rails.application.configure do
   # Store uploaded files on the local file system
   config.active_storage.service = :local
 
-  # Care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.
