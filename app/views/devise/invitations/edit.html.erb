@@ -1,16 +1,65 @@
-<h2><%= t 'devise.invitations.edit.header' %></h2>
+<div id="app">
+  <section class="section">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+          <div class="login-brand">
+            <img src="/assets/img/logo.png" alt="logo" height="100">
+          </div>
 
-<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :invitation_token, readonly: true %>
+          <div class="card card-primary">
+            <div class="card-header"><h4><%= t "devise.invitations.edit.header" %></h4></div>
 
-  <% if f.object.class.require_password_on_accepting %>
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
+            <div class="card-body">
+              <p class="text-muted">Aceitar convite para participação na AABLD</p>
+              <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f| %>
+                <%= devise_error_messages! %>
+                <%= f.hidden_field :invitation_token, readonly: true %>
 
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
-  <% end %>
+                <% if f.object.class.require_password_on_accepting %>
 
-  <p><%= f.submit t("devise.invitations.edit.submit_button") %></p>
-<% end %>
+                  <div class="form-group">
+                    <%= f.label :password %><br />
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fa fa-lock"></i>
+                        </div>
+                      </div>
+                      <%= f.password_field :password, class: 'form-control', tabindex: 1, required: true %>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <%= f.label :password_confirmation %><br />
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fa fa-lock"></i>
+                        </div>
+                      </div>
+                      <%= f.password_field :password_confirmation, class: 'form-control', tabindex: 1, required: true %>
+                    </div>
+                  </div>
+                <% end %>                
+
+                <div class="form-group">
+                  <%= f.submit t("devise.invitations.edit.submit_button"), class: 'btn btn-primary btn-lg btn-block' %>
+                </div>
+              <% end %>
+              <div class="float-right">
+                <%= link_to 'Voltar', root_path %>
+              </div>          
+            </div>
+          </div>
+          <div class="simple-footer">
+            Copyright &copy; AABLD <%= Time.current.year %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
