@@ -24,7 +24,7 @@ Rails.application.routes.draw do
                                     passwords: 'users/passwords',
                                     invitations: 'users/invitations' }
   as :user do
-    get 'users/edit', to: 'devise/registrations#edit', as: 'edit_user_registration'
-    put 'users', to: 'devise/registrations#update', as: 'user_registration'
+    get 'dashboard/user/edit', to: 'devise/registrations#edit', as: 'edit_user_registration'
+    put 'dashboard/user', to: 'devise/registrations#update', as: 'user_registration'
   end
 end
