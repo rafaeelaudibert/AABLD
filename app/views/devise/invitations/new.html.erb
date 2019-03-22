@@ -193,7 +193,7 @@
 
                 <div class="form-group">
                   <%= f.label :university_id %><br />
-                  <%= f.select :university_id, University.all.map {|university| [university.name_and_abbr, university.id]}, {include_blank: "Selecione a universidade"}, {class: 'form-control', required: true} %>
+                  <%= f.select :university_id, University.all.map {|university| [university.abbr_and_name, university.id]}, {include_blank: "Selecione a universidade"}, {class: 'form-control', required: true} %>
                 </div>
 
                 <div class="form-group">
