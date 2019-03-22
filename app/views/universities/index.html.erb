@@ -1,5 +1,5 @@
 <% content_for :title do %>
-  Listagem | Universidades
+  Universidades
 <% end %>
 
 <p id="notice"><%= notice %></p>
@@ -8,7 +8,7 @@
   <table class="table table-bordered table-md table-striped">
     <tbody>
       <tr>
-        <th>Nome</th>
+        <th class="d-none d-md-block">Nome</th>
         <th>Sigla</th>
         <th>CNPJ</th>
         <th>Cidade/Estado</th>
@@ -16,7 +16,7 @@
       </tr>
       <% @universities.each do |university| %>
         <tr>
-          <td>
+          <td class="d-none d-md-block">
             <%= university.name %>
             <div class="table-links">
               <%= link_to 'Mostrar', university %>
@@ -26,7 +26,16 @@
               <%= link_to 'Apagar', university, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
             </div>
           </td>
-          <td><%= university.abbreviation %>
+          <td>
+            <%= university.abbreviation %>
+            <div class="table-links d-md-none">
+              <%= link_to 'Mostrar', university %>
+              <div class="bullet"></div>
+              <%= link_to 'Editar', edit_university_path(university) %>
+              <div class="bullet"></div>
+              <%= link_to 'Apagar', university, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
+            </div>
+          </td>
           <td><%= university.cnpj %></td>
           <td><%= university.city_and_state %></td>
           <td><%== university.users.count > 0 ? '<div class="badge badge-success">Ativa</div>' : '<div class="badge badge-danger">Inativa</div>' %>
