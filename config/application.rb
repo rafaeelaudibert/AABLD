@@ -35,7 +35,8 @@ module Aabld
 
     # Precompile assets
     Rails.application.config.assets.precompile += ['welcome.js', 'welcome.css',
-                                                   'dashboard.js', 'dashboard.css']
+                                                   'dashboard.js', 'dashboard.css',
+                                                   'custom_dashboard.css']
 
     # Stylesheet generation conflict
     config.generators do |g|

@@ -1,4 +1,4 @@
-<div class="section-header-breadcrumb">
+<div class="card-header-breadcrumb">
     <% breadcrumb_trail do |crumb| %>
       <div class="breadcrumb-item <%= crumb.current? ? 'active' : '' %>">
         <%= link_to crumb.name, crumb.url, (crumb.current? ? {'aria-current': 'page'} : {}) %>

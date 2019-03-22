@@ -1,0 +1,12 @@
+/* Card Breadcrumbs - similar to section breadcrumb */
+
+.card .card-header .card-header-breadcrumb {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+}
+
+.card .card-header .card-header-breadcrumb .breadcrumb-item {
+    font-size: 12px;
+}

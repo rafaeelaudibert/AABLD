@@ -17,6 +17,7 @@
 
   <!-- Dashboard CSS -->
   <%= stylesheet_link_tag 'dashboard', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'custom_dashboard', media: 'all', 'data-turbolinks-track': 'reload' %>
 
 <%# Uncomment the following for Google Analytics %>
 <%# <!-- Start GA -->
@@ -47,13 +48,28 @@
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
-          <div class="section-header">
+          <!-- <div class="section-header">
             <h1><%= content_for(:title) || 'AABLD Dashboard' %></h1>
             <%= render 'layouts/dashboard/breadcrumbs' %>
-          </div>
+          </div> -->
 
           <div class="section-body">
-            <%= yield %>
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h3><%= content_for :title %></h3>
+                    <%= render 'layouts/dashboard/breadcrumbs' %>
+                  </div>
+                  <div class="card-body">
+                    <%= yield %>
+                  </div>
+                  <div class="card-footer">
+                    <%= content_for :pagination %>
+                  </div>
+                </div>
+              </div>  
+            </div>
           </div>
         </section>
       </div>
