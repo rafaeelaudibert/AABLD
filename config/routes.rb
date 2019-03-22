@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       end
     end
     resources :bus_companies
-    resources :user_tickets
+    resources :user_tickets, only: %i[create update destroy]
     resources :transactions
     resources :tickets
   end
