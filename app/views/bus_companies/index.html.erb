@@ -1,39 +1,46 @@
-<p id="notice"><%= notice %></p>
-
 <% content_for :title do %>
-  Empresas de Ônibus
+  Ônibus
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Cnpj</th>
-      <th>City</th>
-      <th>Neighborhood</th>
-      <th>Address</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<p id="notice"><%= notice %></p>
 
-  <tbody>
-    <% @bus_companies.each do |bus_company| %>
+<div class="table-responsive">
+  <table class="table table-bordered table-md table-striped">
+    <tbody>
       <tr>
-        <td><%= bus_company.name %></td>
-        <td><%= bus_company.cnpj %></td>
-        <td><%= bus_company.city %></td>
-        <td><%= bus_company.neighborhood %></td>
-        <td><%= bus_company.address %></td>
-        <td><%= link_to 'Show', bus_company %></td>
-        <td><%= link_to 'Edit', edit_bus_company_path(bus_company) %></td>
-        <td><%= link_to 'Destroy', bus_company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Nome</th>
+        <th>CNPJ</th>
+        <th>Cidade</th>
       </tr>
+      <% @bus_companies.each do |bus_company| %>
+        <tr>
+          <td>
+            <%= bus_company.name %>
+            <div class="table-links">
+              <%= link_to 'Mostrar', bus_company %>
+              <div class="bullet"></div>
+              <%= link_to 'Editar', edit_bus_company_path(bus_company) %>
+              <div class="bullet"></div>
+              <%= link_to 'Apagar', bus_company, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
+            </div>
+          </td>
+          <td><%= bus_company.cnpj %></td>
+          <td><%= bus_company.city %></td>
+        </tr>
+      <% end %> 
+    </tbody>
+  </table>
+</div>
+
+<%= content_for :pagination do %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 pb-3">
+        <%= link_to 'Nova Empresa de Ônibus', new_bus_company_path, class: 'btn btn-success' %>
+    </div>
+    <% if @pagy.pages > 1 %>
+      <div class="col-xs-12 col-sm-6">
+        <%== paginate @pagy %>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
-<%== paginate(@pagy) %>
-
-<br>
-
-<%= link_to 'New Bus Company', new_bus_company_path %>
+  </div>  
+<% end %>
