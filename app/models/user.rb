@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :user_tickets
   belongs_to :responsible, optional: true, class_name: 'User'
   belongs_to :university
+  has_one :city, through: :university
 
   after_save :validate_responsible
 
@@ -51,6 +52,11 @@ class User < ApplicationRecord
   # Users which are ticket responsibles
   def self.ticket_responsibles
     where(ticket_responsible: true)
+  end
+
+  # Return all the cities which have users
+  def self.all_cities
+    all.map(&:city).uniq
   end
 
   private

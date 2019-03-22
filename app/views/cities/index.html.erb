@@ -1,27 +1,51 @@
-<p id="notice"><%= notice %></p>
-
 <% content_for :title do %>
   Cidades
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<p id="notice"><%= notice %></p>
 
+
+<table class="table table-bordered table-md table-striped">
   <tbody>
+    <tr>
+      <th class="d-none d-md-table-cell">#</th>
+      <th>Nome</th>
+      <th class="d-none d-md-table-cell">Estado</th>
+      <th class="d-none d-md-table-cell">Ativa?</th>
+      <th>Estudantes</th>
+    </tr>
     <% @cities.each do |city| %>
       <tr>
-        <td><%= city.id %></td>
-        <td><%= city.name %></td>
-        <td><%= link_to 'Show', city %></td>
-        </tr>
-    <% end %>
+        <td class="d-none d-md-table-cell"><%= city.id %></td>
+        <td>
+          <%= city.name %>
+          <div class="table-links">
+            <%= link_to 'Mostrar', city %>
+          </div>
+        </td>
+        <td class="d-none d-md-table-cell"><%= city.state %></td>
+        <td class="d-none d-md-table-cell"><%== city.students_count > 0 ? '<div class="badge badge-success">Ativa</div></td>' : '<div class="badge badge-danger">Inativa</div></td>' %>
+        <td><%= city.students_count %>
+      </tr>
+    <% end %> 
   </tbody>
 </table>
 
-<%== paginate(@pagy) %>
+<%= content_for :pagination do %>
+  <div class="row">
+
+    <div class="col-xs-12 col-sm-6 pb-3">
+      <% if action_name == 'index' %>
+        <%= link_to 'Visualizar Todas Cidades', all_cities_path, class: 'btn btn-primary' %>
+      <% else %>
+        <%= link_to 'Visualizar Cidades Importantes', cities_path, class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+    
+    <% if @pagy.pages > 1 %>
+      <div class="col-xs-12 col-sm-6">
+        <%== paginate @pagy %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -10,7 +10,14 @@ class CitiesController < ApplicationController
   # GET /cities
   # GET /cities.json
   def index
+    @pagy, @cities = pagy_array City.with_users
+  end
+
+  # GET /cities/all
+  # GET /cities/all.json
+  def all
     @pagy, @cities = pagy City.all
+    render :index
   end
 
   # GET /cities/:id

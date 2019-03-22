@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   scope :dashboard do
     # General Resources
     resources :universities
-    resources :cities
+    resources :cities do
+      collection do
+        get '/all', to: 'cities#all', as: 'all'
+      end
+    end
     resources :bus_companies
     resources :user_tickets
     resources :transactions
