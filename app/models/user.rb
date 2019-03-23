@@ -44,9 +44,19 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  # Returns the user age
+  def age # rubocop:disable Metrics/AbcSize
+    now = Time.now.utc.to_date
+    pp self
+    pp now.month
+    pp birthdate.month
+    gone = now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)
+    now.year - birthdate.year - (!gone ? 1 : 0)
+  end
+
   # Returns true, if the user is a Ticket Responsible
   def ticket_responsible?
-    ticket_reponsible == true
+    ticket_responsible == true
   end
 
   # Users which are ticket responsibles

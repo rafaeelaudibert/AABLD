@@ -23,7 +23,7 @@ class City < ApplicationRecord
     }
   end
 
-  # Quantity of students which belongs to the 
+  # Quantity of students which belongs to the
   def students_count
     User.where(university: universities).count
   end

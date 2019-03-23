@@ -19,6 +19,11 @@ class Transaction < ApplicationRecord
     "#{user.name} @ #{month.capitalize}-#{year}"
   end
 
+  # All transactions from a given user
+  def self.from_user(user)
+    where(user: user)
+  end
+
   private
 
   # rubocop:disable Style/GuardClause
