@@ -45,4 +45,4 @@ public/assets/css/* linguist-vendored
 public/assets/fonts/* linguist-vendored
 public/assets/img/* linguist-vendored
 public/assets/js/* linguist-vendored
-app/assets/stylesheets/welcome.css linguist-vendored
+app/assets/stylesheets/* linguist-vendored
