@@ -69,7 +69,6 @@ def seed_users
                    last_name: '',
                    email: 'admin@aabld.com',
                    password: 'changeme',
-                   university: University.find_by_abbreviation('AABLD'),
                    role: :admin)
   if admin.save(validate: false)
     Rails.logger.debug('[DEBUG]  -- INSERTED the ADMIN to the database')
