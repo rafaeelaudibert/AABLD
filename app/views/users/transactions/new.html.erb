@@ -2,7 +2,7 @@
   Criação | Transação
 <% end %>
 
-<%= form_with(model: @transaction, local: true) do |form| %>
+<%= form_with(model: @transaction, local: true, url: :user_transactions) do |form| %>
   <% if @transaction.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
@@ -35,4 +35,4 @@
   </div>
 <% end %>
 
-<%= link_to 'Back', transactions_path %>
+<%= link_to 'Back', user_transactions_path %>

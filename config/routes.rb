@@ -7,28 +7,28 @@ Rails.application.routes.draw do
   scope :dashboard do
     # General Resources
     resources :universities
+    resources :bus_companies
+    resources :user_tickets, only: %i[create update destroy]
+    resources :tickets
+    resources :transactions, only: %i[index show edit]
     resources :cities do
       collection do
         get '/all', to: 'cities#all', as: 'all'
       end
     end
-    resources :bus_companies
-    resources :user_tickets, only: %i[create update destroy]
-    resources :transactions
-    resources :tickets
-  end
 
-  ## Devise Views
-  # devise_scope :user do
-  #   get '/sign_in', to: 'devise/sessions#new' # custom path to login/sign_in
-  # end
+    resources :users, only: %i[index show] do
+      resources :transactions, except: :edit, controller: 'users/transactions'
+    end
 
-  devise_for :users, skip: %i[registrations],
-                     controllers: { sessions: 'users/sessions',
-                                    passwords: 'users/passwords',
-                                    invitations: 'users/invitations' }
-  as :user do
-    get 'dashboard/user/edit', to: 'devise/registrations#edit', as: 'edit_user_registration'
-    put 'dashboard/user', to: 'devise/registrations#update', as: 'user_registration'
+    # Devise stuff
+    devise_for :users, skip: %i[registrations],
+                       controllers: { sessions: 'users/sessions',
+                                      passwords: 'users/passwords',
+                                      invitations: 'users/invitations' }
+    as :user do
+      get 'users/edit', to: 'devise/registrations#edit', as: 'edit_user_registration'
+      put 'users', to: 'devise/registrations#update', as: 'user_registration'
+    end
   end
 end

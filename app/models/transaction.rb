@@ -16,7 +16,7 @@ class Transaction < ApplicationRecord
   enum status: { open: 0, closed: 1 }
 
   def breadcrumb
-    "#{user.name} @ #{month.capitalize}-#{year}"
+    "Transação de #{month.capitalize}-#{year}"
   end
 
   # All transactions from a given user

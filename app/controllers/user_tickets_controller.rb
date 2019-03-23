@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class UserTicketsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user_ticket, only: %i[update destroy]
 
   # POST /user_tickets.json

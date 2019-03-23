@@ -54,6 +54,10 @@ class User < ApplicationRecord
     now.year - birthdate.year - (!gone ? 1 : 0)
   end
 
+  def did_monthly_transaction?
+    transactions.last&.month_before_type_cast == (Time.now.utc.to_date.month - 1) % 12
+  end
+
   # Returns true, if the user is a Ticket Responsible
   def ticket_responsible?
     ticket_responsible == true

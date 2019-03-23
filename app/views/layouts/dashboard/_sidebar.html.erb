@@ -12,7 +12,7 @@
       
       <li class="menu-header">Geral</li>            
       <li class="<%= 'active' if controller_name == 'transactions'%>"><a class="nav-link" href="<%= transactions_path %>"><i class="fas fa-money-bill"></i> <span>Transações</span></a></li>
-      <li class="<%= 'active' if controller_name.include? 'users'%>"><a class="nav-link" href="<%= '' %>"><i class="fas fa-user"></i> <span>Usuários</span></a></li>
+      <li class="<%= 'active' if controller_name.include? 'users'%>"><a class="nav-link" href="<%= users_path %>"><i class="fas fa-user"></i> <span>Usuários</span></a></li>
     
       <li class="menu-header">Administrativo</li>
       <li class="<%= 'active' if controller_name == 'tickets' %>"><a class="nav-link" href="<%= tickets_path %>"><i class="fas fa-ticket-alt"></i> <span>Passagens</span></a></li>

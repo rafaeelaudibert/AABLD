@@ -9,7 +9,6 @@
     <tbody>
       <tr>
         <th>#</th>
-        <th>Usuário</th>
         <th>Mês/Ano</th>
         <th>Valor</th>
         <th>Status</th>
@@ -19,14 +18,11 @@
           <td>
             <%= transaction.id %>
             <div class="table-links">
-              <%= link_to 'Mostrar', user_transaction_path(transaction.user, transaction) %>
+              <%= link_to 'Mostrar', user_transaction_path(@user, transaction) %>
               <div class="bullet"></div>
-              <%= link_to 'Editar', edit_transaction_path(transaction) %>
-              <div class="bullet"></div>
-              <%= link_to 'Apagar', transaction, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
+              <%= link_to 'Apagar', user_transaction_path(@user, transaction), method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
             </div>
           </td>
-          <td><%= transaction.user.full_name %></td>
           <td><%= [transaction.month, transaction.year].join '/' %></td>
           <td><%= transaction.value %></td>
           <td><%= transaction.status %></td>          
@@ -38,6 +34,9 @@
 
 <%= content_for :pagination do %>
   <div class="row">
+    <div class="col-xs-12 col-sm-6 pb-3">
+        <%= link_to 'Nova Transação', new_user_transaction_path(user_id: @user.id), class: 'btn btn-success' %>
+    </div>
     <% if @pagy.pages > 1 %>
       <div class="col-xs-12 col-offset-sm-6 col-sm-6">
         <%== paginate @pagy %>
