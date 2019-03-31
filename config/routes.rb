@@ -5,6 +5,16 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
   scope :dashboard do
+     # Devise stuff
+    devise_for :users, skip: %i[registrations],
+    controllers: { sessions: 'users/sessions',
+                  passwords: 'users/passwords',
+                  invitations: 'users/invitations' }
+    as :user do
+      get 'users/edit', to: 'devise/registrations#edit', as: 'edit_user_registration'
+      put 'users', to: 'devise/registrations#update', as: 'user_registration'
+    end
+
     # General Resources
     resources :universities
     resources :bus_companies
@@ -19,16 +29,6 @@ Rails.application.routes.draw do
 
     resources :users, only: %i[index show] do
       resources :transactions, only: %i[index create], controller: 'users/transactions'
-    end
-
-    # Devise stuff
-    devise_for :users, skip: %i[registrations],
-                       controllers: { sessions: 'users/sessions',
-                                      passwords: 'users/passwords',
-                                      invitations: 'users/invitations' }
-    as :user do
-      get 'users/edit', to: 'devise/registrations#edit', as: 'edit_user_registration'
-      put 'users', to: 'devise/registrations#update', as: 'user_registration'
     end
   end
 end
