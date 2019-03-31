@@ -47,15 +47,13 @@ class User < ApplicationRecord
   # Returns the user age
   def age # rubocop:disable Metrics/AbcSize
     now = Time.now.utc.to_date
-    pp self
-    pp now.month
-    pp birthdate.month
     gone = now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)
     now.year - birthdate.year - (!gone ? 1 : 0)
   end
 
+  # Returns true if there already exists a Transaction created in this month for the User
   def did_monthly_transaction?
-    transactions.last&.month_before_type_cast == (Time.now.utc.to_date.month - 1) % 12
+    transactions.last&.month_before_type_cast == Transaction.current_month_index
   end
 
   # Returns true, if the user is a Ticket Responsible

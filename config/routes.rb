@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :bus_companies
     resources :user_tickets, only: %i[create update destroy]
     resources :tickets
-    resources :transactions, only: %i[index show edit]
+    resources :transactions, except: %i[new create]
     resources :cities do
       collection do
         get '/all', to: 'cities#all', as: 'all'
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
 
     resources :users, only: %i[index show] do
-      resources :transactions, except: :edit, controller: 'users/transactions'
+      resources :transactions, only: %i[index create], controller: 'users/transactions'
     end
 
     # Devise stuff

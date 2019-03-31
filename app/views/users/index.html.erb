@@ -8,7 +8,7 @@
   <table class="table table-bordered table-md table-striped">
     <tbody>
       <tr>
-        <th>Nome</th>
+        <th class="d-none d-md-table-cell">Nome</th>
         <th>Email</th>
         <th>CPF</th>
         <th>Universidade</th>
@@ -16,7 +16,7 @@
       </tr>
       <% @users.each do |user| %>
         <tr>
-          <td class="d-none d-md-block">
+          <td class="d-none d-md-table-cell">
             <%= user.full_name %>
             <div class="table-links">
               <%= link_to 'Mostrar', user %>
@@ -28,8 +28,8 @@
           <td><%= user.cpf %></td>
           <td><%= user.university.abbreviation %></td>
           <td>
-            <%= link_to('Visualizar Transações', user_transactions_path(user), class: 'btn btn-primary') %>
-            <%= link_to('Criar Transação mensal', new_user_transaction_path(user), class: "btn #{user.did_monthly_transaction? ? 'btn-secondary disabled' : 'btn-success'}") %>
+            <%= link_to('Visualizar Transações', user_transactions_path(user), class: 'btn btn-primary w-100') %>
+            <%= button_to('Criar Transação mensal', user_transactions_path(user), method: :post, class: "mt-2 w-100 btn #{user.did_monthly_transaction? ? 'btn-secondary disabled' : 'btn-success'}", disabled: user.did_monthly_transaction?) %>
           </td>
         </tr>
       <% end %> 
