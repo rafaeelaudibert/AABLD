@@ -60,7 +60,7 @@ class TicketsController < ApplicationController
   # DELETE /tickets/:id
   # DELETE /tickets/:id.json
   def destroy
-    @ticket.destroy
+    @ticket.destroy!
     respond_to do |format|
       format.html { redirect_to tickets_url, notice: 'Passagem excluída com sucesso.' }
       format.json { head :no_content }

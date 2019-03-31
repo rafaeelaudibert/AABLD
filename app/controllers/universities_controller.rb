@@ -62,7 +62,7 @@ class UniversitiesController < ApplicationController
   # DELETE /universities/:id
   # DELETE /universities/:id.json
   def destroy
-    @university.destroy
+    @university.destroy!
     respond_to do |format|
       format.html { redirect_to universities_url, notice: 'University was successfully destroyed.' }
       format.json { head :no_content }

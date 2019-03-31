@@ -62,7 +62,7 @@ class BusCompaniesController < ApplicationController
   # DELETE /bus_companies/:id
   # DELETE /bus_companies/:id.json
   def destroy
-    @bus_company.destroy
+    @bus_company.destroy!
     respond_to do |format|
       format.html { redirect_to bus_companies_url, notice: 'Empresa de ônibus excluída.' }
       format.json { head :no_content }

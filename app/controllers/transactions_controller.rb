@@ -28,7 +28,7 @@ class TransactionsController < ApplicationController
   # DELETE transactions/:id
   # DELETE transactions/:id.json
   def destroy
-    @transaction.destroy
+    @transaction.destroy!
     respond_to do |format|
       format.html { redirect_to transactions_url, notice: 'Transação excluída com sucesso.' }
       format.json { head :no_content }

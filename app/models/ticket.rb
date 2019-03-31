@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Ticket < ApplicationRecord
-  has_many :user_tickets
+  has_many :user_tickets, dependent: :restrict_with_error
   belongs_to :source_city, class_name: 'City'
   belongs_to :destination_city, class_name: 'City'
   belongs_to :bus_company

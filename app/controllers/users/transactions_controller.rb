@@ -23,7 +23,6 @@ class Users::TransactionsController < ApplicationController
         format.html { redirect_to @transaction, notice: 'Transação criada com sucesso.' }
         format.json { render :show, status: :created, location: @transaction }
       else
-        pp @transaction.errors
         format.html { render :new }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end

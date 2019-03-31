@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class City < ApplicationRecord
-  has_many :tickets_as_source, foreign_key: 'source_city', class_name: 'Ticket'
-  has_many :tickets_as_destination, foreign_key: 'destination_city', class_name: 'Ticket'
-  has_many :universities
+  has_many :tickets_as_source, foreign_key: 'source_city', class_name: 'Ticket',
+                               inverse_of: :source_city, dependent: :restrict_with_error
+  has_many :tickets_as_destination, foreign_key: 'destination_city', class_name: 'Ticket',
+                                    inverse_of: :destination_city, dependent: :restrict_with_error
+  has_many :universities, dependent: :restrict_with_error
 
   validates :id, presence: true, uniqueness: true
   validates :name, presence: true

@@ -12,8 +12,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable,
          :timeoutable, :async
 
-  has_many :transactions
-  has_many :user_tickets
+  has_many :transactions, dependent: :restrict_with_error
+  has_many :user_tickets, dependent: :restrict_with_error
   belongs_to :responsible, optional: true, class_name: 'User'
   belongs_to :university
   has_one :city, through: :university
@@ -83,8 +83,12 @@ class User < ApplicationRecord
   end
 
   # Return all the cities which have users
+  # This method uses uniq and compact unchained for performance reasons
   def self.all_cities
-    all.map(&:city).uniq.compact
+    all_cities = all.map(&:city)
+    all_cities.uniq!
+    all_cities.compact!
+    all_cities
   end
 
   private
@@ -92,6 +96,6 @@ class User < ApplicationRecord
   # Update responsible foreign_key, if not present, to point to himself, as well
   # as mark itself as a ticket_responsible
   def validate_responsible
-    update_attributes(responsible_id: id, ticket_responsible: true) if responsible_id.nil?
+    update(responsible_id: id, ticket_responsible: true) if responsible_id.nil?
   end
 end

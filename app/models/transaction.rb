@@ -4,7 +4,7 @@ class Transaction < ApplicationRecord
   include EnumI18nHelper
 
   belongs_to :user
-  has_many :user_tickets
+  has_many :user_tickets, dependent: :restrict_with_error
 
   validates :month, presence: true
   validates :year, presence: true,

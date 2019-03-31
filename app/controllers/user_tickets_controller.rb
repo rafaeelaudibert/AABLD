@@ -29,7 +29,7 @@ class UserTicketsController < ApplicationController
 
   # DELETE /user_tickets/:id.json
   def destroy
-    @user_ticket.destroy
+    @user_ticket.destroy!
     respond_to do |format|
       format.json { head :no_content }
     end

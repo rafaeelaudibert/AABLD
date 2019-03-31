@@ -3,6 +3,7 @@
 ActionView::Base.field_error_proc = proc do |html_tag, instance|
   form_fields = %w[textarea input select]
 
+  # rubocop:disable Rails/OutputSafety
   Nokogiri::HTML::DocumentFragment.parse(html_tag).css(form_fields.join(', ')).each do |element|
     next unless form_fields.include? element.node_name
 
@@ -16,6 +17,7 @@ ActionView::Base.field_error_proc = proc do |html_tag, instance|
     html_tag.children.add_class 'is-invalid'
     html_tag = "#{html_tag}<div class='invalid-feedback'>#{error_message}</div>".html_safe
   end
+  # rubocop:enable all
 
   html_tag
 end
