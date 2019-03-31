@@ -188,7 +188,7 @@
 
                 <div class="form-group">
                   <%= f.label :bank_option %><br />
-                  <%= f.select :bank_option, User.bank_options.map {|option, _| [option.capitalize, option]}, {include_blank: "Selecione a opção de conta"}, {class: 'form-control', required: true} %>
+                  <%= f.select :bank_option, enum_options_for_select(User, :bank_option), {include_blank: "Selecione a opção de conta"}, {class: 'form-control', required: true} %>
                 </div>
 
                 <div class="form-group">

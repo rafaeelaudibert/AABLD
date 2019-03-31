@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Transaction < ApplicationRecord
+  include EnumI18nHelper
+
   belongs_to :user
   has_many :user_tickets
 
@@ -13,10 +15,23 @@ class Transaction < ApplicationRecord
                   july august september october november december].each(&:freeze)
 
   enum month: MONTH_LIST.each_with_index.to_h { |month, idx| [month, idx + 1] }
-  enum status: { open: 0, closed: 1 }
+  enum status: { open: 0, on_hold: 1, finished: 2 }
 
+  # Returns a beautified string for the Transaction breadcrumb
   def breadcrumb
-    "Transação de #{month.capitalize}-#{year}"
+    "Transação de #{enum_t(self, :month)}-#{year}"
+  end
+
+  # Returns a string containing the type of badge, according to the Transaction status
+  def badge_for_status
+    case status.to_sym
+    when :open
+      'warning'
+    when :on_hold
+      'primary'
+    when :finished
+      'success'
+    end
   end
 
   # All transactions from a given user
@@ -38,7 +53,9 @@ class Transaction < ApplicationRecord
 
   # rubocop:disable Style/GuardClause
   def not_duplicated
-    unless Transaction.where(user: user, month: month, year: year).length.zero?
+    same_transactions = Transaction.where(user: user, month: month, year: year)
+
+    unless same_transactions.count.zero? || same_transactions.first == self
       errors.add(:user, 'já possui uma transação nesse mês e ano')
     end
   end

@@ -11,7 +11,7 @@
 
 <p>
   <strong>Month:</strong>
-  <%= @transaction.month %>
+  <%= enum_t(@transaction, :month) %>
 </p>
 
 <p>
@@ -26,7 +26,7 @@
 
 <p>
   <strong>Status:</strong>
-  <%= @transaction.status %>
+  <%= enum_t(@transaction, :status) %>
 </p>
 
 <%= link_to 'Back', user_transactions_path %>

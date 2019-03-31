@@ -7,7 +7,7 @@
 
   <div class="field">
     <%= form.label :month %>
-    <%= form.select :month, Transaction.months.map {|key, value| [key.humanize, key]}, selected: Transaction.months.to_a[(Time.current.month - 2) % 12][0] %>
+    <%= form.select :month, enum_options_for_select(Transaction, :month), selected: Transaction.months.to_a[(Time.current.month - 2) % 12][0] %>
   </div>
 
   <div class="field">

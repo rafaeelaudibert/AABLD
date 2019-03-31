@@ -23,9 +23,9 @@
               <%= link_to 'Apagar', transaction_path(transaction), method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
             </div>
           </td>
-          <td><%= [transaction.month, transaction.year].join '/' %></td>
+          <td><%= [enum_t(transaction, :month), transaction.year].join '/' %></td>
           <td><%= transaction.value %></td>
-          <td><%= transaction.status %></td>          
+          <td><div class="badge badge-<%= transaction.badge_for_status %>"><%= enum_t(transaction, :status)%></div></td>          
         </tr>
       <% end %> 
     </tbody>

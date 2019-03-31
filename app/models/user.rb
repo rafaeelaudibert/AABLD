@@ -4,6 +4,7 @@ require 'letter_avatar/has_avatar'
 
 class User < ApplicationRecord
   include LetterAvatar::HasAvatar
+  include EnumI18nHelper
 
   # Include default devise modules. Others available are:
   # :lockable, :confirmable and :omniauthable
@@ -56,7 +57,7 @@ class User < ApplicationRecord
 
   # Return a string with the User parsed bank information
   def bank_information
-    "Ag. #{bank_agency} | Conta: #{bank_account} | #{bank_option}"
+    "Ag. #{bank_agency} | Conta: #{bank_account} | #{enum_t(self, :bank_option)}"
   end
 
   # Returns the user age

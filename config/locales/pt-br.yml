@@ -35,6 +35,39 @@ pt-BR:
       bus_company: "Empresa de Ônibus"
       ticket: "Passagem"
       university: "Universidade"
+    enums:
+      transaction:
+        months:
+          january: 'Janeiro'
+          february: 'Fevereiro'
+          march: 'March'
+          april: 'April'
+          may: 'Maio'
+          june: 'Junho'
+          july: 'Julho'
+          august: 'Agosto'
+          september: 'Setembro'
+          october: 'Outubro'
+          november: 'Novembro'
+          december: 'Dezembro'
+        statuses:
+          open: 'Aberto'
+          on_hold: 'Aguardando depósito'
+          finished: 'Concluído'
+      user:
+        bank_options:
+          checking: 'Conta Corrente'
+          savings: 'Conta Poupança'
+        roles:
+          member: 'Membro'
+          president: 'Presidente'
+          treasurer: 'Tesoureiro'
+          secretary: 'Secretário'
+          vice_president: 'Vice-presidente'
+          vice_treasurer: '2º Tesoureiro'
+          vice_secretary: '2º Secetrário'
+          staff: 'Diretoria'
+          admin: 'Administrador'
     attributes:
       bus_company:
         name: "Nome"
