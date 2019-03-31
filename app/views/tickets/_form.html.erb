@@ -1,7 +1,5 @@
 <%= form_with(model: ticket, local: true) do |form| %>
 
-  <%= pp ticket.errors %>
-
   <div class="form-group">
     <%= form.label :source_city_id %> <br/>
     <%= form.select :source_city_id, City.all.map { |c| [c.name, c.id] }, {include_blank: "Selecione a cidade de origem", required: true}, {class: 'form-control select2'} %>
