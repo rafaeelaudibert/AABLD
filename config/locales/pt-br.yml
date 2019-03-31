@@ -31,26 +31,30 @@
 
 pt-BR:
   activerecord:
+    models:
+      bus_company: "Empresa de Ônibus"
+    attributes:
+      bus_company:
+        name: "Nome"
+        cnpj: "CNPJ"
+        city: "Cidade"
+        neighborhood: "Bairro"
+        address: "Endereço"
     errors:
-      models:
-        user:
-          attributes:
-            cpf:
-              invalid_cpf: "inválido"
-        university:
-          attributes:
-            cnpj:
-              invalid_cnpj: "inválido"
-        transaction:
-          attributes:
-            year:
-              greater_than_or_equal_to: "precisa ser maior do que %{count}"
       messages:
-        blank: "não pode ficar em branco"
-        required: "inválido(a)"
-        taken: "já foi utilizado(a)"
+        greater_than_or_equal_to: "precisa ser maior do que %{count}"
+        invalid_cpf: "Oops, esse CPF é inválido. Por favor, verifique!"
+        invalid_cnpj: "Oops, esse CNPJ é inválido. Por favor, verifique!"
+        blank: "%{attribute} não pode ficar em branco"
+        required: "%{attribute} inválido(a)"
+        taken: "Este %{attribute} já foi utilizado(a)"
         record_invalid: "A validação falhou: %{errors}"
-        not_a_number: "não é um número"
+        not_a_number: "%{attribute} não é um número"
         restrict_dependent_destroy:
           has_one: "Não é possível excluir o registro pois existe um %{record} dependente"
           has_many: "Não é possível excluir o registro pois existem %{record} dependentes"
+  helpers:
+    submit:
+      create: "Criar %{model}"
+      submit: "Salvar %{model}"
+      update: "Atualizar %{model}"
