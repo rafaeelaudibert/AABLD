@@ -5,11 +5,11 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
   scope :dashboard do
-     # Devise stuff
+    # Devise stuff
     devise_for :users, skip: %i[registrations],
-    controllers: { sessions: 'users/sessions',
-                  passwords: 'users/passwords',
-                  invitations: 'users/invitations' }
+                       controllers: { sessions: 'users/sessions',
+                                      passwords: 'users/passwords',
+                                      invitations: 'users/invitations' }
     as :user do
       get 'users/edit', to: 'devise/registrations#edit', as: 'edit_user_registration'
       put 'users', to: 'devise/registrations#update', as: 'user_registration'
