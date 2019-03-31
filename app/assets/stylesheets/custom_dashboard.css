@@ -10,3 +10,11 @@
 .card .card-header .card-header-breadcrumb .breadcrumb-item {
     font-size: 12px;
 }
+
+.form-control.is-invalid~.select2 .selection .select2-selection {
+    border-color: #DC3545;
+}
+
+.form-control.is-invalid~.select2 .selection .select2-selection b {
+    border-color: #DC3545 transparent transparent transparent;
+}
