@@ -44,6 +44,16 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  # Return a string with the User parent names
+  def parents
+    "#{mother_name} #{"e #{father_name}" unless father_name.nil?}"
+  end
+
+  # Return a string with the User parsed bank information
+  def bank_information
+    "Ag. #{bank_agency} | Conta: #{bank_account} | #{bank_option}"
+  end
+
   # Returns the user age
   def age # rubocop:disable Metrics/AbcSize
     now = Time.now.utc.to_date

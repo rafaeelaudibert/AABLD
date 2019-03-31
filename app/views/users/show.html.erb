@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+
+<% content_for :title do %>
+  Usuário | <%= @user.full_name %>
+<% end %>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>CPF:</strong>
+  <%= @user.cpf %>
+</p>
+
+<p>
+  <strong>Data de Nascimento:</strong>
+  <%= @user.birthdate %>
+</p>
+
+<p>
+  <strong>Filiação:</strong>
+  <%= @user.parents %>
+</p>
+
+<p>
+  <strong>Telefone:</strong>
+  <%= @user.mobile_phone || @user.phone %>
+</p>
+
+<p>
+  <strong>Endereço:</strong>
+  <%= @user.address %>
+</p>
+
+<p>
+  <strong>Informação do Banco:</strong>
+  <%= @user.bank_information %>
+</p>
+
+<p>
+  <strong>Universidade:</strong>
+  <%= @user.university&.abbr_and_name %>
+</p>
+
+<p>
+  <strong>Curso:</strong>
+  <%= @user.course %>
+</p>
+
+<p>
+  <strong>Semester:</strong>
+  <%= @user.semester %>
+</p>
+
+<p>
+  <strong>Responsável:</strong>
+  <%= link_to(@user.responsible.full_name, @user.responsible, class: 'btn btn-primary') unless @user.responsible.nil? %>
+</p>
+
+<p>
+  <strong>Cargo:</strong>
+  <%= @user.role %>
+</p>

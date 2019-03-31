@@ -2,12 +2,21 @@
 
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: :show
 
-  breadcrumb -> { "Usuário '#{User.find(params[:id]).full_name}'" },
-             -> { User.find(params[:id]) },
-             except: :index
+  breadcrumb -> { @user.full_name },
+             -> { @user },
+             only: :show
 
   def index
     @pagy, @users = pagy User.where.not(role: :admin)
+  end
+
+  def show; end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end
