@@ -34,27 +34,21 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right navbar-uppercase">
-                    <li>
-                        <a href="#" target="_blank">A link on the Navbar</a>
-                    </li>
                     <li class="dropdown">
                         <a href="#gaia" class="dropdown-toggle" data-toggle="dropdown">
-                            Dropdown <i class="fa fa-caret-down"></i>
+                            Redes Sociais <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-danger">
                             <li>
                                 <a href="#"><i class="fa fa-facebook-square"></i> Facebook</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-twitter"></i> Twitter</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-instagram"></i> Instagram</a>
+                                <a href="#"><i class="fa fa-whatsapp"></i> Whatsapp</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <%= link_to 'Login', new_user_session_path, class: 'btn btn-danger btn-fill' %>
+                        <%= link_to (current_user.nil? ? 'Login' : 'Dashboard'), new_user_session_path, class: 'btn btn-danger btn-fill' %>
                     </li>
                 </ul>
             </div>
@@ -78,7 +72,7 @@
                     </div>
 
                     <div class="button-get-started">
-                        <%= link_to 'Acesse seu painel de informações', new_user_session_path, class: 'btn btn-white btn-fill btn-lg' %>
+                        <%= link_to 'Acesse seu Dashboard', new_user_session_path, class: 'btn btn-white btn-fill btn-lg' %>
                     </div>
                 </div>
 
@@ -312,7 +306,7 @@
                 </div>
                 <div class="col-md-2 col-md-offset-4 col-sm-3">
                     <div class="info">
-                        <h5 class="title">Siga nos no</h5>
+                        <h5 class="title">Encontre nos no</h5>
                         <nav>
                             <ul>
                                 <li>
@@ -322,14 +316,9 @@
                                 </li>
                                 <li>
                                     <a href="#" class="btn btn-social btn-dribbble btn-simple">
-                                        <i class="fa fa-twitter"></i> Twitter
+                                        <i class="fa fa-whatsapp"></i> Whatsapp
                                     </a>
-                                </li>   
-                                <li>
-                                    <a href="#" class="btn btn-social btn-dribbble btn-simple">
-                                        <i class="fa fa-instagram"></i> Instagram
-                                    </a>
-                                </li>                                
+                                </li>                              
                             </ul>
                         </nav>
                     </div>

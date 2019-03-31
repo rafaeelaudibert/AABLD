@@ -1,18 +1,18 @@
 <div class="main-sidebar sidebar-style-2">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="index.html">AABLD</a>
+      <%= link_to 'AABLD', dashboard_path %>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
-      <a href="index.html">AABLD</a>
+      <%= link_to 'AABLD', dashboard_path %>
     </div>
     <ul class="sidebar-menu">
       <li class="menu-header">Dashboard</li>
       <li class="<%= 'active' if controller_name == 'dashboard' %>"><a class="nav-link" href="<%= dashboard_path %>"><i class="fas fa-chart-bar"></i> <span>Dashboard</span></a></li>
       
       <li class="menu-header">Geral</li>            
-      <li class="<%= 'active' if controller_name == 'transactions'%>"><a class="nav-link" href="<%= transactions_path %>"><i class="fas fa-money-bill"></i> <span>Transações</span></a></li>
-      <li class="<%= 'active' if controller_name.include? 'users'%>"><a class="nav-link" href="<%= users_path %>"><i class="fas fa-user"></i> <span>Usuários</span></a></li>
+      <li class="<%= 'active' if controller_name == 'transactions' && !request.path.include?('users') %>"><a class="nav-link" href="<%= transactions_path %>"><i class="fas fa-money-bill"></i> <span>Transações</span></a></li>
+      <li class="<%= 'active' if request.path.include? 'users'%>"><a class="nav-link" href="<%= users_path %>"><i class="fas fa-user"></i> <span>Usuários</span></a></li>
     
       <li class="menu-header">Administrativo</li>
       <li class="<%= 'active' if controller_name == 'tickets' %>"><a class="nav-link" href="<%= tickets_path %>"><i class="fas fa-ticket-alt"></i> <span>Passagens</span></a></li>
