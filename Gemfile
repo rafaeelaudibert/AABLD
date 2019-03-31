@@ -89,3 +89,6 @@ gem 'pagy'
 
 # Sidekiq (Background Worker)
 gem 'sidekiq'
+
+# Image for the user (while we don't have a way to add attachments)
+gem 'letter_avatar'

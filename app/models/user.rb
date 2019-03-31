@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require 'letter_avatar/has_avatar'
+
 class User < ApplicationRecord
+  include LetterAvatar::HasAvatar
+
   # Include default devise modules. Others available are:
   # :lockable, :confirmable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
@@ -43,6 +47,7 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+  alias name full_name # Used by LetterAvatar
 
   # Return a string with the User parent names
   def parents
