@@ -17,7 +17,6 @@ class Users::TransactionsController < ApplicationController
   # POST /users/:user_id/transactions.json
   def create
     @transaction = Transaction.new(transaction_params)
-    pp @transaction
 
     respond_to do |format|
       if @transaction.save
