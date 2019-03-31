@@ -1,42 +1,122 @@
 <%= form_with(model: university, local: true) do |form| %>
-  <% if university.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(university.errors.count, "error") %> prohibited this university from being saved:</h2>
 
-      <ul>
-      <% university.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: 'form-control', required: true %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
+    <%= form.label :abbreviation %>
+    <%= form.text_field :abbreviation, class: 'form-control cleave-abbreviation', required: true %>
+  </div>
+
+  <div class="form-group">
     <%= form.label :cnpj %>
-    <%= form.text_field :cnpj %>
+    <%= form.text_field :cnpj, class: 'form-control cleave-cnpj', required: true %>
+    <% unless university.errors.messages[:cnpj] != [] %>
+      <div class="invalid-feedback">Oops, esse CNPJ é inválido. Por favor, verifique!</div>
+    <% end %>
   </div>
 
-  <div class="field">
-    <%= form.label :city_id %>
-    <%= form.text_field :city_id %>
+  <div class="form-group">
+    <%= form.label :city_id %> <br/>
+    <%= form.select :city_id, City.view_select, {include_blank: "Selecione a cidade da sede", required: true}, {class: 'form-control select2'} %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :neighborhood %>
-    <%= form.text_field :neighborhood %>
+    <%= form.text_field :neighborhood, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :address %>
-    <%= form.text_field :address %>
+    <%= form.text_field :address, class: 'form-control' %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= form.submit class: 'btn btn-lg btn-primary float-right' %>
+<% end %>
+
+<% content_for :javascript do %>
+  <script>
+    function validateCNPJ(cnpj) {
+ 
+      cnpj = cnpj.replace(/[^\d]+/g,'');
+  
+      if(cnpj.length != 14) return false;
+  
+      // Elimina CNPJs invalidos conhecidos
+      if (cnpj == "00000000000000" || 
+          cnpj == "11111111111111" || 
+          cnpj == "22222222222222" || 
+          cnpj == "33333333333333" || 
+          cnpj == "44444444444444" || 
+          cnpj == "55555555555555" || 
+          cnpj == "66666666666666" || 
+          cnpj == "77777777777777" || 
+          cnpj == "88888888888888" || 
+          cnpj == "99999999999999")
+          return false;
+          
+      // Valida DVs
+      let tamanho = cnpj.length - 2
+      let numeros = cnpj.substring(0, tamanho);
+      let digitos = cnpj.substring(tamanho);
+      let soma = 0;
+      let pos = tamanho - 7;
+      for (let i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2)
+          pos = 9;
+      }
+      let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+      if (resultado != digitos.charAt(0))
+          return false;
+          
+      tamanho = tamanho + 1;
+      numeros = cnpj.substring(0,tamanho);
+      soma = 0;
+      pos = tamanho - 7;
+      for (let i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2)
+              pos = 9;
+      }
+      resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+      if (resultado != digitos.charAt(1))
+            return false;
+            
+      return true;
+      
+    }
+
+    const cleaveCNPJ = new Cleave('.cleave-cnpj', {
+      numericOnly: true,
+      blocks: [2, 3, 3, 4, 2],
+      delimiters: ['.', '.', '/', '-'],
+      onValueChanged: e => {
+        const cnpj = e.target.rawValue;
+        const target = document.getElementsByClassName('cleave-cnpj')[0];
+
+        if (!validateCNPJ(cnpj)) {
+          target.classList.add('is-invalid');
+        } else {
+          target.classList.remove('is-invalid');
+        }
+      }
+    });
+    
+    const cleaveAbbreviation = new Cleave('.cleave-abbreviation', {
+      blocks: [15],
+      uppercase: true
+    });
+  </script
+<% end %>
+
+<% content_for :extra_javascript do %>
+  <script src="/assets/js/cleave.min.js"></script>
+  <script src="/assets/js/select2.full.min.js"></script>
+<% end %>
+
+<% content_for :css do %>
+  <link rel="stylesheet" href="/assets/css/select2.min.css">
 <% end %>

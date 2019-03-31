@@ -33,6 +33,8 @@ pt-BR:
   activerecord:
     models:
       bus_company: "Empresa de Ônibus"
+      ticket: "Passagem"
+      university: "Universidade"
     attributes:
       bus_company:
         name: "Nome"
@@ -48,6 +50,14 @@ pt-BR:
         bus_company_id: "Empresa de Ônibus"
         bus_company: "Empresa de Ônibus"
         value: "Valor"
+      university:
+        name: "Nome"
+        abbreviation: "Sigla"
+        cnpj: "CNPJ"
+        city_id: "Cidade"
+        city: "Cidade"
+        neighborhood: "Bairro"
+        address: "Endereço"
     errors:
       messages:
         greater_than_or_equal_to: "precisa ser maior do que %{count}"

@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class University < ApplicationRecord
+  default_scope { order(:abbreviation) }
   belongs_to :city
   has_many :users
 
   validates :name, presence: true
+  validates :abbreviation, presence: true
   validates_cnpj_format_of :cnpj, options: { allow_blank: true, allow_nil: true }
 
   delegate :state, to: :city
