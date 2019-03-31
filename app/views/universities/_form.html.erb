@@ -1,14 +1,17 @@
 <%= form_with(model: university, local: true) do |form| %>
 
-  <div class="form-group">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: 'form-control', required: true %>
-  </div>
+  <div class="form-row">
+    <div class="form-group col-md-9">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: 'form-control', required: true %>
+    </div>
 
-  <div class="form-group">
-    <%= form.label :abbreviation %>
-    <%= form.text_field :abbreviation, class: 'form-control cleave-abbreviation', required: true %>
+    <div class="form-group col-md-3">
+      <%= form.label :abbreviation %>
+      <%= form.text_field :abbreviation, class: 'form-control cleave-abbreviation', required: true %>
+    </div>
   </div>
+  
 
   <div class="form-group">
     <%= form.label :cnpj %>
@@ -23,15 +26,18 @@
     <%= form.select :city_id, City.view_select, {include_blank: "Selecione a cidade da sede", required: true}, {class: 'form-control select2'} %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :neighborhood %>
-    <%= form.text_field :neighborhood, class: 'form-control' %>
-  </div>
+  <div class="form-row">
+    <div class="form-group col-md-8">
+      <%= form.label :address %>
+      <%= form.text_field :address, class: 'form-control' %>
+    </div>
 
-  <div class="form-group">
-    <%= form.label :address %>
-    <%= form.text_field :address, class: 'form-control' %>
+    <div class="form-group col-md-4">
+      <%= form.label :neighborhood %>
+      <%= form.text_field :neighborhood, class: 'form-control' %>
+    </div>
   </div>
+  
 
   <%= form.submit class: 'btn btn-lg btn-primary float-right' %>
 <% end %>
