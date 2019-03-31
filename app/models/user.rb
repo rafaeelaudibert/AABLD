@@ -70,7 +70,7 @@ class User < ApplicationRecord
 
   # Return all the cities which have users
   def self.all_cities
-    all.map(&:city).uniq
+    all.map(&:city).uniq.compact
   end
 
   private
