@@ -40,6 +40,14 @@ pt-BR:
         city: "Cidade"
         neighborhood: "Bairro"
         address: "Endereço"
+      ticket:
+        source_city_id: "Cidade de Origem"
+        source_city: "Cidade de Origem"
+        destination_city_id: "Cidade de Destino"
+        destination_city: "Cidade de Destino"
+        bus_company_id: "Empresa de Ônibus"
+        bus_company: "Empresa de Ônibus"
+        value: "Valor"
     errors:
       messages:
         greater_than_or_equal_to: "precisa ser maior do que %{count}"

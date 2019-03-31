@@ -1,37 +1,41 @@
 <%= form_with(model: ticket, local: true) do |form| %>
-  <% if ticket.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
 
-      <ul>
-      <% ticket.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= pp ticket.errors %>
 
-  <div class="field">
-    <%= form.label :source_city_id %>
-    <%= form.text_field :source_city_id %>
+  <div class="form-group">
+    <%= form.label :source_city_id %> <br/>
+    <%= form.select :source_city_id, City.all.map { |c| [c.name, c.id] }, {include_blank: "Selecione a cidade de origem", required: true}, {class: 'form-control select2'} %>
   </div>
 
-  <div class="field">
-    <%= form.label :destination_city_id %>
-    <%= form.text_field :destination_city_id %>
+  <div class="form-group">
+    <%= form.label :destination_city_id %> <br/>
+    <%= form.select :destination_city_id, City.all.map { |c| [c.name, c.id] }, {include_blank: "Selecione a cidade de destino", required: true}, {class: 'form-control select2'} %>
   </div>
 
-  <div class="field">
-    <%= form.label :value %>
-    <%= form.text_field :value %>
+  <div class="form-group">
+    <%= form.label :bus_company_id %> <br/>
+    <%= form.select :bus_company_id, BusCompany.all.map { |bc| [bc.name, bc.id] }, {include_blank: "Selecione a empresa de onibus", required: true}, {class: 'form-control select2'} %>
   </div>
 
-  <div class="field">
-    <%= form.label :bus_company_id %>
-    <%= form.text_field :bus_company_id %>
-  </div>
+  <div class="form-group">
+      <%= form.label :value %><br />
+      <%= form.text_field :value, class: 'form-control cleave-value', required: true, value: number_with_precision(ticket.value, precision: 2) %>
+    </div> 
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= form.submit class: 'btn btn-lg btn-primary float-right' %>
+<% end %>
+
+<% content_for :javascript do %>
+  <script>
+    const cleaveValue = new Cleave('.cleave-value', {numeral: true});
+  </script>
+<% end %>
+
+<% content_for :extra_javascript do %>
+  <script src="/assets/js/cleave.min.js"></script>
+  <script src="/assets/js/select2.full.min.js"></script>
+<% end %>
+
+<% content_for :css do %>
+  <link rel="stylesheet" href="/assets/css/select2.min.css">
 <% end %>

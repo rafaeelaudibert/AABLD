@@ -15,12 +15,15 @@ class Ticket < ApplicationRecord
   private
 
   def not_duplicated
-    unless Ticket.where(source_city: source_city,
-                        destination_city: destination_city,
-                        bus_company: bus_company).length.zero?
-      errors.add(:source_city,
-                 "já possui uma passagem com destino a #{destination_city.name} \
-                 com a empresa #{bus_company.name}")
+    same_tickets = Ticket.where(source_city: source_city,
+                                destination_city: destination_city,
+                                bus_company: bus_company)
+
+    # rubocop:disable Style/GuardClause
+    unless same_tickets.count.zero? || same_tickets.first == self
+      errors.add(:bus_company_id,
+                 "Essa empresa já possui uma passagem com rota #{itinerary}")
     end
+    # rubocop:enable Style/GuardClause
   end
 end
