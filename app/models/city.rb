@@ -32,4 +32,10 @@ class City < ApplicationRecord
   def self.with_users
     User.all_cities
   end
+
+  # Returns an array containing only the name and the id of the City
+  # to be used in selects generated on views
+  def self.view_select
+    pluck(:name, :id)
+  end
 end
