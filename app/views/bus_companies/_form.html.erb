@@ -92,7 +92,7 @@
         const cnpj = e.target.rawValue;
         const target = document.getElementsByClassName('cleave-cnpj')[0];
 
-        if (cnpj.length == 14 && !validateCNPJ(cnpj)) {
+        if (!validateCNPJ(cnpj)) {
           target.classList.add('is-invalid');
         } else {
           target.classList.remove('is-invalid');
