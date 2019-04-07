@@ -11,7 +11,7 @@
               <div class="card-header"><h4>Login</h4></div>
 
               <div class="card-body">
-              <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'needs-validation', novalidate: '') do |f| %>
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name), method: :post, class: 'needs-validation', novalidate: '') do |f| %>
                 <div class="form-group">
                   <%= f.label :email %><br />
                   <%= f.email_field :email, autofocus: true, class: 'form-control', required: true, tabindex: 1 %>
