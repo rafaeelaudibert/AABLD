@@ -12,6 +12,22 @@ class Ticket < ApplicationRecord
     "#{source_city.name} -> #{destination_city.name}"
   end
 
+  def full_itinerary
+    "#{source_city.name} -> #{destination_city.name} | #{bus_company.name}"
+  end
+
+  def self.view_select
+    all.joins(:source_city)
+       .joins(:destination_city)
+       .map { |ticket| [ticket.itinerary, ticket.id, { price: ticket.value }] }
+  end
+
+  def self.full_view_select
+    all.joins(:source_city)
+       .joins(:destination_city)
+       .map { |ticket| [ticket.full_itinerary, ticket.id, { price: ticket.value }] }
+  end
+
   private
 
   def not_duplicated

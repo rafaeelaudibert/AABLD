@@ -1,0 +1,153 @@
+<% content_for :title do %>
+    Edição | Transação
+<% end %>
+
+<%= form_with(model: UserTicket.new, local: true) do |form| %>
+    <div class="form-row">
+        <div class="form-group col-md-4 col-sm-6">
+            <%= form.label :ticket_id %> <br/>
+            <%= form.select :ticket_id, Ticket.full_view_select, {include_blank: "Selecione a passagem", required: true}, {class: 'form-control select2'} %>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-6">
+            <%= form.label :quantity %> <br/>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <button class="btn btn-outline-danger decrement-quantity" data_index="1" type="button"><i class="fas fa-minus"></i></button>
+                </div>
+
+                <%= form.text_field :quantity, class: 'form-control text-center index_1' %>
+                
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success increment-quantity" data_index="1" type="button"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-6">
+            <%= form.label :value %> <br/>
+            <%= form.text_field :value, class: 'form-control cleave-value', value: 0.00 %>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-6">
+            <%= form.label :total %> <br/>
+            <%= form.text_field :total, class: 'form-control cleave-total', value: 0.00 %>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-12 text-right">
+            <%= form.label :actions, class: 'd-none d-md-block' %>
+
+            <button class="btn btn-danger" type="button"><i class="fas fa-times"></i></button>
+            <button class="btn btn-success" type="button"><i class="fas fa-check"></i></button>
+            
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4 col-sm-6">
+            <%= form.label :ticket_id %> <br/>
+            <%= form.select :ticket_id, Ticket.full_view_select, {include_blank: "Selecione a passagem", required: true}, {class: 'form-control select2'} %>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-6">
+            <%= form.label :quantity %> <br/>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <button class="btn btn-outline-danger decrement-quantity" data_index="2" type="button"><i class="fas fa-minus"></i></button>
+                </div>
+
+                <%= form.text_field :quantity, class: 'form-control text-center index_2' %>
+                
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success increment-quantity" data_index="2" type="button"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-6">
+            <%= form.label :value %> <br/>
+            <%= form.text_field :value, class: 'form-control cleave-value', value: 0.00 %>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-6">
+            <%= form.label :total %> <br/>
+            <%= form.text_field :total, class: 'form-control cleave-total', value: 0.00 %>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-12 text-right">
+            <%= form.label :actions, class: 'd-none d-md-block' %>
+
+            <button class="btn btn-danger" type="button"><i class="fas fa-times"></i></button>
+            <button class="btn btn-success" type="button"><i class="fas fa-check"></i></button>
+            
+        </div>
+    </div>
+<% end %>
+
+<% content_for :javascript do %>
+    <script>
+
+        // Cleave.js
+        $('.cleave-value').each( (_, domObj) => new Cleave(domObj, {numeral: true}));
+        $('.cleave-total').each( (_, domObj) => new Cleave(domObj, {numeral: true}));
+
+        // Function which receives a DOM element which stores quantity of tickets
+        // and updates the values inputs 
+        function updateValues(quantityInput) {            
+            const valueInput = quantityInput.parentNode.parentNode.parentNode.children[2].children[2];
+            const totalInput = quantityInput.parentNode.parentNode.parentNode.children[3].children[2];
+
+            const price = parseFloat(valueInput.value) || 0;
+            const totalPrice = parseFloat(price) * (parseInt(quantityInput.value) || 0);
+            
+            totalInput.value = totalPrice.toFixed(2);
+        }
+
+        function updateValuesBySelect(e) {
+            const select = e.target;
+            const quantityInput = select.parentNode.parentNode.children[1].children[2].children[1];
+            
+            const valueInput = quantityInput.parentNode.parentNode.parentNode.children[2].children[2];
+            const price = parseFloat(select.selectedOptions[0].getAttribute('price')) || 0;
+            valueInput.value = price.toFixed(2);
+            
+            updateValues(quantityInput);
+        }
+
+        function decrementCounter(e) {
+            const dataIndex = parseInt(e.target.getAttribute('data_index') || e.target.parentNode.getAttribute('data_index'));
+            const quantityInput = document.getElementsByClassName(`index_${dataIndex}`)[0];
+            quantityInput.value = Math.max(parseInt(quantityInput.value) - 1, 1);
+
+            updateValues(quantityInput);
+        }
+
+        function incrementCounter(e) {
+            const dataIndex = parseInt(e.target.getAttribute('data_index') || e.target.parentNode.getAttribute('data_index'));
+            const quantityInput = document.getElementsByClassName(`index_${dataIndex}`)[0];
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+
+            updateValues(quantityInput);
+        }
+
+        function updateTotalValue(e) {
+            const quantityInput = e.target.parentNode.parentNode.children[1].children[2].children[1];
+            const totalInput = e.target.parentNode.parentNode.children[3].children[2];
+            totalInput.value = ((parseFloat(e.target.value) || 0) * (parseInt(quantityInput.value) || 0)).toFixed(2) ;
+        }
+
+        $('.decrement-quantity').each( (_, domObj) => $(domObj).on('click', decrementCounter));
+        $('.increment-quantity').each( (_, domObj) => $(domObj).on('click', incrementCounter));
+        $('.select2').each( (_, domObj) => $(domObj).on('select2:select', updateValuesBySelect));
+        $('.cleave-value').each( (_, domObj) => $(domObj).on('input', updateTotalValue));
+    </script>
+<% end %>
+
+<% content_for :extra_javascript do %>
+  <script src="/assets/js/cleave.min.js"></script>
+  <script src="/assets/js/select2.full.min.js"></script>
+<% end %>
+
+<% content_for :css do %>
+  <link rel="stylesheet" href="/assets/css/select2.min.css">
+<% end %>

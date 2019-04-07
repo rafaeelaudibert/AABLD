@@ -22,6 +22,12 @@ class TransactionsController < ApplicationController
   # GET transactions/:id.json
   def show
     @user = @transaction.user
+
+    if @transaction.finished?
+      render :show, layout: 'no_card'
+    else
+      render :edit
+    end
   end
 
   # DELETE transactions/:id
