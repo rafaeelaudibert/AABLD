@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>AABLD > Dashboard</title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css" integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/regular.css" integrity="sha384-FKw7x8fCxuvzBwOJmhTJJsKzBl8dnN9e2R4+pXRfYoHivikuHkzWyhKWDSMcGNK8" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/brands.css" integrity="sha384-n9+6/aSqa9lBidZMRCQHTHKJscPq6NW4pCQBiMmHdUCvPN8ZOg2zJJTkC7WIezWv" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css" integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
+
+  <!-- Custom CSS -->
+  <%= content_for :css %>
+
+  <!-- Dashboard CSS -->
+  <%= stylesheet_link_tag 'dashboard', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'custom_dashboard', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<%# Uncomment the following for Google Analytics %>
+<%# <!-- Start GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-94034622-3');
+</script>
+<!-- /END GA --></head> %>
+
+<body>
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <%= render 'layouts/dashboard/searchbar' %>
+        
+        <ul class="navbar-nav navbar-right">
+          <%= render 'layouts/dashboard/notifications' %>
+          <%= render 'layouts/dashboard/user_dropdown' %>
+        </ul>
+      </nav>
+      <%= render 'layouts/dashboard/sidebar' %>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12">
+                <%= yield %>
+              </div>  
+            </div>
+          </div>
+        </section>
+      </div>
+      <%= render 'layouts/dashboard/footer' %>
+    </div>
+  </div>
+
+  <!-- General JS Scripts -->
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/popper.js"></script>
+  <script src="/assets/js/tooltip.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <script src="/assets/js/jquery.nicescroll.min.js"></script>
+  <script src="/assets/js/moment.min.js"></script>
+
+  <!-- Dashboard Library (Stisla) JS File -->
+  <%= javascript_include_tag 'dashboard', 'data-turbolinks-track': 'reload' %>
+  
+  <!-- Extra JS Libraries -->
+  <%= content_for :extra_javascript %>
+  
+  <!-- Page Specific JS -->
+  <%= content_for :javascript %>
+</body>
+</html>
