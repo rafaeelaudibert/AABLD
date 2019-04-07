@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CitiesController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_city, only: [:show]
 
   breadcrumb 'Cidades', :cities_path

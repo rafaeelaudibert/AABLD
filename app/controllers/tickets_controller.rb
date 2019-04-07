@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class TicketsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_ticket, only: %i[show edit update destroy]
 
   breadcrumb 'Passagens', :tickets_path
