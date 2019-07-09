@@ -16,7 +16,7 @@
                     <button class="btn btn-outline-danger decrement-quantity" data_index="1" type="button"><i class="fas fa-minus"></i></button>
                 </div>
 
-                <%= form.text_field :quantity, class: 'form-control text-center index_1' %>
+                <%= form.text_field :quantity, class: 'form-control text-center index_1 ticket-quantity' %>
                 
                 <div class="input-group-append">
                     <button class="btn btn-outline-success increment-quantity" data_index="1" type="button"><i class="fas fa-plus"></i></button>
@@ -56,7 +56,7 @@
                     <button class="btn btn-outline-danger decrement-quantity" data_index="2" type="button"><i class="fas fa-minus"></i></button>
                 </div>
 
-                <%= form.text_field :quantity, class: 'form-control text-center index_2' %>
+                <%= form.text_field :quantity, class: 'form-control text-center index_2 ticket-quantity' %>
                 
                 <div class="input-group-append">
                     <button class="btn btn-outline-success increment-quantity" data_index="2" type="button"><i class="fas fa-plus"></i></button>
@@ -138,6 +138,7 @@
 
         $('.decrement-quantity').each( (_, domObj) => $(domObj).on('click', decrementCounter));
         $('.increment-quantity').each( (_, domObj) => $(domObj).on('click', incrementCounter));
+        $('.ticket-quantity').each( (_, domObj) => $(domObj).on('input', () => updateValues(domObj)))
         $('.select2').each( (_, domObj) => $(domObj).on('select2:select', updateValuesBySelect));
         $('.cleave-value').each( (_, domObj) => $(domObj).on('input', updateTotalValue));
     </script>
