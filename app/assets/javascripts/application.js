@@ -10,10 +10,16 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
-//= require activestorage
-//= require turbolinks
-//= require_tree .
-//= require jquery 
-//= require jquery_ujs 
-//= require bootstrap-sprockets 
+//= _require rails-ujs
+//= _require activestorage
+//= _require turbolinks
+//= _require_tree .
+//= _require jquery 
+//= _require jquery_ujs 
+//= _require bootstrap-sprockets 
+//= require best_in_place
+
+$(document).ready(function() {
+    /* Activating Best In Place */
+    jQuery(".best_in_place").best_in_place();
+  });

@@ -5,24 +5,19 @@ class UserTicketsController < ApplicationController
 
   # POST /user_tickets.json
   def create
-    @user_ticket = UserTicket.new(user_ticket_params)
+    @user_ticket = UserTicket.new(user_ticket_params).tap(&:save!)
+
     respond_to do |format|
-      if @user_ticket.save
-        format.json { render json: @user_tickets, status: :created }
-      else
-        format.json { render json: @user_ticket.errors, status: :unprocessable_entity }
-      end
+      format.json { render :show, user_ticket: @user_ticket }
     end
   end
 
   # PATCH/PUT /user_tickets/:id.json
   def update
+    @user_ticket.update!(user_ticket_params)
+
     respond_to do |format|
-      if @user_ticket.update(user_ticket_params)
-        format.json { render json: @user_ticket, status: :ok }
-      else
-        format.json { render json: @user_ticket.errors, status: :unprocessable_entity }
-      end
+      format.json { respond_with_bip(@user_ticket) }
     end
   end
 
@@ -43,6 +38,6 @@ class UserTicketsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_ticket_params
-    params.require(:user_ticket).permit(:user_id, :ticket_id, :quantity, :transaction_id)
+    params.require(:user_ticket).permit(:user_id, :ticket_id, :quantity, :original_value, :transaction_id)
   end
 end

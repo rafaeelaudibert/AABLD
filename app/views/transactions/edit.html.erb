@@ -2,7 +2,7 @@
     Edição | Transação
 <% end %>
 
-<%= form_with(model: UserTicket.new, local: true) do |form| %>
+<%= form_with(model: UserTicket.new, local: true, html: {'onSubmit': 'submitUserTicket(event, this);'}) do |form| %>
     <div class="form-row">
         <div class="form-group col-md-4 col-sm-6">
             <%= form.label :ticket_id %> <br/>
@@ -25,8 +25,8 @@
         </div>
 
         <div class="form-group col-md-2 col-sm-6">
-            <%= form.label :value %> <br/>
-            <%= form.text_field :value, class: 'form-control cleave-value', value: 0.00 %>
+            <%= form.label :original_value %> <br/>
+            <%= form.text_field :original_value, class: 'form-control cleave-value', value: 0.00 %>
         </div>
 
         <div class="form-group col-md-2 col-sm-6">
@@ -36,53 +36,17 @@
 
         <div class="form-group col-md-2 col-sm-12 text-right">
             <%= form.label :actions, class: 'd-none d-md-block' %>
-
-            <button class="btn btn-danger" type="button"><i class="fas fa-times"></i></button>
-            <button class="btn btn-success" type="button"><i class="fas fa-check"></i></button>
-            
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-4 col-sm-6">
-            <%= form.label :ticket_id %> <br/>
-            <%= form.select :ticket_id, Ticket.full_view_select, {include_blank: "Selecione a passagem", required: true}, {class: 'form-control select2'} %>
+            <%= button_tag class: 'btn btn-success' do %>
+                <i class="fas fa-check"></i>
+            <% end %>
         </div>
 
-        <div class="form-group col-md-2 col-sm-6">
-            <%= form.label :quantity %> <br/>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <button class="btn btn-outline-danger decrement-quantity" data_index="2" type="button"><i class="fas fa-minus"></i></button>
-                </div>
-
-                <%= form.text_field :quantity, class: 'form-control text-center index_2 ticket-quantity' %>
-                
-                <div class="input-group-append">
-                    <button class="btn btn-outline-success increment-quantity" data_index="2" type="button"><i class="fas fa-plus"></i></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group col-md-2 col-sm-6">
-            <%= form.label :value %> <br/>
-            <%= form.text_field :value, class: 'form-control cleave-value', value: 0.00 %>
-        </div>
-
-        <div class="form-group col-md-2 col-sm-6">
-            <%= form.label :total %> <br/>
-            <%= form.text_field :total, class: 'form-control cleave-total', value: 0.00 %>
-        </div>
-
-        <div class="form-group col-md-2 col-sm-12 text-right">
-            <%= form.label :actions, class: 'd-none d-md-block' %>
-
-            <button class="btn btn-danger" type="button"><i class="fas fa-times"></i></button>
-            <button class="btn btn-success" type="button"><i class="fas fa-check"></i></button>
-            
-        </div>
+        <%= form.hidden_field :user_id, readonly: true, value: @user.id %>
+        <%= form.hidden_field :transaction_id, readonly: true, value: @transaction.id %>
     </div>
 <% end %>
+
+
 
 <% content_for :javascript do %>
     <script>
@@ -134,6 +98,25 @@
             const quantityInput = e.target.parentNode.parentNode.children[1].children[2].children[1];
             const totalInput = e.target.parentNode.parentNode.children[3].children[2];
             totalInput.value = ((parseFloat(e.target.value) || 0) * (parseInt(quantityInput.value) || 0)).toFixed(2) ;
+        }
+
+        function submitUserTicket(e, form)
+        {
+            e.preventDefault();
+            console.log($(form).serialize() + '&user_id=<%= @user.id %>')
+
+            $.ajax({
+                type: 'POST',
+                url: '<%= user_tickets_path %>',
+                data: $(form).serialize() + '&user_id=<%= @user.id %>',
+            })
+            .then(data => {
+                console.log(data);
+                $(form)[0].reset();
+            })  // Add best_in_place update logic
+            .catch((_1, _2, x) => console.log(x)); // Handle error correctly
+
+            return false;
         }
 
         $('.decrement-quantity').each( (_, domObj) => $(domObj).on('click', decrementCounter));

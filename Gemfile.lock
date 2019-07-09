@@ -55,6 +55,9 @@ GEM
       pry-rails
       railties
     bcrypt (3.1.12)
+    best_in_place (3.0.3)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
     bindex (0.5.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
@@ -266,6 +269,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_rails_console
+  best_in_place (~> 3.0.1)
   binding_of_caller
   bootsnap (>= 1.1.0)
   bootstrap-sass
