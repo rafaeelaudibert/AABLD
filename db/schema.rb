@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "bus_companies", force: :cascade do |t|
     t.string "name", null: false
@@ -29,7 +30,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
     t.index ["name"], name: "index_cities_on_name"
   end
 
-  create_table "tickets", force: :cascade do |t|
+  create_table "tickets", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.bigint "source_city_id"
     t.bigint "destination_city_id"
     t.decimal "value", precision: 5, scale: 2, default: "0.0"
@@ -41,7 +42,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
     t.index ["source_city_id"], name: "index_tickets_on_source_city_id"
   end
 
-  create_table "transactions", force: :cascade do |t|
+  create_table "transactions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.bigint "user_id"
     t.integer "month", null: false
     t.integer "year", null: false
@@ -66,10 +67,10 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
     t.index ["cnpj"], name: "index_universities_on_cnpj"
   end
 
-  create_table "user_tickets", force: :cascade do |t|
+  create_table "user_tickets", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "ticket_id"
-    t.bigint "transaction_id"
+    t.uuid "ticket_id"
+    t.uuid "transaction_id"
     t.integer "quantity", default: 1, null: false
     t.decimal "original_value", precision: 5, scale: 2, null: false
     t.index ["ticket_id"], name: "index_user_tickets_on_ticket_id"
