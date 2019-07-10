@@ -30,3 +30,6 @@
 
 # Ignore generated image files
 /public/system/**/*
+
+# Ignore vscode files
+.vscode/
