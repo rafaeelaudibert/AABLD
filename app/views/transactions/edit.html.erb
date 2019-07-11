@@ -26,7 +26,7 @@
 
         <div class="form-group col-md-1 col-sm-12 text-right">
             <label class='d-none d-md-block'> Actions </label>
-            <%= button_tag class: 'btn btn-danger' do %>
+            <%= button_tag class: 'btn btn-danger btn-delete', 'data-user-ticket-id': user_ticket.id do %>
                 <i class="fas fa-times"></i>
             <% end %>
         </div>
@@ -155,6 +155,18 @@
             }            
         }
 
+        function deleteUserTicket(e) {
+            $.ajax({
+                type: 'DELETE',
+                url: '<%= user_tickets_path %>/' + e.target.getAttribute('data-user-ticket-id'),
+                data: { authenticity_token: $('[name="csrf-token"]')[0].content },
+            })
+            .then(data => {
+                console.log(data);
+            })  // Add delete logic
+            .catch((_1, _2, x) => console.log(x)); // Handle error correctly
+        }
+
         function submitUserTicket(e, form)
         {
             e.preventDefault();
@@ -179,6 +191,7 @@
         $('.ticket-quantity').each( (_, domObj) => $(domObj).on('input', () => updateValues(domObj)))
         $('.select2').each( (_, domObj) => $(domObj).on('select2:select', updateValuesBySelect));
         $('.cleave-value').each( (_, domObj) => $(domObj).on('input', updateTotalValue));
+        $('.btn-delete').each( (_, domObj) => $(domObj).on('click', deleteUserTicket));
     </script>
 <% end %>
 
