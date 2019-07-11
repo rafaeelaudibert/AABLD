@@ -28,6 +28,10 @@ class Ticket < ApplicationRecord
        .map { |ticket| [ticket.full_itinerary, ticket.id, { price: ticket.value }] }
   end
 
+  def self.full_view_select_for_bip
+    full_view_select.map { |ticket| ticket.take(2).reverse }.to_h
+  end
+
   private
 
   def not_duplicated

@@ -8,9 +8,12 @@ class UserTicket < ApplicationRecord
   # but this will conflict with a method transaction already defined by Active Record.
   # Please choose a different association name.):
 
-
   validates :quantity, presence: true,
                        numericality: { only_integer: true, greater_than_or_equal_to: 1 }
 
   delegate :source_city, :destination_city, :bus_company, :value, to: :ticket, allow_nil: true
+
+  def total
+    quantity * original_value
+  end
 end

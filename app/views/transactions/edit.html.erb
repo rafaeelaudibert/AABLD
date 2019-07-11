@@ -2,9 +2,41 @@
     Edição | Transação
 <% end %>
 
+<% @transaction.user_tickets.each do |user_ticket| %>
+    <div class="form-row">
+        <div class="form-group col-md-5 col-sm-6">
+            <label> <%= t('activerecord.models.user_ticket.ticket') %> </label> <br/> 
+            <%= best_in_place user_ticket, :ticket_id, as: :select, collection: Ticket.full_view_select_for_bip, inner_class: 'form-control select2' %>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-6">
+            <label> <%= t('activerecord.models.user_ticket.quantity') %> </label> <br/> 
+            <%= best_in_place user_ticket, :quantity, inner_class: 'form-control' %>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-6">
+            <label> <%= t('activerecord.models.user_ticket.original_value') %> </label> <br/> 
+            <%= best_in_place user_ticket, :original_value, inner_class: 'form-control cleave-value', display_with: lambda { |x| format_currency(x) } %>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-6">
+            <label> <%= t('activerecord.models.user_ticket.total') %> </label> <br/>
+            <span><%= format_currency user_ticket.total %></span>
+        </div>
+
+        <div class="form-group col-md-1 col-sm-12 text-right">
+            <label class='d-none d-md-block'> Actions </label>
+            <%= button_tag class: 'btn btn-danger' do %>
+                <i class="fas fa-times"></i>
+            <% end %>
+        </div>
+    </div>
+    <hr style="margin-top: 0"/>
+<% end %>
+
 <%= form_with(model: UserTicket.new, local: true, html: {'onSubmit': 'submitUserTicket(event, this);'}) do |form| %>
     <div class="form-row">
-        <div class="form-group col-md-4 col-sm-6">
+        <div class="form-group col-md-5 col-sm-6">
             <%= form.label :ticket_id %> <br/>
             <%= form.select :ticket_id, Ticket.full_view_select, {include_blank: "Selecione a passagem", required: true}, {class: 'form-control select2'} %>
         </div>
@@ -26,15 +58,15 @@
 
         <div class="form-group col-md-2 col-sm-6">
             <%= form.label :original_value %> <br/>
-            <%= form.text_field :original_value, class: 'form-control cleave-value', value: 0.00 %>
+            <%= form.text_field :original_value, class: 'form-control cleave-value', value: '0.00' %>
         </div>
 
         <div class="form-group col-md-2 col-sm-6">
             <%= form.label :total %> <br/>
-            <%= form.text_field :total, class: 'form-control cleave-total', value: 0.00 %>
+            <%= form.text_field :total, class: 'form-control cleave-total', value: '0.00' %>
         </div>
 
-        <div class="form-group col-md-2 col-sm-12 text-right">
+        <div class="form-group col-md-1 col-sm-12 text-right">
             <%= form.label :actions, class: 'd-none d-md-block' %>
             <%= button_tag class: 'btn btn-success' do %>
                 <i class="fas fa-check"></i>
@@ -54,6 +86,13 @@
         // Cleave.js
         $('.cleave-value').each( (_, domObj) => new Cleave(domObj, {numeral: true}));
         $('.cleave-total').each( (_, domObj) => new Cleave(domObj, {numeral: true}));
+
+        $('.best_in_place').on('best_in_place:activate', e => {
+            const input_field = e.target.children[0].children[0];
+
+            new Cleave(input_field, {numeral: true});       // Create Cleave
+            $(input_field).on('input', updateTotalValue);   // Add the possibility to update value
+        });
 
         // Function which receives a DOM element which stores quantity of tickets
         // and updates the values inputs 
@@ -95,9 +134,25 @@
         }
 
         function updateTotalValue(e) {
-            const quantityInput = e.target.parentNode.parentNode.children[1].children[2].children[1];
-            const totalInput = e.target.parentNode.parentNode.children[3].children[2];
-            totalInput.value = ((parseFloat(e.target.value) || 0) * (parseInt(quantityInput.value) || 0)).toFixed(2) ;
+            try {
+                const quantityInput = e.target.parentNode.parentNode.children[1].children[2].children[1];
+                const totalInput = e.target.parentNode.parentNode.children[3].children[2];
+                totalInput.value = "R$ " + ((parseFloat(e.target.value) || 0) * (parseInt(quantityInput.value) || 0)).toFixed(2);
+            } catch(err) { // We are editing a ticket, not creating one
+                
+                const totalInput = e.target.parentNode.parentNode.parentNode.parentNode.children[3].children[2];
+                
+                if (e.target.name === 'quantity' ) {   // We are editing the quantity field
+                    const valueInput = e.target.parentNode.parentNode.parentNode.parentNode.children[2].children[2];
+                    totalInput.innerText = "R$ " + ((parseFloat(valueInput.innerText.slice(3).replace(',', '.')) || 0) * (parseInt(e.target.value) || 0)).toFixed(2);
+                } else if (e.target.name === 'original_value') { // Nope, we are editing the value field
+                    const quantityInput = e.target.parentNode.parentNode.parentNode.parentNode.children[1].children[2];
+                    totalInput.innerText = "R$ " + ((parseFloat(e.target.value) || 0) * (parseInt(quantityInput.innerText) || 0)).toFixed(2);
+                }
+
+
+                
+            }            
         }
 
         function submitUserTicket(e, form)

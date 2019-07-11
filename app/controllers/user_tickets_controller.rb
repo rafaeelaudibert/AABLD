@@ -17,7 +17,7 @@ class UserTicketsController < ApplicationController
     @user_ticket.update!(user_ticket_params)
 
     respond_to do |format|
-      format.json { respond_with_bip(@user_ticket) }
+      format.json { render :show, user_ticket: @user_ticket }
     end
   end
 
