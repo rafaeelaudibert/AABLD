@@ -30,8 +30,8 @@
                 <i class="fas fa-times"></i>
             <% end %>
         </div>
+        <hr style="width: 100%; margin-top: 0"/>
     </div>
-    <hr style="margin-top: 0"/>
 <% end %>
 
 <%= form_with(model: UserTicket.new, local: true, html: {'onSubmit': 'submitUserTicket(event, this);'}) do |form| %>
@@ -155,16 +155,18 @@
             }            
         }
 
+        // When clicking to delete a userTicket, remove it
         function deleteUserTicket(e) {
+            const target = $(e.target).closest('button'); // If we clicked in the icon, redirect to the closest parent button
+            const removeTarget = target.parent().parent();
+            
             $.ajax({
                 type: 'DELETE',
-                url: '<%= user_tickets_path %>/' + e.target.getAttribute('data-user-ticket-id'),
+                url: '<%= user_tickets_path %>/' + target.attr('data-user-ticket-id'),
                 data: { authenticity_token: $('[name="csrf-token"]')[0].content },
             })
-            .then(data => {
-                console.log(data);
-            })  // Add delete logic
-            .catch((_1, _2, x) => console.log(x)); // Handle error correctly
+            .then(() => removeTarget.hide(150, () => removeTarget.remove()))
+            .catch(x => console.log(x)); // Handle error correctly
         }
 
         function submitUserTicket(e, form)
