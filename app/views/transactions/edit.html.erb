@@ -182,7 +182,160 @@
             .then(data => {
                 console.log(data);
                 $(form)[0].reset();
-            })  // Add best_in_place update logic
+
+                // OuterDiv
+                const outerDiv = document.createElement('div');
+                outerDiv.classList.add('form-row');
+
+                // TicketDiv
+                const ticketDiv = document.createElement('div');
+                ticketDiv.classList.add('form-group', 'col-md-5', 'col-sm-6');
+
+                const ticketDivLabel = document.createElement('label');
+                ticketDivLabel.innerHTML = '<%= t('activerecord.models.user_ticket.ticket') %>';
+
+                const ticketDivBr = document.createElement('br');
+
+                const ticketDivBipSpan = document.createElement('span');
+                ticketDivBipSpan.innerText = data.ticket.full_itinerary;
+                ticketDivBipSpan.setAttribute('data-bip-type', 'select');
+                ticketDivBipSpan.setAttribute('data-bip-attribute', 'ticket_id');
+                ticketDivBipSpan.setAttribute('data-bip-collection', '<%= Ticket.full_view_select_for_bip.to_a.to_s.html_safe %>');
+                ticketDivBipSpan.setAttribute('data-bip-inner-class', 'form-control select2');
+                ticketDivBipSpan.setAttribute('data-bip-object', 'user_ticket');
+                ticketDivBipSpan.setAttribute('data-bip-original-content', data.id);
+                ticketDivBipSpan.setAttribute('data-bip-url', `<%= user_tickets_path %>/${data.id}`);
+                ticketDivBipSpan.setAttribute('data-bip-value', data.id);
+                ticketDivBipSpan.classList.add('best_in_place');
+                $(ticketDivBipSpan).best_in_place();
+
+                ticketDiv.appendChild(ticketDivLabel);
+                ticketDiv.appendChild(ticketDivBr);
+                ticketDiv.appendChild(ticketDivBipSpan);
+
+                outerDiv.appendChild(ticketDiv);
+
+                // Quantity Div
+                const quantityDiv = document.createElement('div');
+                quantityDiv.classList.add('form-group', 'col-md-2', 'col-sm-6');
+
+                const quantityDivLabel = document.createElement('label');
+                quantityDivLabel.innerHTML = '<%= t('activerecord.models.user_ticket.quantity') %>';
+
+                const quantityDivBr = document.createElement('br');
+
+                const quantityDivBipSpan = document.createElement('span');
+                quantityDivBipSpan.innerText = data.quantity;
+                quantityDivBipSpan.setAttribute('data-bip-type', 'input');
+                quantityDivBipSpan.setAttribute('data-bip-attribute', 'quantity');
+                quantityDivBipSpan.setAttribute('data-bip-inner-class', 'form-control');
+                quantityDivBipSpan.setAttribute('data-bip-object', 'user_ticket');
+                quantityDivBipSpan.setAttribute('data-bip-original-content', data.quantity);
+                quantityDivBipSpan.setAttribute('data-bip-url', `<%= user_tickets_path %>/${data.id}`);
+                quantityDivBipSpan.setAttribute('data-bip-value', data.quantity);
+                quantityDivBipSpan.classList.add('best_in_place');
+                $(quantityDivBipSpan).best_in_place();
+                $(quantityDivBipSpan).on('best_in_place:activate', e => {
+                    const input_field = e.target.children[0].children[0];
+
+                    $(input_field).on('input', updateTotalValue);   // Add the possibility to update value
+                });
+
+                quantityDiv.appendChild(quantityDivLabel);
+                quantityDiv.appendChild(quantityDivBr);
+                quantityDiv.appendChild(quantityDivBipSpan);
+
+                outerDiv.appendChild(quantityDiv);
+
+                // Original Value Div
+                const originalValueDiv = document.createElement('div');
+                originalValueDiv.classList.add('form-group', 'col-md-2', 'col-sm-6');
+
+                const originalValueDivLabel = document.createElement('label');
+                originalValueDivLabel.innerHTML = '<%= t('activerecord.models.user_ticket.original_value') %>';
+
+                const originalValueDivBr = document.createElement('br');
+
+                const originalValueDivBipSpan = document.createElement('span');
+                originalValueDivBipSpan.innerText = "R$ " + parseFloat(data.original_value).toFixed(2);
+                originalValueDivBipSpan.setAttribute('data-bip-type', 'input');
+                originalValueDivBipSpan.setAttribute('data-bip-attribute', 'original_value');
+                originalValueDivBipSpan.setAttribute('data-bip-inner-class', 'form-control cleave-value');
+                originalValueDivBipSpan.setAttribute('data-bip-object', 'user_ticket');
+                originalValueDivBipSpan.setAttribute('data-bip-original-content', data.original_value);
+                originalValueDivBipSpan.setAttribute('data-bip-url', `<%= user_tickets_path %>/${data.id}`);
+                originalValueDivBipSpan.setAttribute('data-bip-value', data.quantity);
+                originalValueDivBipSpan.classList.add('best_in_place');
+                $(originalValueDivBipSpan).best_in_place();
+                $(originalValueDivBipSpan).on('best_in_place:activate', e => {
+                    const input_field = e.target.children[0].children[0];
+
+                    new Cleave(input_field, {numeral: true});       // Create Cleave
+                    $(input_field).on('input', updateTotalValue);   // Add the possibility to update value
+                });
+
+                originalValueDiv.appendChild(originalValueDivLabel);
+                originalValueDiv.appendChild(originalValueDivBr);
+                originalValueDiv.appendChild(originalValueDivBipSpan);
+
+                outerDiv.appendChild(originalValueDiv);
+
+                // Total Div
+                const totalValueDiv = document.createElement('div');
+                totalValueDiv.classList.add('form-group', 'col-md-2', 'col-sm-6');
+
+                const totalValueDivLabel = document.createElement('label');
+                totalValueDivLabel.innerHTML = '<%= t('activerecord.models.user_ticket.total') %>';
+
+                const totalValueDivBr = document.createElement('br');
+
+                const totalValueDivBipSpan = document.createElement('span');
+                totalValueDivBipSpan.innerText = "R$ " + (parseInt(data.quantity) * parseFloat(data.original_value)).toFixed(2);
+
+                totalValueDiv.appendChild(totalValueDivLabel);
+                totalValueDiv.appendChild(totalValueDivBr);
+                totalValueDiv.appendChild(totalValueDivBipSpan);
+
+                outerDiv.appendChild(totalValueDiv);
+
+                // Action div + button
+                const actionDiv = document.createElement('div');
+                actionDiv.classList.add('form-group', 'col-md-1', 'col-sm-6', 'text-right');
+
+                const actionDivLabel = document.createElement('label');
+                actionDivLabel.innerHTML = '<%= t('activerecord.models.user_ticket.actions') %>';
+                actionDivLabel.classList.add('d-none', 'd-md-block');
+
+                const actionDivButton = document.createElement('button');
+                actionDivButton.classList.add('btn', 'btn-danger', 'btn-delete');
+                actionDivButton.type = "submit";
+                actionDivButton.setAttribute('data-user-ticket-id', data.id);
+                actionDivButton.addEventListener('click', deleteUserTicket);
+
+                const actionDivButtonIcon = document.createElement('i');
+                actionDivButtonIcon.classList.add('fas', 'fa-times');
+
+                actionDiv.appendChild(actionDivLabel);
+                actionDiv.appendChild(actionDivButton);
+                actionDivButton.appendChild(actionDivButtonIcon);
+
+                outerDiv.appendChild(actionDiv);
+
+                // hr Tag
+                const hrTag = document.createElement('hr');
+                hrTag.style.width = '100%';
+                hrTag.style['margin-top'] = '0';
+
+                outerDiv.appendChild(hrTag);
+
+                // Hide outer div, to display it later
+                $(outerDiv).hide();
+
+                // Append to the form the outer div, and the hrTag
+                form.insertAdjacentElement('beforebegin', outerDiv);
+                $(outerDiv).show(150); // Display it with animation
+
+            })
             .catch((_1, _2, x) => console.log(x)); // Handle error correctly
 
             return false;
