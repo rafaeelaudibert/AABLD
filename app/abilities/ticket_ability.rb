@@ -4,6 +4,6 @@ class TicketAbility
   def initialize(user)
     can :manage, Ticket if user.admin?
     can :manage, Ticket if user.president? || user.treasurer?
-    can :see, Ticket
+    can :read, Ticket
   end
 end
