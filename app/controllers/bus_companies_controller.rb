@@ -15,7 +15,7 @@ class BusCompaniesController < ApplicationController
   # GET /bus_companies
   # GET /bus_companies.json
   def index
-    @pagy, @bus_companies = pagy BusCompany.all
+    @pagy, @bus_companies = pagy BusCompany.accessible_by(current_ability)
   end
 
   # GET /bus_companies/:id

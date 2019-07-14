@@ -13,7 +13,7 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    @pagy, @tickets = pagy Ticket.all
+    @pagy, @tickets = pagy Ticket.accessible_by(current_ability)
   end
 
   # GET /tickets/:id

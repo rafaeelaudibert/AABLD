@@ -15,7 +15,7 @@ class UniversitiesController < ApplicationController
   # GET /universities
   # GET /universities.json
   def index
-    @pagy, @universities = pagy University.all
+    @pagy, @universities = pagy University.accessible_by(current_ability)
   end
 
   # GET /universities/:id
