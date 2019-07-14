@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
     t.bigint "user_id"
     t.integer "month", null: false
     t.integer "year", null: false
-    t.decimal "value", precision: 6, scale: 2, default: "0.0"
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
