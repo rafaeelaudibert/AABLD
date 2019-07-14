@@ -26,7 +26,7 @@ class TransactionsController < ApplicationController
     if @transaction.open?
       render :edit
     else
-      render :show
+      render :show, layout: 'no_card'
     end
   end
 
@@ -65,7 +65,7 @@ class TransactionsController < ApplicationController
   # GET transactions/:id/close
   def close
     if @transaction.finish?
-      @transaction.closed!
+      @transaction.close!
       redirect_back fallback_location: root_path, notice: 'Transação concluída com sucesso.'
     else
       redirect_back fallback_location: root_path,

@@ -1,0 +1,85 @@
+<% content_for :title do %>
+    Transação
+<% end %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3> Transação </h3>
+                <%= render 'layouts/dashboard/breadcrumbs' %>
+            </div>
+            <div class="card-body">
+                <!-- TODO: Insert charts and user information -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <% @transaction.user_tickets.each_with_index do |user_ticket, idx| %>
+        <div class="col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4> Passagem <%= idx + 1 %></h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group" style="margin-bottom: 0.7rem">
+                        <label style="margin-bottom: 0"><%= t('activerecord.models.ticket.itinerary')%>:</label> <br/>
+                        <%= user_ticket.ticket.itinerary %>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0.7rem">
+                        <label style="margin-bottom: 0"><%= t('activerecord.models.bus_company.name')%>:</label> <br/>
+                        <%= user_ticket.ticket.bus_company.name %>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-4">
+                            <label style="margin-bottom: 0"><%= t('activerecord.models.ticket.quantity')%>:</label> <br/>
+                            <%= user_ticket.quantity %>
+                        </div>
+                        <div class="form-group col-4">
+                            <label style="margin-bottom: 0"><%= t('activerecord.models.ticket.value')%>:</label> <br/>
+                            <%= format_currency user_ticket.original_value %>
+                        </div>
+                        <div class="form-group col-4">
+                            <label style="margin-bottom: 0"><%= t('activerecord.models.ticket.total_value')%>:</label> <br/>
+                            <%= format_currency user_ticket.original_value * user_ticket.quantity %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4> Estatísticas da Transação </h4>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-sm-3">
+                        <label style="margin-bottom: 0">Viagens totais:</label> <br/>
+                        <%= @transaction.user_tickets.reduce(0) { |acc, user_ticket| user_ticket.quantity + acc } %>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label style="margin-bottom: 0">Itinerários diferentes:</label> <br/>
+                        <%= @transaction.user_tickets.map { |t| t.ticket.itinerary }.uniq.count %>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label style="margin-bottom: 0">Valor total:</label> <br/>
+                        <%= format_currency @transaction.user_tickets.reduce(0) { |acc, user_ticket| user_ticket.total + acc } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%= link_to 'Voltar', user_transactions_path(@user), class: 'btn btn-lg btn-danger' %>
+<% unless @transaction.close? %>
+    <%= link_to 'Fechar Transação', close_transactions_path(@transaction), class: 'btn btn-lg btn-primary float-right' %>
+    <%= link_to 'Reabrir Transação', open_transactions_path(@transaction), class: 'btn btn-lg btn-success float-right mr-2' %>
+<% end %>
