@@ -20,7 +20,15 @@ Rails.application.routes.draw do
     resources :bus_companies
     resources :user_tickets, only: %i[create update destroy]
     resources :tickets
-    resources :transactions, except: %i[new create]
+
+    resources :transactions, except: %i[new create] do
+      collection do
+        get '/open', to: 'transactions#open', as: 'open'
+        get '/finish', to: 'transactions#finish', as: 'finish'
+        get '/close', to: 'transactions#close', as: 'close'
+      end
+    end
+
     resources :cities do
       collection do
         get '/all', to: 'cities#all', as: 'all'

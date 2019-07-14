@@ -23,10 +23,10 @@ class TransactionsController < ApplicationController
   def show
     @user = @transaction.user
 
-    if @transaction.finished?
-      render :show, layout: 'no_card'
-    else
+    if @transaction.open?
       render :edit
+    else
+      render :show
     end
   end
 
@@ -39,6 +39,41 @@ class TransactionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # GET transactions/:id/open
+  def open
+    if @transaction.finish?
+      @transaction.open!
+      redirect_back fallback_location: root_path, notice: 'Transação aberta com sucesso.'
+    else
+      redirect_back fallback_location: root_path,
+                    alert: 'Transação não foi aberta, pois não estava finalizada'
+    end
+  end
+
+  # GET transactions/:id/finish
+  def finish
+    if @transaction.open?
+      @transaction.finish!
+      redirect_back fallback_location: root_path, notice: 'Transação finalizada com sucesso.'
+    else
+      redirect_back fallback_location: root_path,
+                    alert: 'Transação não foi finalizada, pois não estava aberta.'
+    end
+  end
+
+  # GET transactions/:id/close
+  def close
+    if @transaction.finish?
+      @transaction.closed!
+      redirect_back fallback_location: root_path, notice: 'Transação concluída com sucesso.'
+    else
+      redirect_back fallback_location: root_path,
+                    alert: 'Transação não foi concluída, pois não estava finalizada.'
+    end
+  end
+
+  
 
   private
 

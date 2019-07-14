@@ -15,7 +15,7 @@ class Transaction < ApplicationRecord
                   july august september october november december].each(&:freeze)
 
   enum month: MONTH_LIST.each_with_index.to_h { |month, idx| [month, idx + 1] }
-  enum status: { open: 0, on_hold: 1, finished: 2 }
+  enum status: { open: 0, finish: 1, close: 2 }
 
   # Returns a beautified string for the Transaction breadcrumb
   def breadcrumb
@@ -27,9 +27,9 @@ class Transaction < ApplicationRecord
     case status.to_sym
     when :open
       'warning'
-    when :on_hold
+    when :finish
       'primary'
-    when :finished
+    when :close
       'success'
     end
   end

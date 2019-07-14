@@ -52,8 +52,8 @@ pt-BR:
           december: 'Dezembro'
         statuses:
           open: 'Aberto'
-          on_hold: 'Aguardando depósito'
-          finished: 'Concluído'
+          finish: 'Aguardando depósito'
+          close: 'Concluído'
       user:
         bank_options:
           checking: 'Conta Corrente'
