@@ -4,48 +4,65 @@
 
 <p id="notice"><%= notice %></p>
 
-
-<table class="table table-bordered table-md table-striped">
-  <tbody>
-    <tr>
-      <th class="d-none d-md-table-cell">#</th>
-      <th>Nome</th>
-      <th class="d-none d-md-table-cell">Estado</th>
-      <th class="d-none d-md-table-cell">Ativa?</th>
-      <th>Estudantes</th>
-    </tr>
-    <% @cities.each do |city| %>
+<% if @cities.count > 0 %>
+  <table class="table table-bordered table-md table-striped">
+    <tbody>
       <tr>
-        <td class="d-none d-md-table-cell"><%= city.id %></td>
-        <td>
-          <%= city.name %>
-          <div class="table-links">
-            <%= link_to 'Mostrar', city %>
-          </div>
-        </td>
-        <td class="d-none d-md-table-cell"><%= city.state %></td>
-        <td class="d-none d-md-table-cell"><%== city.students_count > 0 ? '<div class="badge badge-success">Ativa</div></td>' : '<div class="badge badge-danger">Inativa</div></td>' %>
-        <td><%= city.students_count %>
+        <th class="d-none d-md-table-cell">#</th>
+        <th>Nome</th>
+        <th class="d-none d-md-table-cell">Estado</th>
+        <th class="d-none d-md-table-cell">Ativa?</th>
+        <th>Estudantes</th>
       </tr>
-    <% end %> 
-  </tbody>
-</table>
+      <% @cities.each do |city| %>
+        <tr>
+          <td class="d-none d-md-table-cell"><%= city.id %></td>
+          <td>
+            <%= city.name %>
+            <div class="table-links">
+              <%= link_to 'Mostrar', city %>
+            </div>
+          </td>
+          <td class="d-none d-md-table-cell"><%= city.state %></td>
+          <td class="d-none d-md-table-cell"><%== city.students_count > 0 ? '<div class="badge badge-success">Ativa</div></td>' : '<div class="badge badge-danger">Inativa</div></td>' %>
+          <td><%= city.students_count %>
+        </tr>
+      <% end %> 
+    </tbody>
+  </table>
 
-<%= content_for :pagination do %>
-  <div class="row">
+  <%= content_for :pagination do %>
+    <div class="row">
 
-    <div class="col-xs-12 col-sm-6 pb-3">
-      <% if action_name == 'index' %>
-        <%= link_to 'Visualizar Todas Cidades', all_cities_path, class: 'btn btn-primary' %>
-      <% else %>
-        <%= link_to 'Visualizar Cidades Importantes', cities_path, class: 'btn btn-primary' %>
+      <div class="col-xs-12 col-sm-6 pb-3">
+        <% if action_name == 'index' %>
+          <%= link_to 'Visualizar Todas Cidades', all_cities_path, class: 'btn btn-primary' %>
+        <% else %>
+          <%= link_to 'Visualizar Cidades Importantes', cities_path, class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+      
+      <% if @pagy.pages > 1 %>
+        <div class="col-xs-12 col-sm-6">
+          <%== paginate @pagy %>
+        </div>
       <% end %>
     </div>
-    
-    <% if @pagy.pages > 1 %>
-      <div class="col-xs-12 col-sm-6">
-        <%== paginate @pagy %>
+  <% end %>
+<% else %>
+  <div class="row">
+    <div class="col-12">
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <i class="fas fa-question"></i>
+        </div>
+        <h2>Oops, não há dados aqui!</h2>
+        <p class="lead">
+          Desculpe, mas não conseguimos encontrar nenhuma cidade. <br/>
+          Verifique se o sistema possui algum usuário ativo. <br/>
+          Caso o problema não seja resolvido, contate seu administrador para incluí-las.
+        </p>
       </div>
-    <% end %>
+    </div>
   </div>
 <% end %>

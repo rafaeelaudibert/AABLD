@@ -4,48 +4,66 @@
 
 <p id="notice"><%= notice %></p>
 
-<div class="table-responsive">
-  <table class="table table-bordered table-md table-striped">
-    <tbody>
-      <tr>
-        <th class="d-none d-md-table-cell">Nome</th>
-        <th>Email</th>
-        <th>CPF</th>
-        <th>Universidade</th>
-        <th>Ações</th>
-      </tr>
-      <% @users.each do |user| %>
+<% if @users.count > 0 %>
+  <div class="table-responsive">
+    <table class="table table-bordered table-md table-striped">
+      <tbody>
         <tr>
-          <td class="d-none d-md-table-cell">
-            <%= user.full_name %>
-            <div class="table-links">
-              <%= link_to 'Mostrar', user %>
-              <div class="bullet"></div>
-              <%= link_to 'Apagar', user, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
-            </div>
-          </td>
-          <td><%= user.email %></td>
-          <td><%= user.cpf %></td>
-          <td><%= user.university.abbreviation %></td>
-          <td>
-            <%= link_to('Visualizar Transações', user_transactions_path(user), class: 'btn btn-primary w-100') %>
-            <%= button_to('Criar Transação mensal', user_transactions_path(user), method: :post, class: "mt-2 w-100 btn #{user.did_monthly_transaction? ? 'btn-secondary disabled' : 'btn-success'}", disabled: user.did_monthly_transaction?) %>
-          </td>
+          <th class="d-none d-md-table-cell">Nome</th>
+          <th>Email</th>
+          <th>CPF</th>
+          <th>Universidade</th>
+          <th>Ações</th>
         </tr>
-      <% end %> 
-    </tbody>
-  </table>
-</div>
+        <% @users.each do |user| %>
+          <tr>
+            <td class="d-none d-md-table-cell">
+              <%= user.full_name %>
+              <div class="table-links">
+                <%= link_to 'Mostrar', user %>
+                <div class="bullet"></div>
+                <%= link_to 'Apagar', user, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
+              </div>
+            </td>
+            <td><%= user.email %></td>
+            <td><%= user.cpf %></td>
+            <td><%= user.university.abbreviation %></td>
+            <td>
+              <%= link_to('Visualizar Transações', user_transactions_path(user), class: 'btn btn-primary w-100') %>
+              <%= button_to('Criar Transação mensal', user_transactions_path(user), method: :post, class: "mt-2 w-100 btn #{user.did_monthly_transaction? ? 'btn-secondary disabled' : 'btn-success'}", disabled: user.did_monthly_transaction?) %>
+            </td>
+          </tr>
+        <% end %> 
+      </tbody>
+    </table>
+  </div>
 
-<%= content_for :pagination do %>
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 pb-3">
-        <%= link_to 'Convidar usuário', new_user_invitation_path, class: 'btn btn-success' %>
-    </div>
-    <% if @pagy.pages > 1 %>
-      <div class="col-xs-12 col-sm-6">
-        <%== paginate @pagy %>
+  <%= content_for :pagination do %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 pb-3">
+          <%= link_to 'Convidar usuário', new_user_invitation_path, class: 'btn btn-success' %>
       </div>
-    <% end %>
+      <% if @pagy.pages > 1 %>
+        <div class="col-xs-12 col-sm-6">
+          <%== paginate @pagy %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <div class="row">
+    <div class="col-12">
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <i class="fas fa-question"></i>
+        </div>
+        <h2>Oops, não há dados aqui!</h2>
+        <p class="lead">
+          Desculpe, mas não conseguimos encontrar nenhum usuário. <br/>
+          Para se livrar dessa mensagem, adicione pelo menos um deles.
+        </p>
+        <%= link_to 'Convidar usuário', new_user_invitation_path, class: 'btn btn-primary mt-4' %>
+      </div>
+    </div>
   </div>
 <% end %>
