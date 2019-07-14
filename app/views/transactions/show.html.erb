@@ -9,12 +9,31 @@
                 <h3> Transação </h3>
                 <%= render 'layouts/dashboard/breadcrumbs' %>
             </div>
+            <!--
             <div class="card-body">
-                <!-- TODO: Insert charts and user information -->
+                TODO: Insert charts and user information
             </div>
+            -->
         </div>
     </div>
 </div>
+
+<% if @user == current_user && @transaction.finish? %>
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="hero align-items-center bg-warning text-white" style="padding: 2rem">
+                <div class="hero-inner text-center">
+                    <h2>Atenção, <%= @user.name %>!</h2>
+                    <p>
+                        Essa transação está em processo de análise. <br/>
+                        O dinheiro ainda não foi transferido para sua conta. <br/>
+                        Você irá receber uma notificação no seu e-mail assim que essa transação for confirmada. <br/>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
 
 <div class="row">
     <% @transaction.user_tickets.each_with_index do |user_ticket, idx| %>
