@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/regular.css" integrity="sha384-FKw7x8fCxuvzBwOJmhTJJsKzBl8dnN9e2R4+pXRfYoHivikuHkzWyhKWDSMcGNK8" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/brands.css" integrity="sha384-n9+6/aSqa9lBidZMRCQHTHKJscPq6NW4pCQBiMmHdUCvPN8ZOg2zJJTkC7WIezWv" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css" integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/izitoast.min.css">
 
   <!-- Custom CSS -->
   <%= content_for :css %>
@@ -82,6 +83,10 @@
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/jquery.nicescroll.min.js"></script>
   <script src="/assets/js/moment.min.js"></script>
+  <script src="/assets/js/izitoast.min.js"></script>
+
+  <!-- Render toastr -->
+  <%= render 'layouts/dashboard/messages' %>
 
   <!-- Dashboard Library (Stisla) JS File -->
   <%= javascript_include_tag 'dashboard', 'data-turbolinks-track': 'reload' %>

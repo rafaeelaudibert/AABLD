@@ -1,0 +1,21 @@
+
+
+<script>
+  <% flash.each do |name, msg| %>
+    <% if msg.is_a?(String) %>
+      <% if name.to_s == 'notice' %>
+        iziToast.success({
+          title: 'Info',
+          message: '<%= msg %>',
+          position: 'bottomRight'
+        });
+      <% elsif %>
+        iziToast.error({
+          title: 'Erro',
+          message: '<%= msg %>',
+          position: 'bottomRight'
+        });
+      <% end %>
+    <% end %>
+  <% end %>
+</script>
