@@ -23,9 +23,9 @@
     </ul>
 
     <div class="mt-4 pl-4 pr-4 pt-2 hide-sidebar-mini">
-      <a href="#" class="btn btn-primary btn-lg btn-block btn-icon-split">
+      <%= mail_to 'associacaoAABLD@gmail.com', class: 'btn btn-primary btn-lg btn-block btn-icon-split' do %>
         <i class="fas fa-reply"></i> Contato
-      </a>
+      <% end %>
     </div>
     <div class="pl-4 pr-4 pt-4 mb-5 hide-sidebar-mini">
       <%= link_to(destroy_user_session_path, class: 'btn btn-danger btn-lg btn-block btn-icon-split') do %>
