@@ -29,5 +29,10 @@
   <%= @university.address %>
 </p>
 
-<%= link_to 'Edit', edit_university_path(@university) %> |
-<%= link_to 'Back', universities_path %>
+<% if can? :edit, @university %>
+  <%= link_to 'Edit', edit_university_path(@university) %> |
+<% end %>
+
+<% if can? :index, University %>
+  <%= link_to 'Back', universities_path %>
+<% end %>

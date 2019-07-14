@@ -4,4 +4,6 @@
 
 <%= render 'form', university: @university %>
 
-<%= link_to 'Cancelar', universities_path, class: 'btn btn-lg btn-danger mr-2 float-right' %>
+<% if can? :index, University %>
+  <%= link_to 'Cancelar', universities_path, class: 'btn btn-lg btn-danger mr-2 float-right' %>
+<% end %>

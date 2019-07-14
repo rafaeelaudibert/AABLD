@@ -20,21 +20,33 @@
             <td class="d-none d-md-block">
               <%= university.name %>
               <div class="table-links">
-                <%= link_to 'Mostrar', university %>
-                <div class="bullet"></div>
-                <%= link_to 'Editar', edit_university_path(university) %>
-                <div class="bullet"></div>
-                <%= link_to 'Apagar', university, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
+                <% if can? :show, university %>
+                  <%= link_to 'Mostrar', university %>
+                <% end %>
+                <% if can? :edit, university %>
+                  <div class="bullet"></div>
+                  <%= link_to 'Editar', edit_university_path(university) %>
+                <% end %>
+                <% if can? :destroy, university %>
+                  <div class="bullet"></div>
+                  <%= link_to 'Apagar', university, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
+                <% end %>
               </div>
             </td>
             <td>
               <%= university.abbreviation %>
               <div class="table-links d-md-none">
-                <%= link_to 'Mostrar', university %>
-                <div class="bullet"></div>
-                <%= link_to 'Editar', edit_university_path(university) %>
-                <div class="bullet"></div>
-                <%= link_to 'Apagar', university, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
+                <% if can? :show, university %>
+                  <%= link_to 'Mostrar', university %>
+                <% end %>
+                <% if can? :edit, university %>
+                  <div class="bullet"></div>
+                  <%= link_to 'Editar', edit_university_path(university) %>
+                <% end %>
+                <% if can? :destroy, university %>
+                  <div class="bullet"></div>
+                  <%= link_to 'Apagar', university, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
+                <% end %>
               </div>
             </td>
             <td><%= university.cnpj %></td>
@@ -48,9 +60,11 @@
 
   <%= content_for :pagination do %>
     <div class="row">
-      <div class="col-xs-12 col-sm-6 pb-3">
-          <%= link_to 'Nova Universidade', new_university_path, class: 'btn btn-success' %>
-      </div>
+      <% if can? :create, University %>
+        <div class="col-xs-12 col-sm-6 pb-3">
+            <%= link_to 'Nova Universidade', new_university_path, class: 'btn btn-success' %>
+        </div>
+      <% end %>
       <% if @pagy.pages > 1 %>
         <div class="col-xs-12 col-sm-6">
           <%== paginate @pagy %>
@@ -70,7 +84,9 @@
           Desculpe, mas não conseguimos encontrar nenhuma universidade. <br/>
           Para se livrar dessa mensagem, adicione pelo menos uma delas.
         </p>
-        <%= link_to 'Nova Universidade', new_university_path, class: 'btn btn-primary mt-4' %>
+        <% if can? :create, University %>
+          <%= link_to 'Nova Universidade', new_university_path, class: 'btn btn-primary mt-4' %>
+        <% end %>
       </div>
     </div>
   </div>

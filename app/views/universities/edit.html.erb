@@ -4,5 +4,10 @@
 
 <%= render 'form', university: @university %>
 
-<%= link_to 'Cancelar', universities_path, class: 'btn btn-lg btn-danger mr-2 float-right' %>
-<%= link_to 'Visualizar Universidade', @university, class: 'btn btn-lg btn-primary' %>
+<% if can? :index, University %>
+  <%= link_to 'Cancelar', universities_path, class: 'btn btn-lg btn-danger mr-2 float-right' %>
+<% end %>
+
+<% if can? :show, @university %>
+  <%= link_to 'Visualizar Universidade', @university, class: 'btn btn-lg btn-primary' %>
+<% end %>
