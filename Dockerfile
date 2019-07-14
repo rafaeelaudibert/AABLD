@@ -1,5 +1,5 @@
 # Base image:
-FROM ruby:2.6.1
+FROM ruby:2.6.3
 
 # Install dependencies and clean lists
 RUN apt-get update -qq && apt-get install -y --no-install-recommends build-essential libpq-dev \
