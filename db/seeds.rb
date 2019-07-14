@@ -81,10 +81,10 @@ def seed_users
 end
 
 def main
+  seed_users
   seed_cities
   seed_universities
   seed_bus_companies
-  seed_users
 end
 
 # Call the main method
