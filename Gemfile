@@ -95,3 +95,6 @@ gem 'letter_avatar'
 
 # Field in place editting
 gem 'best_in_place', '~> 3.0.1'
+
+# Queries optimization
+gem 'goldiloader'
