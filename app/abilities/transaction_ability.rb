@@ -13,6 +13,6 @@ class TransactionAbility
     # President can see all transactions
     can :read, Transaction if user.president?
 
-    can :read, Transaction, user_id: user.id  # Own transactions
+    can :read, Transaction, user_id: user.id # Own transactions
   end
 end

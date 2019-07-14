@@ -3,7 +3,9 @@
 class UserTicket < ApplicationRecord
   belongs_to :user
   belongs_to :ticket
-  belongs_to :monthly_transaction, class_name: 'Transaction', foreign_key: 'transaction_id', inverse_of: :user_tickets
+  belongs_to :monthly_transaction, class_name: 'Transaction',
+                                   foreign_key: 'transaction_id',
+                                   inverse_of: :user_tickets
 
   validates :quantity, presence: true,
                        numericality: { only_integer: true, greater_than_or_equal_to: 1 }
