@@ -23,9 +23,9 @@ Rails.application.routes.draw do
 
     resources :transactions, except: %i[new create] do
       collection do
-        get '/open', to: 'transactions#open', as: 'open'
-        get '/finish', to: 'transactions#finish', as: 'finish'
-        get '/close', to: 'transactions#close', as: 'close'
+        get '/:id/open', to: 'transactions#open', as: 'open'
+        get '/:id/finish', to: 'transactions#finish', as: 'finish'
+        get '/:id/close', to: 'transactions#close', as: 'close'
       end
     end
 

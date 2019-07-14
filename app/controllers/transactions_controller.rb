@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: %i[show destroy]
+  before_action :set_transaction, except: %i[index]
   before_action :set_user, only: :show
 
   breadcrumb 'Transações', :transactions_path

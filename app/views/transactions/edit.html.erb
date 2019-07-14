@@ -78,7 +78,8 @@
     </div>
 <% end %>
 
-
+<%= link_to 'Voltar', user_transactions_path(@user), class: 'btn btn-lg btn-danger' %>
+<%= link_to 'Finalizar Transação', finish_transactions_path(@transaction), class: 'btn btn-lg btn-primary float-right' %>
 
 <% content_for :javascript do %>
     <script>

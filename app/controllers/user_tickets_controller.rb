@@ -5,8 +5,12 @@ class UserTicketsController < ApplicationController
 
   # POST /user_tickets.json
   def create
-    @user_ticket = UserTicket.new(user_ticket_params).tap(&:save!)
+    @user_ticket = UserTicket.new(user_ticket_params)
 
+    # If transaction is not open, cannot create a user_ticket
+    raise StandardError, 'Transação não está aberta' unless @user_ticket.monthly_transaction.open?
+
+    @user_ticket.save!
     respond_to do |format|
       format.json { render :show, user_ticket: @user_ticket }
     end
