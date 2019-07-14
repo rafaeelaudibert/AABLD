@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: %i[show edit update destroy]
+  # CanCan authorization and loading
+  load_and_authorize_resource
 
+  # Breadcrumbs configuration
   breadcrumb 'Passagens', :tickets_path
-  breadcrumb -> { set_ticket.itinerary }, -> { ticket_path(set_ticket) }, only: %i[show edit]
-  breadcrumb 'Criar', :new_ticket_path, only: [:new]
-  breadcrumb 'Editar', :edit_ticket_path, only: [:edit]
+  breadcrumb -> { @ticket.itinerary }, -> { ticket_path(@ticket) }, only: %i[show edit]
+  breadcrumb 'Criar', :new_ticket_path, only: :new
+  breadcrumb 'Editar', :edit_ticket_path, only: :edit
 
   # GET /tickets
   # GET /tickets.json
@@ -19,9 +21,7 @@ class TicketsController < ApplicationController
   def show; end
 
   # GET /tickets/new
-  def new
-    @ticket = Ticket.new
-  end
+  def new; end
 
   # GET /tickets/:id/edit
   def edit; end
@@ -29,8 +29,6 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
-    @ticket = Ticket.new(ticket_params)
-
     respond_to do |format|
       if @ticket.save
         format.html { redirect_to @ticket, notice: 'Passagem criada com sucesso.' }
@@ -68,13 +66,13 @@ class TicketsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_ticket
-    @ticket = Ticket.find(params[:id])
-  end
-
   # Never trust parameters from the scary internet, only allow the white list through.
   def ticket_params
     params.require(:ticket).permit(:source_city_id, :destination_city_id, :value, :bus_company_id)
+  end
+
+  # Configure the ability for CanCan
+  def current_ability
+    @current_ability ||= TicketAbility.new(current_user)
   end
 end
