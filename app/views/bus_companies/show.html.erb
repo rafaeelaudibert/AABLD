@@ -29,5 +29,10 @@
   <%= @bus_company.address %>
 </p>
 
-<%= link_to 'Edit', edit_bus_company_path(@bus_company) %> |
-<%= link_to 'Back', bus_companies_path %>
+<% if can? :edit, @bus_company %>
+  <%= link_to 'Edit', edit_bus_company_path(@bus_company) %> |
+<% end %>
+
+<% if can? :index, BusCompany %>
+  <%= link_to 'Back', bus_companies_path %>
+<% end %>

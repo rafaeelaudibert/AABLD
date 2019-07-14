@@ -19,10 +19,14 @@
               <%= bus_company.name %>
               <div class="table-links">
                 <%= link_to 'Mostrar', bus_company %>
-                <div class="bullet"></div>
-                <%= link_to 'Editar', edit_bus_company_path(bus_company) %>
-                <div class="bullet"></div>
-                <%= link_to 'Apagar', bus_company, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
+                <% if can? :edit, bus_company %>
+                  <div class="bullet"></div>
+                  <%= link_to 'Editar', edit_bus_company_path(bus_company) %>
+                <% end %>
+                <% if can? :destroy, bus_company %>
+                  <div class="bullet"></div>
+                  <%= link_to 'Apagar', bus_company, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
+                <% end %>
               </div>
             </td>
             <td><%= bus_company.cnpj %></td>
@@ -35,9 +39,11 @@
 
   <%= content_for :pagination do %>
     <div class="row">
-      <div class="col-xs-12 col-sm-6 pb-3">
-          <%= link_to 'Nova Empresa de Ônibus', new_bus_company_path, class: 'btn btn-success' %>
-      </div>
+      <% if can? :new, BusCompany %>
+        <div class="col-xs-12 col-sm-6 pb-3">
+            <%= link_to 'Nova Empresa de Ônibus', new_bus_company_path, class: 'btn btn-success' %>
+        </div>
+      <% end %>
       <% if @pagy.pages > 1 %>
         <div class="col-xs-12 col-sm-6">
           <%== paginate @pagy %>

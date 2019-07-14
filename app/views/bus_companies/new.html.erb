@@ -4,4 +4,6 @@
 
 <%= render 'form', bus_company: @bus_company %>
 
-<%= link_to 'Cancelar', bus_companies_path, class: 'btn btn-lg btn-danger mr-2 float-right' %>
+<% if can? :index, BusCompany %>
+  <%= link_to 'Cancelar', bus_companies_path, class: 'btn btn-lg btn-danger mr-2 float-right' %>
+<% end %>
