@@ -19,4 +19,6 @@
   <%= "#{@city.state} - #{@city.state_abbreviation}"  %>
 </p>
 
-<%= link_to 'Back', cities_path %>
+<% if can? :index, City %>
+  <%= link_to 'Back', cities_path %>
+<% end %>

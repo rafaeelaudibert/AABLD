@@ -12,7 +12,7 @@ class CitiesController < ApplicationController
   # GET /cities
   # GET /cities.json
   def index
-    @pagy, @cities = pagy_array City.with_users.accessible_by(current_ability)
+    @pagy, @cities = pagy_array City.accessible_by(current_ability).with_users
   end
 
   # GET /cities/all
