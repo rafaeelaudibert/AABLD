@@ -1,0 +1,16 @@
+<% content_for :title do %>
+  Página não encontrada
+<% end %>
+
+<div class="page-error">
+  <div class="page-inner">
+    <h1>404</h1>
+    <div class="page-description">
+      A página que você está procurando não existe. <br>
+      Talvez você digitou alguma coisa errada ou a página se moveu.
+    </div>
+    <div class="mt-3">
+      <%= link_to 'Voltar para o Dashboard', dashboard_path%>
+    </div>
+  </div>
+</div>

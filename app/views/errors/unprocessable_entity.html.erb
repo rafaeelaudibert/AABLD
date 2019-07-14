@@ -1,0 +1,16 @@
+<% content_for :title do %>
+  Entidade Não Processável
+<% end %>
+
+<div class="page-error">
+  <div class="page-inner">
+    <h1>422</h1>
+    <div class="page-description">
+      Oops, algum problema aconteceu enquanto processavamos sua requisição. <br/>
+      Você tem certeza de que digitou tudo corretamente?
+    </div>
+    <div class="mt-3">
+      <%= link_to 'Voltar para o Dashboard', dashboard_path%>
+    </div>
+  </div>
+</div>

@@ -104,3 +104,6 @@ gem 'table_print'
 
 # Authorization handling
 gem 'cancancan'
+
+# Errors handling gem
+gem 'rambulance'

@@ -1,0 +1,15 @@
+<% content_for :title do %>
+  Requisição errada
+<% end %>
+
+<div class="page-error">
+  <div class="page-inner">
+    <h1>400</h1>
+    <div class="page-description">
+      O serviço recebeu uma requisição errada
+    </div>
+    <div class="mt-3">
+      <%= link_to 'Voltar para o Dashboard', dashboard_path%>
+    </div>
+  </div>
+</div>

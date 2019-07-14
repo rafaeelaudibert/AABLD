@@ -1,0 +1,15 @@
+<% content_for :title do %>
+  Acesso Negado
+<% end %>
+
+<div class="page-error">
+  <div class="page-inner">
+    <h1>403</h1>
+    <div class="page-description">
+      Você não possui acesso a essa página
+    </div>
+    <div class="mt-3">
+      <%= link_to 'Voltar para o Dashboard', dashboard_path%>
+    </div>
+  </div>
+</div>
