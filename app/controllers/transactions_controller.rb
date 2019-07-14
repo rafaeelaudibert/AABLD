@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class TransactionsController < ApplicationController
-  before_action :set_transaction, except: %i[index]
-  before_action :set_user, only: :show
+  # CanCan authorization and loading
+  load_and_authorize_resource
 
+  # Breadcrumbs configuration
   breadcrumb 'Transações', :transactions_path
-  breadcrumb -> { @user.full_name },
-             -> { user_transactions_path(@user, @transaction) },
+  breadcrumb -> { @transaction.user.full_name },
+             -> { user_transactions_path(@transaction.user, @transaction) },
              only: :show
   breadcrumb -> { @transaction.breadcrumb },
              -> { transaction_path(@transaction) },
@@ -73,16 +74,10 @@ class TransactionsController < ApplicationController
     end
   end
 
-  
-
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_transaction
-    @transaction = Transaction.find(params[:id])
-  end
-
-  def set_user
-    @user = @transaction.user
+  # Configure the ability for CanCan
+  def current_ability
+    @current_ability ||= TransactionAbility.new(current_user)
   end
 end
