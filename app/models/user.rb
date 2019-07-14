@@ -82,6 +82,11 @@ class User < ApplicationRecord
     where(ticket_responsible: true)
   end
 
+  # Returns if the user belongs to the association direction
+  def on_direction?
+    president? || treasurer? || secretary? || vice_president? || vice_treasurer? || vice_secretary?
+  end
+
   # Return all the cities which have users
   # This method uses uniq and compact unchained for performance reasons
   def self.all_cities

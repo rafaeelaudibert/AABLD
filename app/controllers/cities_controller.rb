@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
+# Class responsible for handling the Cities which Universities can belong to
 class CitiesController < ApplicationController
-  before_action :set_city, only: [:show]
+  # CanCan authorization and loading
+  load_and_authorize_resource
 
+  # Breadcrumbs configuration
   breadcrumb 'Cidades', :cities_path
-  breadcrumb -> { set_city.name }, -> { city_path(set_city) }, only: %i[show edit]
+  breadcrumb -> { @city.name }, -> { city_path(@city) }, only: :show
 
   # GET /cities
   # GET /cities.json
@@ -25,7 +28,8 @@ class CitiesController < ApplicationController
 
   private
 
-  def set_city
-    @city = City.find(params[:id])
+  # Configure the ability for CanCan
+  def current_ability
+    @current_ability ||= CityAbility.new(current_user)
   end
 end
