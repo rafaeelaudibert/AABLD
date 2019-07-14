@@ -24,7 +24,7 @@
             </div>
           </td>
           <td><%= [enum_t(transaction, :month), transaction.year].join '/' %></td>
-          <td><%= transaction.value %></td>
+          <td><%= format_currency transaction.value %></td>
           <td><div class="badge badge-<%= transaction.badge_for_status %>"><%= enum_t(transaction, :status)%></div></td>          
         </tr>
       <% end %> 

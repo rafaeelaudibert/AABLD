@@ -34,6 +34,11 @@ class Transaction < ApplicationRecord
     end
   end
 
+  # Computes the total value in the transaction
+  def value
+    user_tickets.reduce(0) { |acc, user_ticket| user_ticket.total + acc }
+  end
+
   # All transactions from a given user
   def self.from_user(user)
     where(user: user)
