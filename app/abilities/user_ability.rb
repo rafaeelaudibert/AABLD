@@ -9,5 +9,9 @@ class UserAbility
     can :show, User, id: user.id            # Can see and itself
     can :create, User if user.on_direction? # Can create users if it is on direction
     can :read, User if user.on_direction?   # Can read any user if it is on direction
+
+    can %i[index_transaction create_transaction], User if user.admin? ||
+                                                          user.president? ||
+                                                          user.treasurer?
   end
 end

@@ -33,8 +33,12 @@
             <td><%= user.cpf %></td>
             <td><%= user.university.abbreviation %></td>
             <td>
-              <%= link_to('Visualizar Transações', user_transactions_path(user), class: 'btn btn-primary w-100') %>
-              <%= button_to('Criar Transação mensal', user_transactions_path(user), method: :post, class: "mt-2 w-100 btn #{user.did_monthly_transaction? ? 'btn-secondary disabled' : 'btn-success'}", disabled: user.did_monthly_transaction?) %>
+              <% if can? :index_transaction, user %>
+                <%= link_to('Visualizar Transações', user_transactions_path(user), class: 'btn btn-primary w-100') %>
+              <% end %>
+              <% if can? :create_transaction, user %>
+                <%= button_to('Criar Transação mensal', user_transactions_path(user), method: :post, class: "mt-2 w-100 btn #{user.did_monthly_transaction? ? 'btn-secondary disabled' : 'btn-success'}", disabled: user.did_monthly_transaction?) %>
+              <% end %>
             </td>
           </tr>
         <% end %> 

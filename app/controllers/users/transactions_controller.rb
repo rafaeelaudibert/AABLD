@@ -1,23 +1,26 @@
 # frozen_string_literal: true
 
 class Users::TransactionsController < ApplicationController
+  # Configure CanCanCan
+  load_and_authorize_resource
+
+  # Configure before_Actions
   before_action :authenticate_user!
   before_action :set_user
 
-  breadcrumb 'Usuário', -> { set_user }
+  # Configure breadcrumb
+  breadcrumb 'Usuário', -> { @user }
   breadcrumb 'Transações', -> { user_transactions_path(@user) }
 
   # GET /users/:user_id/transactions
   # GET /users/:user_id/transactions.json
   def index
-    @pagy, @transactions = pagy Transaction.from_user @user
+    @pagy, @transactions = pagy Transaction.accessible_by(current_ability).from_user @user
   end
 
   # POST /users/:user_id/transactions
   # POST /users/:user_id/transactions.json
   def create
-    @transaction = Transaction.new(transaction_params)
-
     respond_to do |format|
       if @transaction.save
         format.html { redirect_to @transaction, notice: 'Transação criada com sucesso.' }
@@ -40,5 +43,10 @@ class Users::TransactionsController < ApplicationController
   def transaction_params
     params.permit(:user_id).merge(month: Transaction.current_month_index,
                                   year: Transaction.current_year)
+  end
+
+  # CanCanCan method
+  def current_ability
+    @current_ability = TransactionAbility.new(current_user)
   end
 end
