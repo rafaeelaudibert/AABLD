@@ -4,4 +4,6 @@
 
 <%= render 'form', ticket: @ticket %>
 
-<%= link_to 'Cancelar', tickets_path, class: 'btn btn-lg btn-danger mr-2 float-right' %>
+<% if can? :index, Ticket %>
+  <%= link_to 'Cancelar', tickets_path, class: 'btn btn-lg btn-danger mr-2 float-right' %>
+<% end %>

@@ -24,5 +24,10 @@
   <%= @ticket.bus_company.name %>
 </p>
 
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<% if can? :edit, @ticket %>
+  <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+<% end %>
+
+<% if can? :index, Ticket %>
+  <%= link_to 'Back', tickets_path %>
+<% end %>

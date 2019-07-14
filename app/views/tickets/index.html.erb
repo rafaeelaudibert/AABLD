@@ -22,11 +22,17 @@
             <td>
               <%= format_currency ticket.value %>
               <div class="table-links">
-                <%= link_to 'Mostrar', ticket %>
-                <div class="bullet"></div>
-                <%= link_to 'Editar', edit_ticket_path(ticket) %>
-                <div class="bullet"></div>
-                <%= link_to 'Apagar', ticket, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
+                <% if can? :show, ticket %>
+                  <%= link_to 'Mostrar', ticket %>
+                <% end %>
+                <% if can? :edit, ticket %>
+                  <div class="bullet"></div>
+                  <%= link_to 'Editar', edit_ticket_path(ticket) %>
+                <% end %>
+                <% if can? :destroy, ticket %>
+                  <div class="bullet"></div>
+                  <%= link_to 'Apagar', ticket, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure?' } %>
+                <% end %>
               </div>
             </td>
           </tr>
