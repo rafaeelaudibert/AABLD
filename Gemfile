@@ -101,3 +101,6 @@ gem 'goldiloader'
 
 # Print information in a table format in console
 gem 'table_print'
+
+# Authorization handling
+gem 'cancancan'
