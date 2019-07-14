@@ -18,16 +18,24 @@
     </div>
 </div>
 
-<% if @user == current_user && @transaction.finish? %>
+<% unless @transaction.close? %>
     <div class="row">
         <div class="col-12 mb-4">
             <div class="hero align-items-center bg-warning text-white" style="padding: 2rem">
                 <div class="hero-inner text-center">
-                    <h2>Atenção, <%= @user.name %>!</h2>
+                    <% if current_user == @user %>
+                        <h2>Atenção, <%= @user.name %>!</h2>
+                    <% end %>
                     <p>
-                        Essa transação está em processo de análise. <br/>
-                        O dinheiro ainda não foi transferido para sua conta. <br/>
-                        Você irá receber uma notificação no seu e-mail assim que essa transação for confirmada. <br/>
+                        <% if current_user.treasurer? || current_user.admin? %>
+                            Essa transação está em processo de análise. <br/>
+                            Ao transferir o dinheiro para o estudante, feche a transação clicando em "Fechar Transação". <br/>
+                            Uma notificação será, então, enviada por e-mail, informando o estudante que a transação foi confirmada. <br/>
+                        <% else %>
+                            Essa transação está em processo de análise. <br/>
+                            O dinheiro ainda não foi transferido para a conta. <br/>
+                            Uma notificação será enviada por e-mail assim que essa transação for confirmada. <br/>
+                        <% end %>
                     </p>
                 </div>
             </div>
@@ -97,8 +105,14 @@
     </div>
 </div>
 
-<%= link_to 'Voltar', user_transactions_path(@user), class: 'btn btn-lg btn-danger' %>
-<% unless @transaction.close? %>
+<% if can? :show, @transaction %>
+    <%= link_to 'Voltar', user_transactions_path(@user), class: 'btn btn-lg btn-danger' %>
+<% end %>
+
+
+<% if !@transaction.close? && can?(:close, @transaction) %>
     <%= link_to 'Fechar Transação', close_transactions_path(@transaction), class: 'btn btn-lg btn-primary float-right' %>
+<% end %>
+<% if !@transaction.open? && can?(:open, @transaction) %>
     <%= link_to 'Reabrir Transação', open_transactions_path(@transaction), class: 'btn btn-lg btn-success float-right mr-2' %>
 <% end %>

@@ -78,8 +78,13 @@
     </div>
 <% end %>
 
-<%= link_to 'Voltar', user_transactions_path(@user), class: 'btn btn-lg btn-danger' %>
-<%= link_to 'Finalizar Transação', finish_transactions_path(@transaction), class: 'btn btn-lg btn-primary float-right' %>
+<% if can? :index, @transaction %>
+    <%= link_to 'Voltar', user_transactions_path(@user), class: 'btn btn-lg btn-danger' %>
+<% end %>
+
+<% if can? :finish, @transaction %>
+    <%= link_to 'Finalizar Transação', finish_transactions_path(@transaction), class: 'btn btn-lg btn-primary float-right' %>
+<% end %>
 
 <% content_for :javascript do %>
     <script>

@@ -43,13 +43,8 @@ class TransactionsController < ApplicationController
 
   # GET transactions/:id/open
   def open
-    if @transaction.finish?
-      @transaction.open!
-      redirect_back fallback_location: root_path, notice: 'Transação aberta com sucesso.'
-    else
-      redirect_back fallback_location: root_path,
-                    alert: 'Transação não foi aberta, pois não estava finalizada'
-    end
+    @transaction.open!
+    redirect_back fallback_location: root_path, notice: 'Transação aberta com sucesso.'
   end
 
   # GET transactions/:id/finish
