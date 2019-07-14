@@ -3,11 +3,39 @@
 class Users::InvitationsController < Devise::InvitationsController
   layout 'basic'
 
+  # Overrides to check CanCan authorization
+  def new
+    authorize! :new, User
+    super
+  end
+
+  def create
+    authorize! :create, User
+    super
+  end
+
+  def update
+    authorize! :update, User
+    super
+  end
+
+  def edit
+    authorize! :edit, User
+    super
+  end
+
   def after_accept_path_for(_resource)
     dashboard_path
   end
 
   def after_invite_path_for(_resource)
     dashboard_path
+  end
+
+  private
+
+  # Configure CanCan Ability
+  def current_ability
+    @current_abiliy = UserAbility.new(current_user)
   end
 end

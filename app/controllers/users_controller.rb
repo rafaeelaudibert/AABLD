@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: :show
+  # CanCan authorization
+  load_and_authorize_resource
 
+  # Breadcrumb configuration
   breadcrumb -> { @user.full_name },
              -> { @user },
              only: :show
@@ -15,7 +17,7 @@ class UsersController < ApplicationController
 
   private
 
-  def set_user
-    @user = User.find(params[:id])
+  def current_ability
+    @current_ability ||= UserAbility.new(current_user)
   end
 end
