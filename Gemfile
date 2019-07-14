@@ -98,3 +98,6 @@ gem 'best_in_place', '~> 3.0.1'
 
 # Queries optimization
 gem 'goldiloader'
+
+# Print information in a table format in console
+gem 'table_print'
