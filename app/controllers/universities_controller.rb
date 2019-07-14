@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 class UniversitiesController < ApplicationController
-  before_action :set_university, only: %i[show edit update destroy]
+  # CanCan authorization and loading
+  load_and_authorize_resource
 
+  # Breadcrumbs configuration
   breadcrumb 'Universidades', :universities_path
-  breadcrumb -> { set_university.abbreviation },
-             -> { university_path(set_university) },
+  breadcrumb -> { @university.abbreviation },
+             -> { university_path(@university) },
              only: %i[show edit]
-  breadcrumb 'Criar', :new_university_path, only: [:new]
-  breadcrumb 'Editar', :edit_university_path, only: [:edit]
+  breadcrumb 'Criar', :new_university_path, only: :new
+  breadcrumb 'Editar', :edit_university_path, only: :edit
 
   # GET /universities
   # GET /universities.json
@@ -21,9 +23,7 @@ class UniversitiesController < ApplicationController
   def show; end
 
   # GET /universities/new
-  def new
-    @university = University.new
-  end
+  def new; end
 
   # GET /universities/:id/edit
   def edit; end
@@ -31,8 +31,6 @@ class UniversitiesController < ApplicationController
   # POST /universities
   # POST /universities.json
   def create
-    @university = University.new(university_params)
-
     respond_to do |format|
       if @university.save
         format.html { redirect_to @university, notice: 'University was successfully created.' }
@@ -70,14 +68,14 @@ class UniversitiesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_university
-    @university = University.find(params[:id])
-  end
-
   # Never trust parameters from the scary internet, only allow the white list through.
   def university_params
     params.require(:university).permit(:name, :abbreviation, :cnpj,
                                        :city_id, :neighborhood, :address)
+  end
+
+  # Configure the ability for CanCan
+  def current_ability
+    @current_ability ||= UniversityAbility.new(current_user)
   end
 end
