@@ -5,27 +5,27 @@
 <% @transaction.user_tickets.each do |user_ticket| %>
     <div class="form-row">
         <div class="form-group col-md-5 col-sm-6">
-            <label> <%= t('activerecord.models.user_ticket.ticket') %> </label> <br/> 
+            <label> <%= t('activerecord.attributes.user_ticket.ticket') %> </label> <br/> 
             <%= best_in_place user_ticket, :ticket_id, as: :select, collection: Ticket.full_view_select_for_bip, inner_class: 'form-control select2' %>
         </div>
 
         <div class="form-group col-md-2 col-sm-6">
-            <label> <%= t('activerecord.models.user_ticket.quantity') %> </label> <br/> 
+            <label> <%= t('activerecord.attributes.user_ticket.quantity') %> </label> <br/> 
             <%= best_in_place user_ticket, :quantity, inner_class: 'form-control' %>
         </div>
 
         <div class="form-group col-md-2 col-sm-6">
-            <label> <%= t('activerecord.models.user_ticket.original_value') %> </label> <br/> 
+            <label> <%= t('activerecord.attributes.user_ticket.original_value') %> </label> <br/> 
             <%= best_in_place user_ticket, :original_value, inner_class: 'form-control cleave-value', display_with: lambda { |x| format_currency(x) } %>
         </div>
 
         <div class="form-group col-md-2 col-sm-6">
-            <label> <%= t('activerecord.models.user_ticket.total') %> </label> <br/>
+            <label> <%= t('activerecord.attributes.user_ticket.total_value') %> </label> <br/>
             <span><%= format_currency user_ticket.total %></span>
         </div>
 
         <div class="form-group col-md-1 col-sm-12 text-right">
-            <label class='d-none d-md-block'> Actions </label>
+            <label class='d-none d-md-block'> <%= t('attributes.actions') %> </label>
             <%= button_tag class: 'btn btn-danger btn-delete', 'data-user-ticket-id': user_ticket.id do %>
                 <i class="fas fa-times"></i>
             <% end %>
@@ -230,7 +230,7 @@
                 ticketDiv.classList.add('form-group', 'col-md-5', 'col-sm-6');
 
                 const ticketDivLabel = document.createElement('label');
-                ticketDivLabel.innerHTML = '<%= t('activerecord.models.user_ticket.ticket') %>';
+                ticketDivLabel.innerHTML = '<%= t('activerecord.attributes.user_ticket.ticket') %>';
 
                 const ticketDivBr = document.createElement('br');
 
@@ -259,7 +259,7 @@
                 quantityDiv.classList.add('form-group', 'col-md-2', 'col-sm-6');
 
                 const quantityDivLabel = document.createElement('label');
-                quantityDivLabel.innerHTML = '<%= t('activerecord.models.user_ticket.quantity') %>';
+                quantityDivLabel.innerHTML = '<%= t('activerecord.attributes.user_ticket.quantity') %>';
 
                 const quantityDivBr = document.createElement('br');
 
@@ -288,7 +288,7 @@
                 originalValueDiv.classList.add('form-group', 'col-md-2', 'col-sm-6');
 
                 const originalValueDivLabel = document.createElement('label');
-                originalValueDivLabel.innerHTML = '<%= t('activerecord.models.user_ticket.original_value') %>';
+                originalValueDivLabel.innerHTML = '<%= t('activerecord.attributes.user_ticket.original_value') %>';
 
                 const originalValueDivBr = document.createElement('br');
 
@@ -318,7 +318,7 @@
                 totalValueDiv.classList.add('form-group', 'col-md-2', 'col-sm-6');
 
                 const totalValueDivLabel = document.createElement('label');
-                totalValueDivLabel.innerHTML = '<%= t('activerecord.models.user_ticket.total') %>';
+                totalValueDivLabel.innerHTML = '<%= t('activerecord.attributes.user_ticket.total_value') %>';
 
                 const totalValueDivBr = document.createElement('br');
 
@@ -336,7 +336,7 @@
                 actionDiv.classList.add('form-group', 'col-md-1', 'col-sm-12', 'text-right');
 
                 const actionDivLabel = document.createElement('label');
-                actionDivLabel.innerHTML = '<%= t('activerecord.models.user_ticket.actions') %>';
+                actionDivLabel.innerHTML = '<%= t('attributes.actions') %>';
                 actionDivLabel.classList.add('d-none', 'd-md-block');
 
                 const actionDivButton = document.createElement('button');

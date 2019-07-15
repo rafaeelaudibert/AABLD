@@ -30,11 +30,17 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 pt-BR:
+  attributes:
+    actions: "Ações"
   activerecord:
     models:
       bus_company: "Empresa de Ônibus"
+      city: "Cidade"
       ticket: "Passagem"
+      transaction: "Transação"
       university: "Universidade"
+      user_ticket: "Passagem"
+      user: "Usuário"
     enums:
       transaction:
         months:
@@ -75,6 +81,8 @@ pt-BR:
         city: "Cidade"
         neighborhood: "Bairro"
         address: "Endereço"
+      city:
+        name: "Nome"
       ticket:
         source_city_id: "Cidade de Origem"
         source_city: "Cidade de Origem"
@@ -83,6 +91,11 @@ pt-BR:
         bus_company_id: "Empresa de Ônibus"
         bus_company: "Empresa de Ônibus"
         value: "Valor"
+      transaction:
+        user_id: "Usuário"
+        month: "Mês"
+        year: "Ano"
+        status: "Status"
       university:
         name: "Nome"
         abbreviation: "Sigla"
@@ -91,6 +104,39 @@ pt-BR:
         city: "Cidade"
         neighborhood: "Bairro"
         address: "Endereço"
+      user_ticket:
+        user_id: "Usuário"
+        ticket_id: "Ticket"
+        transaction_id: "Transação"
+        quantity: "Quantidade"
+        original_value: "Valor original"
+        total_value: "Valor total"
+        total: "Valor total"
+      user:
+        email: "E-mail"
+        first_name: "Nome"
+        last_name: "Sobrenome"
+        cpf: "CPF"
+        rg: "RG"
+        birthdate: "Data de Nascimento"
+        father_name: "Nome do pai"
+        mother_name: "Nome da mãe"
+        address: "Endereço"
+        phone: "Telefone Fixo"
+        mobile_phone: "Telefone Celular"
+        bank_account: "Número da conta"
+        bank_agency: "Número da agência"
+        bank_option: "Opção de conta"
+        university_id: "Universidade"
+        course: "Curso"
+        semester: "Semestre"
+        place: "Localização adicional"
+        semester_start: "Início de semestre"
+        semester_end: "Final de semestre"
+        responsible_id: "Usuário responsável"
+        responsible: "Usuário responsável"
+        ticket_responsible: "Responsável"
+        role: "Função"
     errors:
       messages:
         greater_than_or_equal_to: "precisa ser maior do que %{count}"
@@ -100,7 +146,7 @@ pt-BR:
         required: "%{attribute} inválido(a)"
         taken: "Este %{attribute} já foi utilizado(a)"
         record_invalid: "A validação falhou: %{errors}"
-        not_a_number: "%{attribute} não é um número"
+        not_a_number: "%{attribute} não é um número válido"
         restrict_dependent_destroy:
           has_one: "Não é possível excluir o registro pois existe um %{record} dependente"
           has_many: "Não é possível excluir o registro pois existem %{record} dependentes"

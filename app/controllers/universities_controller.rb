@@ -33,7 +33,7 @@ class UniversitiesController < ApplicationController
   def create
     respond_to do |format|
       if @university.save
-        format.html { redirect_to @university, notice: 'University was successfully created.' }
+        format.html { redirect_to @university, notice: 'Universidade criada com sucesso.' }
         format.json { render :show, status: :created, location: @university }
       else
         format.html { render :new }
@@ -47,7 +47,7 @@ class UniversitiesController < ApplicationController
   def update
     respond_to do |format|
       if @university.update(university_params)
-        format.html { redirect_to @university, notice: 'University was successfully updated.' }
+        format.html { redirect_to @university, notice: 'Universidade atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @university }
       else
         format.html { render :edit }
@@ -61,7 +61,7 @@ class UniversitiesController < ApplicationController
   def destroy
     @university.destroy!
     respond_to do |format|
-      format.html { redirect_to universities_url, notice: 'University was successfully destroyed.' }
+      format.html { redirect_to universities_url, notice: 'Universidade excluída com sucesso.' }
       format.json { head :no_content }
     end
   end
