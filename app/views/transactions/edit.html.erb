@@ -93,13 +93,12 @@
         $('.cleave-value').each( (_, domObj) => new Cleave(domObj, {numeral: true}));
         $('.cleave-total').each( (_, domObj) => new Cleave(domObj, {numeral: true}));
 
-        function handleBIPActivate(e) {
-            const input_field = e.target.children[0].children[0];
-
-            new Cleave(input_field, {numeral: true});       // Create Cleave
-            $(input_field).on('input', updateTotalValue);   // Add the possibility to update value
+        // Add Cleave and updateTotalValue handler when BIP activates
+        function addCleave(e) {
+            new Cleave(e.target.children[0].children[0], {numeral: true});       // Create Cleave
         }
 
+        // Create the toast when there is an error with BIP
         function notifyBIPError(_e, {responseText}){
             const responseJSON = JSON.parse(responseText);
 
@@ -115,8 +114,9 @@
         }
         
         // Add BIP Handlers
-        $('.best_in_place').on('best_in_place:activate', handleBIPActivate);
+        $('.best_in_place').on('best_in_place:activate', addCleave);
         $('.best_in_place').on('best_in_place:error', notifyBIPError);
+        $(".best_in_place").filter("[data-bip-type='input']").on('best_in_place:success', updateTotalValue);
 
         // Function which receives a DOM element which stores quantity of tickets
         // and updates the values inputs 
@@ -164,18 +164,15 @@
                 totalInput.value = "R$ " + ((parseFloat(e.target.value) || 0) * (parseInt(quantityInput.value) || 0)).toFixed(2);
             } catch(err) { // We are editing a ticket, not creating one
                 
-                const totalInput = e.target.parentNode.parentNode.parentNode.parentNode.children[3].children[2];
+                const totalField = e.target.parentNode.parentNode.children[3].children[2];
                 
-                if (e.target.name === 'quantity' ) {   // We are editing the quantity field
-                    const valueInput = e.target.parentNode.parentNode.parentNode.parentNode.children[2].children[2];
-                    totalInput.innerText = "R$ " + ((parseFloat(valueInput.innerText.slice(3).replace(',', '.')) || 0) * (parseInt(e.target.value) || 0)).toFixed(2);
-                } else if (e.target.name === 'original_value') { // Nope, we are editing the value field
-                    const quantityInput = e.target.parentNode.parentNode.parentNode.parentNode.children[1].children[2];
-                    totalInput.innerText = "R$ " + ((parseFloat(e.target.value) || 0) * (parseInt(quantityInput.innerText) || 0)).toFixed(2);
-                }
-
-
-                
+                if (e.target.getAttribute('data-bip-attribute') === 'quantity' ) {   // We are editing the quantity field
+                    const valueField = e.target.parentNode.parentNode.children[2].children[2];
+                    totalField.innerText = "R$ " + ((parseFloat(valueField.innerText.slice(3).replace(',', '.')) || 0) * (parseInt(e.target.innerText) || 0)).toFixed(2);
+                } else if (e.target.getAttribute('data-bip-attribute') === 'original_value') { // Nope, we are editing the value field
+                    const quantityField = e.target.parentNode.parentNode.children[1].children[2];
+                    totalField.innerText = "R$ " + ((parseFloat(e.target.innerText) || 0) * (parseInt(quantityField.innerText) || 0)).toFixed(2);
+                }                
             }            
         }
 
@@ -277,8 +274,8 @@
                 quantityDivBipSpan.setAttribute('data-bip-value', data.quantity);
                 quantityDivBipSpan.classList.add('best_in_place');
                 $(quantityDivBipSpan).best_in_place();
-                $(quantityDivBipSpan).on('best_in_place:activate', handleBIPActivate);
                 $(quantityDivBipSpan).on('best_in_place:error', notifyBIPError);
+                $(quantityDivBipSpan).on('best_in_place:success', updateTotalValue);
 
                 quantityDiv.appendChild(quantityDivLabel);
                 quantityDiv.appendChild(quantityDivBr);
@@ -306,8 +303,9 @@
                 originalValueDivBipSpan.setAttribute('data-bip-value', data.quantity);
                 originalValueDivBipSpan.classList.add('best_in_place');
                 $(originalValueDivBipSpan).best_in_place();
-                $(originalValueDivBipSpan).on('best_in_place:activate', handleBIPActivate);
+                $(originalValueDivBipSpan).on('best_in_place:activate', addCleave);
                 $(originalValueDivBipSpan).on('best_in_place:error', notifyBIPError);
+                $(originalValueDivBipSpan).on('best_in_place:success', updateTotalValue);
 
                 originalValueDiv.appendChild(originalValueDivLabel);
                 originalValueDiv.appendChild(originalValueDivBr);
