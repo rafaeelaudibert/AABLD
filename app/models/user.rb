@@ -44,6 +44,9 @@ class User < ApplicationRecord
     admin: 8
   }
 
+  # Scopes
+  scope :not_admin, -> { where.not(role: :admin) }
+
   # Returns the User instance full name, concatenating <tt>first_name</tt> and <tt>last_name</tt>
   def full_name
     "#{first_name} #{last_name}"
@@ -75,6 +78,11 @@ class User < ApplicationRecord
   # Returns true, if the user is a Ticket Responsible
   def ticket_responsible?
     ticket_responsible == true
+  end
+
+  # Returns all the users which didn't made their Montly Transaction
+  def self.not_did_monthly_transaction
+    not_admin.reject(&:did_monthly_transaction?)
   end
 
   # Users which are ticket responsibles
