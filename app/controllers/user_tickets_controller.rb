@@ -6,30 +6,36 @@ class UserTicketsController < ApplicationController
 
   # POST /user_tickets.json
   def create
-    # If transaction is not open, cannot create a user_ticket
-    raise StandardError, 'Transação não está aberta' unless @user_ticket.monthly_transaction.open?
-
-    @user_ticket.save!
     respond_to do |format|
-      format.json { render :show, user_ticket: @user_ticket }
+      if !@user_ticket.monthly_transaction.open? # If transaction is not open, cannot create a user_ticket
+        format.json { render json: { transaction: ['Transação não está aberta'] }, status: :unprocessable_entity }
+      elsif @user_ticket.save
+        format.json { render :show, status: :ok, location: @user_ticket }
+      else
+        format.json { render json: @user_ticket.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   # PATCH/PUT /user_tickets/:id.json
   def update
-    @user_ticket.update!(user_ticket_params)
-
     respond_to do |format|
-      format.json { render :show, user_ticket: @user_ticket }
+      if @user_ticket.update(user_ticket_params)
+        format.json { render :show, status: :ok, location: @user_ticket }
+      else
+        format.json { render json: @user_ticket.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   # DELETE /user_tickets/:id.json
   def destroy
-    @user_ticket.destroy!
-
     respond_to do |format|
-      format.json { head :no_content }
+      if @user_ticket.destroy
+        format.json { head :no_content }
+      else
+        format.json { render json: @user_ticket.errors, status: :unprocessable_entity }
+      end
     end
   end
 

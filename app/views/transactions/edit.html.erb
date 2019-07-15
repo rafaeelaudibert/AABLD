@@ -93,12 +93,30 @@
         $('.cleave-value').each( (_, domObj) => new Cleave(domObj, {numeral: true}));
         $('.cleave-total').each( (_, domObj) => new Cleave(domObj, {numeral: true}));
 
-        $('.best_in_place').on('best_in_place:activate', e => {
+        function handleBIPActivate(e) {
             const input_field = e.target.children[0].children[0];
 
             new Cleave(input_field, {numeral: true});       // Create Cleave
             $(input_field).on('input', updateTotalValue);   // Add the possibility to update value
-        });
+        }
+
+        function notifyBIPError(_e, {responseText}){
+            const responseJSON = JSON.parse(responseText);
+
+            for (entity in responseJSON){
+                responseJSON[entity].forEach(error => {
+                    iziToast.error({
+                        title: status,
+                        message: error,
+                        position: 'bottomRight'
+                    });
+                })   
+            }
+        }
+        
+        // Add BIP Handlers
+        $('.best_in_place').on('best_in_place:activate', handleBIPActivate);
+        $('.best_in_place').on('best_in_place:error', notifyBIPError);
 
         // Function which receives a DOM element which stores quantity of tickets
         // and updates the values inputs 
@@ -171,8 +189,25 @@
                 url: '<%= user_tickets_path %>/' + target.attr('data-user-ticket-id'),
                 data: { authenticity_token: $('[name="csrf-token"]')[0].content },
             })
-            .then(() => removeTarget.hide(150, () => removeTarget.remove()))
-            .catch(x => console.log(x)); // Handle error correctly
+            .then(() => {
+                removeTarget.hide(150, () => removeTarget.remove())
+                iziToast.success({
+                    title: 'Sucesso',
+                    message: 'Passagem removida com sucesso',
+                    position: 'bottomRight'
+                });
+            })
+            .catch(({responseJSON, status}) => {
+                for (entity in responseJSON){
+                    responseJSON[entity].forEach(error => {
+                        iziToast.error({
+                            title: status,
+                            message: error,
+                            position: 'bottomRight'
+                        });
+                    })   
+                }                
+            });
         }
 
         function submitUserTicket(e, form)
@@ -214,6 +249,7 @@
                 ticketDivBipSpan.setAttribute('data-bip-value', data.id);
                 ticketDivBipSpan.classList.add('best_in_place');
                 $(ticketDivBipSpan).best_in_place();
+                $(ticketDivBipSpan).on('best_in_place:error', notifyBIPError);
 
                 ticketDiv.appendChild(ticketDivLabel);
                 ticketDiv.appendChild(ticketDivBr);
@@ -241,11 +277,8 @@
                 quantityDivBipSpan.setAttribute('data-bip-value', data.quantity);
                 quantityDivBipSpan.classList.add('best_in_place');
                 $(quantityDivBipSpan).best_in_place();
-                $(quantityDivBipSpan).on('best_in_place:activate', e => {
-                    const input_field = e.target.children[0].children[0];
-
-                    $(input_field).on('input', updateTotalValue);   // Add the possibility to update value
-                });
+                $(quantityDivBipSpan).on('best_in_place:activate', handleBIPActivate);
+                $(quantityDivBipSpan).on('best_in_place:error', notifyBIPError);
 
                 quantityDiv.appendChild(quantityDivLabel);
                 quantityDiv.appendChild(quantityDivBr);
@@ -273,12 +306,8 @@
                 originalValueDivBipSpan.setAttribute('data-bip-value', data.quantity);
                 originalValueDivBipSpan.classList.add('best_in_place');
                 $(originalValueDivBipSpan).best_in_place();
-                $(originalValueDivBipSpan).on('best_in_place:activate', e => {
-                    const input_field = e.target.children[0].children[0];
-
-                    new Cleave(input_field, {numeral: true});       // Create Cleave
-                    $(input_field).on('input', updateTotalValue);   // Add the possibility to update value
-                });
+                $(originalValueDivBipSpan).on('best_in_place:activate', handleBIPActivate);
+                $(originalValueDivBipSpan).on('best_in_place:error', notifyBIPError);
 
                 originalValueDiv.appendChild(originalValueDivLabel);
                 originalValueDiv.appendChild(originalValueDivBr);
@@ -306,7 +335,7 @@
 
                 // Action div + button
                 const actionDiv = document.createElement('div');
-                actionDiv.classList.add('form-group', 'col-md-1', 'col-sm-6', 'text-right');
+                actionDiv.classList.add('form-group', 'col-md-1', 'col-sm-12', 'text-right');
 
                 const actionDivLabel = document.createElement('label');
                 actionDivLabel.innerHTML = '<%= t('activerecord.models.user_ticket.actions') %>';
@@ -341,8 +370,24 @@
                 form.insertAdjacentElement('beforebegin', outerDiv);
                 $(outerDiv).show(150); // Display it with animation
 
+                iziToast.success({
+                    title: 'Sucesso',
+                    message: 'Passagem adicionada com sucesso',
+                    position: 'bottomRight'
+                }); 
+
             })
-            .catch((_1, _2, x) => console.log(x)); // Handle error correctly
+            .catch(({responseJSON, status}) => {
+                for (entity in responseJSON){
+                    responseJSON[entity].forEach(error => {
+                        iziToast.error({
+                            title: status,
+                            message: error,
+                            position: 'bottomRight'
+                        });
+                    })   
+                }                             
+            });
 
             return false;
         }
