@@ -7,18 +7,32 @@
       <%= link_to 'AABLD', dashboard_path %>
     </div>
     <ul class="sidebar-menu">
-      <li class="menu-header">Dashboard</li>
-      <li class="<%= 'active' if controller_name == 'dashboard' %>"><a class="nav-link" href="<%= dashboard_path %>"><i class="fas fa-chart-bar"></i> <span>Dashboard</span></a></li>
+      <% if can? :access, :dashboard %>
+        <li class="menu-header">Dashboard</li>
+        <li class="<%= 'active' if controller_name == 'dashboard' %>"><a class="nav-link" href="<%= dashboard_path %>"><i class="fas fa-chart-bar"></i> <span>Dashboard</span></a></li>
+      <% end %>
       
-      <li class="menu-header">Geral</li>            
-      <li class="<%= 'active' if controller_name == 'transactions' && !request.path.include?('users') %>"><a class="nav-link" href="<%= transactions_path %>"><i class="fas fa-money-bill"></i> <span>Transações</span></a></li>
-      <li class="<%= 'active' if request.path.include? 'users'%>"><a class="nav-link" href="<%= users_path %>"><i class="fas fa-user"></i> <span>Usuários</span></a></li>
-    
+      <li class="menu-header">Geral</li>    
+      <% if can? :access, :transactions %>        
+        <li class="<%= 'active' if controller_name == 'transactions' && !request.path.include?('users') %>"><a class="nav-link" href="<%= transactions_path %>"><i class="fas fa-money-bill"></i> <span>Transações</span></a></li>
+      <% end %>
+      <% if can? :access, :users %>
+        <li class="<%= 'active' if request.path.include? 'users'%>"><a class="nav-link" href="<%= users_path %>"><i class="fas fa-user"></i> <span>Usuários</span></a></li>
+      <% end %>
+
       <li class="menu-header">Administrativo</li>
-      <li class="<%= 'active' if controller_name == 'tickets' %>"><a class="nav-link" href="<%= tickets_path %>"><i class="fas fa-ticket-alt"></i> <span>Passagens</span></a></li>
-      <li class="<%= 'active' if controller_name == 'bus_companies' %>"><a class="nav-link" href="<%= bus_companies_path %>"><i class="fas fa-building"></i> <span>Empresas</span></a></li>
-      <li class="<%= 'active' if controller_name == 'cities' %>"><a class="nav-link" href="<%= cities_path %>"><i class="fas fa-city"></i> <span>Cidades</span></a></li>
-      <li class="<%= 'active' if controller_name == 'universities' %>"><a class="nav-link" href="<%= universities_path %>"><i class="fas fa-university"></i> <span>Universidades</span></a></li>
+      <% if can? :access, :tickets %>
+        <li class="<%= 'active' if controller_name == 'tickets' %>"><a class="nav-link" href="<%= tickets_path %>"><i class="fas fa-ticket-alt"></i> <span>Passagens</span></a></li>
+      <% end %>
+      <% if can? :access, :bus_companies %>
+        <li class="<%= 'active' if controller_name == 'bus_companies' %>"><a class="nav-link" href="<%= bus_companies_path %>"><i class="fas fa-building"></i> <span>Empresas</span></a></li>
+      <% end %>
+      <% if can? :access, :cities %>
+        <li class="<%= 'active' if controller_name == 'cities' %>"><a class="nav-link" href="<%= cities_path %>"><i class="fas fa-city"></i> <span>Cidades</span></a></li>
+      <% end %>
+      <% if can? :access, :universities %>
+        <li class="<%= 'active' if controller_name == 'universities' %>"><a class="nav-link" href="<%= universities_path %>"><i class="fas fa-university"></i> <span>Universidades</span></a></li>
+      <% end %>
       
     </ul>
 

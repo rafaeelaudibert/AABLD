@@ -50,5 +50,6 @@ class UserTicketsController < ApplicationController
   # Configure the ability for CanCan
   def current_ability
     @current_ability ||= UserTicketAbility.new(current_user)
+                                          .merge(SidebarAbility.new(current_user))
   end
 end

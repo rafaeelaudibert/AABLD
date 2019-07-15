@@ -19,5 +19,6 @@ class UsersController < ApplicationController
 
   def current_ability
     @current_ability ||= UserAbility.new(current_user)
+                                    .merge(SidebarAbility.new(current_user))
   end
 end
