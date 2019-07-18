@@ -52,6 +52,21 @@
           <div class="section-body">
             <div class="row">
               <div class="col-12">
+                <div class="row">
+                  <div class="col-12">
+                      <div class="card">
+                          <div class="card-header">
+                              <%= content_for :title %>
+                              <%= render 'layouts/dashboard/breadcrumbs' %>
+                          </div>
+                          <% if content_for :card_body %>
+                            <div class="card-body">
+                              <%= content_for :card_body %>
+                            </div>
+                          <% end %>
+                      </div>
+                  </div>
+                </div>
                 <%= yield %>
               </div>  
             </div>
