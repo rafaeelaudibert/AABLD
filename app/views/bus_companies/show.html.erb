@@ -73,9 +73,9 @@
 </div>
 
 <% if can? :edit, @bus_company %>
-  <%= link_to 'Editar', edit_bus_company_path(@bus_company), class:'btn btn-danger float-right' %>
+  <%= link_to 'Editar', edit_bus_company_path(@bus_company), class:'btn btn-lg btn-danger float-right' %>
 <% end %>
 
 <% if can? :index, BusCompany %>
-  <%= link_to 'Voltar', bus_companies_path, class: 'btn btn-primary' %>
+  <%= link_to 'Voltar', bus_companies_path, class: 'btn btn-lg btn-primary' %>
 <% end %>

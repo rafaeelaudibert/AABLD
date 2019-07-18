@@ -41,7 +41,7 @@
     <div class="row">
       <% if can? :new, BusCompany %>
         <div class="col-xs-12 col-sm-6 pb-3">
-            <%= link_to 'Nova Empresa de Ônibus', new_bus_company_path, class: 'btn btn-success' %>
+            <%= link_to 'Nova Empresa de Ônibus', new_bus_company_path, class: 'btn btn-lg btn-success' %>
         </div>
       <% end %>
       <% if @pagy.pages > 1 %>
@@ -63,7 +63,7 @@
           Desculpe, mas não conseguimos encontrar nenhuma empresa de ônibus. <br/>
           Para se livrar dessa mensagem, adicione pelo menos uma delas.
         </p>
-        <%= link_to 'Nova Empresa de Ônibus', new_bus_company_path, class: 'btn btn-primary mt-4' %>
+        <%= link_to 'Nova Empresa de Ônibus', new_bus_company_path, class: 'btn btn-lg btn-primary mt-4' %>
       </div>
     </div>
   </div>

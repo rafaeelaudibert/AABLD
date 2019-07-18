@@ -38,9 +38,9 @@
 
       <div class="col-xs-12 col-sm-6 pb-3">
         <% if action_name == 'index' && can?(:all, City) %>
-          <%= link_to 'Visualizar Todas Cidades', all_cities_path, class: 'btn btn-primary' %>
+          <%= link_to 'Visualizar Todas Cidades', all_cities_path, class: 'btn btn-lg btn-primary' %>
         <% elsif action_name == 'all' && can?(:index, City) %>
-          <%= link_to 'Visualizar Cidades Importantes', cities_path, class: 'btn btn-primary' %>
+          <%= link_to 'Visualizar Cidades Importantes', cities_path, class: 'btn btn-lg btn-primary' %>
         <% end %>
       </div>
       

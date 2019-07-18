@@ -50,7 +50,7 @@
     <div class="row">
       <% if can? :create, User %>
         <div class="col-xs-12 col-sm-6 pb-3">
-            <%= link_to 'Convidar usuário', new_user_invitation_path, class: 'btn btn-success' %>
+            <%= link_to 'Convidar usuário', new_user_invitation_path, class: 'btn btn-lg btn-success' %>
         </div>
       <% end %>
       <% if @pagy.pages > 1 %>
@@ -72,7 +72,7 @@
           Desculpe, mas não conseguimos encontrar nenhum usuário. <br/>
         </p>
         <% if can? :create, User %>
-          <%= link_to 'Convidar usuário', new_user_invitation_path, class: 'btn btn-primary mt-4' %>
+          <%= link_to 'Convidar usuário', new_user_invitation_path, class: 'btn btn-lg btn-primary mt-4' %>
         <% end %>
       </div>
     </div>
