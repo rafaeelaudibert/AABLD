@@ -5,6 +5,7 @@ class Transaction < ApplicationRecord
 
   belongs_to :user
   has_many :user_tickets, dependent: :restrict_with_error
+  has_many :tickets, through: :user_tickets
 
   validates :month, presence: true
   validates :year, presence: true,

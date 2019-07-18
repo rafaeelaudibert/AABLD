@@ -73,15 +73,15 @@
                 <div class="form-row">
                     <div class="form-group col-sm-3">
                         <label style="margin-bottom: 0">Viagens totais:</label> <br/>
-                        <%= @transaction.user_tickets.reduce(0) { |acc, user_ticket| user_ticket.quantity + acc } %>
+                        <%= @transaction.user_tickets.sum(&:quantity) %>
                     </div>
                     <div class="form-group col-sm-3">
                         <label style="margin-bottom: 0">Itinerários diferentes:</label> <br/>
-                        <%= @transaction.user_tickets.map { |t| t.ticket.itinerary }.uniq.count %>
+                        <%= @transaction.tickets.map(&:itinerary).uniq.count %>
                     </div>
                     <div class="form-group col-sm-3">
                         <label style="margin-bottom: 0">Valor total:</label> <br/>
-                        <%= format_currency @transaction.user_tickets.reduce(0) { |acc, user_ticket| user_ticket.total + acc } %>
+                        <%= format_currency @transaction.user_tickets.sum(&:total) %>
                     </div>
                 </div>
             </div>
