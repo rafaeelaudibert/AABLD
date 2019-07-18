@@ -36,4 +36,3 @@ module UniversitiesHelper
     area_chart({ name: 'Valor', data: data }, options)
   end
 end
-  

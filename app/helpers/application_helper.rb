@@ -12,7 +12,11 @@ module ApplicationHelper
     "#{date.month}/#{date.year}"
   end
 
-  def create_chart_options(title: 'Title', subtitle: 'Subtitle', xtitle: 'Xtitle', ytitle: 'Ytitle', palette: 'palette4')
+  def create_chart_options(title: 'Title',
+                           subtitle: 'Subtitle',
+                           xtitle: 'Xtitle',
+                           ytitle: 'Ytitle',
+                           palette: 'palette4')
     {
       title: title,
       subtitle: subtitle,

@@ -30,7 +30,7 @@ def seed_universities
     university = University.new(name: row['NOME'],
                                 abbreviation: row['SIGLA'],
                                 cnpj: row['CNPJ'],
-                                city: City.find_by_name(row['NOME_CIDADE']),
+                                city: City.find_by(name: row['NOME_CIDADE']),
                                 neighborhood: row['BAIRRO'],
                                 address: row['ENDERECO'])
     if university.save
