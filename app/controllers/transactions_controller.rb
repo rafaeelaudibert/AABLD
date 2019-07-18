@@ -27,7 +27,7 @@ class TransactionsController < ApplicationController
     if @transaction.open? && can?(:edit, @transaction)
       render :edit
     else
-      render :show, layout: 'no_card'
+      render :show
     end
   end
 

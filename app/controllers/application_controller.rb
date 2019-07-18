@@ -3,6 +3,8 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
 
+  layout 'no_card', only: :show
+
   breadcrumb 'Dashboard', :dashboard_path
 
   before_action :authenticate_user!
