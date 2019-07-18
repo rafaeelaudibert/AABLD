@@ -7,6 +7,8 @@ class CreateUserTickets < ActiveRecord::Migration[5.2]
       t.references :transaction, foreign_key: true, type: :uuid
       t.integer :quantity, null: false, default: 1
       t.decimal :original_value, precision: 5, scale: 2, null: false
+
+      t.timestamps
     end
   end
 end

@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
     t.uuid "transaction_id"
     t.integer "quantity", default: 1, null: false
     t.decimal "original_value", precision: 5, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["ticket_id"], name: "index_user_tickets_on_ticket_id"
     t.index ["transaction_id"], name: "index_user_tickets_on_transaction_id"
     t.index ["user_id"], name: "index_user_tickets_on_user_id"
