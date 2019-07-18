@@ -2,6 +2,7 @@
 
 class BusCompany < ApplicationRecord
   has_many :tickets, dependent: :restrict_with_error
+  has_many :user_tickets, through: :tickets
 
   validates :name, presence: true
   validates_cnpj_format_of :cnpj, options: { allow_blank: true, allow_nil: true }

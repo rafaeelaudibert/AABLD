@@ -1,38 +1,81 @@
-<p id="notice"><%= notice %></p>
-
 <% content_for :title do %>
-  &nbsp;
+    <h3> Empresas </h3>
 <% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @bus_company.name %>
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.bus_company.name')%></label> <br/>
+                        <%= @bus_company.name %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.bus_company.cnpj')%></label> <br/>
+                        <%= @bus_company.cnpj %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.bus_company.city')%></label> <br/>
+                        <%= @bus_company.city %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.bus_company.neighborhood')%></label> <br/>
+                        <%= @bus_company.neighborhood %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.bus_company.address')%></label> <br/>
+                        <%= @bus_company.address %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>
-  <strong>Cnpj:</strong>
-  <%= @bus_company.cnpj %>
-</p>
+<div class="row">
+  <div class="col-lg-6 col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <%= monthly_travel_chart_for @bus_company %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <%= monthly_value_chart_for @bus_company %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>City:</strong>
-  <%= @bus_company.city %>
-</p>
-
-<p>
-  <strong>Neighborhood:</strong>
-  <%= @bus_company.neighborhood %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @bus_company.address %>
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+              <h4> Estatísticas Gerais </h4>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-lg-6 col-sm-12">
+                        <label style="margin-bottom: 0">Passagens totais:</label> <br/>
+                        <%= @bus_company.user_tickets.sum(&:quantity) %>
+                    </div>
+                    <div class="form-group col-lg-6 col-sm-12">
+                        <label style="margin-bottom: 0">Valor arrecadado total:</label> <br/>
+                        <%= format_currency @bus_company.user_tickets.sum(&:total) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <% if can? :edit, @bus_company %>
-  <%= link_to 'Edit', edit_bus_company_path(@bus_company) %> |
+  <%= link_to 'Editar', edit_bus_company_path(@bus_company), class:'btn btn-danger float-right' %>
 <% end %>
 
 <% if can? :index, BusCompany %>
-  <%= link_to 'Back', bus_companies_path %>
+  <%= link_to 'Voltar', bus_companies_path, class: 'btn btn-primary' %>
 <% end %>
