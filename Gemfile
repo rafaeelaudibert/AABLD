@@ -107,3 +107,9 @@ gem 'cancancan'
 
 # Errors handling gem
 gem 'rambulance'
+
+# For date manipulation
+gem 'groupdate'
+
+# Chart creation
+gem 'apexcharts'
