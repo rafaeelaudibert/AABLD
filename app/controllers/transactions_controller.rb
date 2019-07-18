@@ -24,7 +24,7 @@ class TransactionsController < ApplicationController
   def show
     @user = @transaction.user
 
-    if @transaction.open?
+    if @transaction.open? && can?(:edit, @transaction)
       render :edit
     else
       render :show, layout: 'no_card'
