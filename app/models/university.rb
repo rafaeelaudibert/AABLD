@@ -4,6 +4,7 @@ class University < ApplicationRecord
   default_scope { order(:abbreviation) }
   belongs_to :city
   has_many :users, dependent: :restrict_with_error
+  has_many :user_tickets, through: :users
 
   validates :name, presence: true
   validates :abbreviation, presence: true

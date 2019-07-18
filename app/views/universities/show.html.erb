@@ -1,38 +1,86 @@
-<p id="notice"><%= notice %></p>
-
 <% content_for :title do %>
-  &nbsp;
+  <h3> Universidade </h3>
 <% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @university.name %>
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.university.name')%></label> <br/>
+                        <%= @university.name %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.university.cnpj')%></label> <br/>
+                        <%= @university.cnpj %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.city.name')%></label> <br/>
+                        <%= @university.city.name %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.university.neighborhood')%></label> <br/>
+                        <%= @university.neighborhood %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.university.address')%></label> <br/>
+                        <%= @university.address %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>
-  <strong>Cnpj:</strong>
-  <%= @university.cnpj %>
-</p>
+<div class="row">
+  <div class="col-lg-6 col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <%= monthly_user_chart_for @university %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <%= monthly_value_chart_for @university %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>City:</strong>
-  <%= @university.city.name %>
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+              <h4> Estatísticas Gerais </h4>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-lg-4 col-sm-12">
+                        <label style="margin-bottom: 0">Usuários totais:</label> <br/>
+                        <%= @university.user_tickets.map(&:user_id).uniq.count %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-12">
+                        <label style="margin-bottom: 0">Usuários ativos (últimos 6 meses):</label> <br/>
+                        <%= @university.user_tickets.where(created_at: 6.months.ago..DateTime::Infinity.new).map(&:user_id).uniq.count %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-12">
+                        <label style="margin-bottom: 0">Valor arrecadado total:</label> <br/>
+                        <%= format_currency @university.user_tickets.sum(&:total) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>
-  <strong>Neighborhood:</strong>
-  <%= @university.neighborhood %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @university.address %>
-</p>
 
 <% if can? :edit, @university %>
-  <%= link_to 'Edit', edit_university_path(@university) %> |
+  <%= link_to 'Editar', edit_university_path(@university), class:'btn btn-lg btn-danger float-right' %>
 <% end %>
 
 <% if can? :index, University %>
-  <%= link_to 'Back', universities_path %>
+  <%= link_to 'Voltar', universities_path, class: 'btn btn-lg btn-primary' %>
 <% end %>
