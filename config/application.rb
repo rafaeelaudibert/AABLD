@@ -31,7 +31,7 @@ module Aabld
 
     # Timezone
     config.time_zone = 'Brasilia'
-    config.active_record.default_timezone = :local
+    config.active_record.default_timezone = :utc
 
     # Precompile assets
     Rails.application.config.assets.precompile += ['welcome.js', 'welcome.css',
