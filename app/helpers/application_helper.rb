@@ -12,17 +12,14 @@ module ApplicationHelper
     "#{date.month}/#{date.year}"
   end
 
-  def create_chart_options(title: 'Title',
-                           subtitle: 'Subtitle',
-                           xtitle: 'Xtitle',
-                           ytitle: 'Ytitle',
-                           palette: 'palette4')
+  def create_chart_options(**kwargs)
     {
-      title: title,
-      subtitle: subtitle,
-      xtitle: xtitle,
-      ytitle: ytitle,
-      theme: palette,
+      title: kwargs.fetch(:title, 'Title'),
+      subtitle: kwargs.fetch(:subtitle, 'Subtitle'),
+      xtitle: kwargs.fetch(:xtitle, 'xTitle'),
+      ytitle: kwargs.fetch(:ytitle, 'yTitle'),
+      theme: kwargs.fetch(:palette, 'palette4'),
+      stacked: kwargs.fetch(:stacked, true),
       xaxis: { labels: { format: 'MMM' } }
     }
   end
