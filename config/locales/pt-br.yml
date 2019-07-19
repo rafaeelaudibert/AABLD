@@ -83,6 +83,7 @@ pt-BR:
         address: "Endereço"
       city:
         name: "Nome"
+        state: "Estado"
       ticket:
         source_city_id: "Cidade de Origem"
         source_city: "Cidade de Origem"

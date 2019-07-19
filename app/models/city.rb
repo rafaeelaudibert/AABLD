@@ -3,8 +3,10 @@
 class City < ApplicationRecord
   has_many :tickets_as_source, foreign_key: 'source_city', class_name: 'Ticket',
                                inverse_of: :source_city, dependent: :restrict_with_error
+  has_many :user_tickets_as_source, through: :tickets_as_source, source: :user_tickets
   has_many :tickets_as_destination, foreign_key: 'destination_city', class_name: 'Ticket',
                                     inverse_of: :destination_city, dependent: :restrict_with_error
+  has_many :user_tickets_as_destination, through: :tickets_as_destination, source: :user_tickets
   has_many :universities, dependent: :restrict_with_error
 
   validates :id, presence: true, uniqueness: true
@@ -22,6 +24,13 @@ class City < ApplicationRecord
     {
       source: tickets_as_source,
       destination: tickets_as_destination
+    }
+  end
+
+  def user_tickets
+    {
+      source: user_tickets_as_source,
+      destination: user_tickets_as_destination
     }
   end
 

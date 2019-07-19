@@ -1,24 +1,108 @@
-<p id="notice"><%= notice %></p>
-
 <% content_for :title do %>
-  &nbsp;
+  <h3> Cidade </h3>
 <% end %>
 
-<p>
-  <strong>ID:</strong>
-  <%= @city.id %>
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.city.id')%></label> <br/>
+                        <%= @city.id %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.city.name')%></label> <br/>
+                        <%= @city.name %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.city.state')%></label> <br/>
+                        <%= "#{@city.state} - #{@city.state_abbreviation}" %>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @city.name %>
-</p>
+<div class="row">
+  <div class="col-lg-6 col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <%= city_monthly_travel_chart_for @city %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <%= city_monthly_value_chart_for @city %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>State:</strong>
-  <%= "#{@city.state} - #{@city.state_abbreviation}"  %>
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+              <h4> Estatísticas Gerais </h4>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-lg-6 col-sm-12">
+                        <label style="margin-bottom: 0">Viagens totais:</label> <br/>
+                        <%= @city.user_tickets.values.map(&:count).sum %>
+                    </div>
+                    <div class="form-group col-lg-6 col-sm-12">
+                        <label style="margin-bottom: 0">Valor total:</label> <br/>
+                        <%= format_currency(@city.user_tickets.values.map { |uts| uts.map(&:total) }.map(&:sum).sum) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4> Mapa </h4>
+      </div>
+      <div class="card-body">
+        <div id="map" style="height: 400px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script>
+    const map = new GMaps({
+      el: '#map',
+      lat: -29.295278,
+      lng: -51.501080,
+      zoom: 14
+    });
+
+    GMaps.geocode({
+      address: "<%= @city.name %>, <%= @city.state %>",
+      callback: (results, status) => {
+        if (status == 'OK') {
+          const latlng = results[0].geometry.location;
+
+          map.setCenter(latlng.lat(), latlng.lng());
+          map.addMarker({
+            lat: latlng.lat(),
+            lng: latlng.lng()
+          });
+        }
+      }
+    });
+  </script>
+<% end %>
 
 <% if can? :index, City %>
-  <%= link_to 'Back', cities_path %>
+  <%= link_to 'Voltar', cities_path, class: 'btn btn-lg btn-primary' %>
 <% end %>
