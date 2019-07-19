@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module BusCompaniesHelper
-  def monthly_travel_chart_for(bus_company)
+  def bus_company_monthly_travel_chart_for(bus_company)
     pre_data = bus_company.user_tickets
                           .group_by { |ut| date_hash_string ut.created_at }
                           .map { |key, value| [key, value.sum(&:quantity)] }
@@ -19,7 +19,7 @@ module BusCompaniesHelper
     area_chart({ name: 'Viagens', data: data }, options)
   end
 
-  def monthly_value_chart_for(bus_company)
+  def bus_company_monthly_value_chart_for(bus_company)
     pre_data = bus_company.user_tickets
                           .group_by { |ut| date_hash_string ut.created_at }
                           .map { |key, value| [key, value.sum(&:total)] }
