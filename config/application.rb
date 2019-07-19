@@ -36,7 +36,9 @@ module Aabld
     # Precompile assets
     Rails.application.config.assets.precompile += ['welcome.js', 'welcome.css',
                                                    'dashboard.js', 'dashboard.css',
-                                                   'custom_dashboard.css']
+                                                   'custom_dashboard.css'
+    # Add Google Maps API key
+    config.google_maps_api_key = ENV['GOOGLE_MAPS_API_KEY'] || ''
 
     # Stylesheet generation conflict
     config.generators do |g|
