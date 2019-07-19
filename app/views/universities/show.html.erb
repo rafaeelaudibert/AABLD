@@ -16,7 +16,7 @@
                         <%= @university.cnpj %>
                     </div>
                     <div class="form-group col-lg-4 col-sm-6">
-                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.city.name')%></label> <br/>
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.university.city')%></label> <br/>
                         <%= @university.city.name %>
                     </div>
                     <div class="form-group col-lg-4 col-sm-6">
@@ -76,6 +76,19 @@
     </div>
 </div>
 
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4> Mapa </h4>
+      </div>
+      <div class="card-body">
+        <div id="map" style="height: 400px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <% if can? :edit, @university %>
   <%= link_to 'Editar', edit_university_path(@university), class:'btn btn-lg btn-danger float-right' %>
@@ -83,4 +96,31 @@
 
 <% if can? :index, University %>
   <%= link_to 'Voltar', universities_path, class: 'btn btn-lg btn-primary' %>
+<% end %>
+
+<% content_for :javascript do %>
+  <script>
+    const map = new GMaps({
+      el: '#map',
+      lat: -29.295278,
+      lng: -51.501080,
+      zoom: 14
+    });
+
+    GMaps.geocode({
+      address: "<%= @university.name%>, <%= "#{@university.address}, #{@university.neighborhood}, #{@university.city.name}"%>",
+      callback: (results, status) => {
+        if (status == 'OK') {
+          const latlng = results[0].geometry.location;
+
+          map.setCenter(latlng.lat(), latlng.lng());
+          map.addMarker({
+            lat: latlng.lat(),
+            lng: latlng.lng(),
+            label: "<%= @university.abbreviation %>"
+          });
+        }
+      }
+    });
+  </script>
 <% end %>
