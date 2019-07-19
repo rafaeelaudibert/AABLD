@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module UniversitiesHelper
-  def monthly_user_chart_for(university)
+  def university_monthly_user_chart_for(university)
     pre_data = university.user_tickets
                          .group_by { |ut| date_hash_string ut.created_at }
                          .map { |key, value| [key, value.map(&:user_id).uniq.count] }
@@ -19,7 +19,7 @@ module UniversitiesHelper
     area_chart({ name: 'Alunos', data: data }, options)
   end
 
-  def monthly_value_chart_for(university)
+  def university_monthly_value_chart_for(university)
     pre_data = university.user_tickets
                          .group_by { |ut| date_hash_string ut.created_at }
                          .map { |key, value| [key, value.sum(&:total)] }
