@@ -29,7 +29,7 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def after_invite_path_for(_resource)
-    dashboard_path
+    new_user_invitation_path
   end
 
   private
