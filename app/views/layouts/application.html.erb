@@ -21,9 +21,17 @@
   <% require 'apexcharts' %>
 
   <!-- Google Maps JS files -->
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.configuration.google_maps_api_key %>">
+  <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.configuration.google_maps_api_key %>&callback=initialize_gmaps">
     </script>
+  <script>
+    // Initialize gmaps stuff properly
+    function initialize_gmaps() {
+      const event = document.createEvent("Event");
+      event.initEvent("gmaps:ready");
+      document.dispatchEvent(event);
+    }
+  </script>
   <script src="/assets/js/gmaps.js"></script>
 
   <!-- Custom CSS -->

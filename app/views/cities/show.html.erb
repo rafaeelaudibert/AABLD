@@ -79,27 +79,29 @@
 
 <% content_for :javascript do %>
   <script>
-    const map = new GMaps({
-      el: '#map',
-      lat: -29.295278,
-      lng: -51.501080,
-      zoom: 14
-    });
+    document.addEventListener('gmaps:ready', () => {
+      const map = new GMaps({
+        el: '#map',
+        lat: -29.295278,
+        lng: -51.501080,
+        zoom: 14
+      });
 
-    GMaps.geocode({
-      address: "<%= @city.name %>, <%= @city.state %>",
-      callback: (results, status) => {
-        if (status == 'OK') {
-          const latlng = results[0].geometry.location;
+      GMaps.geocode({
+        address: "<%= @city.name %>, <%= @city.state %>",
+        callback: (results, status) => {
+          if (status == 'OK') {
+            const latlng = results[0].geometry.location;
 
-          map.setCenter(latlng.lat(), latlng.lng());
-          map.addMarker({
-            lat: latlng.lat(),
-            lng: latlng.lng()
-          });
+            map.setCenter(latlng.lat(), latlng.lng());
+            map.addMarker({
+              lat: latlng.lat(),
+              lng: latlng.lng()
+            });
+          }
         }
-      }
-    });
+      });
+    });    
   </script>
 <% end %>
 
