@@ -25,7 +25,7 @@ class TransactionsController < ApplicationController
     @user = @transaction.user
 
     if @transaction.open? && can?(:edit, @transaction)
-      render :edit
+      render :edit, layout: 'application'
     else
       render :show
     end
