@@ -4,7 +4,7 @@ class UpdateUsers < ActiveRecord::Migration[5.2]
             t.string :first_name, null: false
             t.string :last_name, null: false, default: ''
             t.string :cpf, index: true, limit: 14   # Non-nullity defined on model
-            t.string :rg, index: true, limit: 10    # Non-nullity defined on model
+            t.string :rg, index: true, limit: 15    # Non-nullity defined on model
             t.date :birthdate                       # Non-nullity defined on model
             t.string :father_name, default: 'Não consta'
             t.string :mother_name                   # Non-nullity defined on model
