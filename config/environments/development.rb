@@ -50,20 +50,23 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
   config.assets.debug = true
 
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
+    address: ENV['SMTP_ADDRESS'],
     port: 587,
-    domain: 'gmail.com',
+    domain: ENV['SMTP_DOMAIN'],
     authentication: :plain,
     enable_starttls_auto: true,
-    user_name: 'associacaoAABLD@gmail.com',
-    password: 'AABLD2019'
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD']
   }
+
   # ActionMailer Config
-  config.active_job.queue_adapter = :sidekiq
   config.action_mailer.default_url_options = { host: 'localhost:8081' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default charset: 'utf-8'
+
+  # ActiveJob Config
+  config.active_job.queue_adapter = :sidekiq
 
   # Send email in development mode?
   config.action_mailer.perform_deliveries = true

@@ -64,13 +64,13 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
 
   # Email configuration
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
+    address: ENV['SMTP_ADDRESS'],
     port: 587,
-    domain: 'gmail.com',
+    domain: ENV['SMTP_DOMAIN'],
     authentication: :plain,
     enable_starttls_auto: true,
-    user_name: 'associacaoAABLD@gmail.com',
-    password: 'AABLD2019'
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD']
   }
 
   # ActionMailer Config
