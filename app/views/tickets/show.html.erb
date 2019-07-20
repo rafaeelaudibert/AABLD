@@ -1,33 +1,173 @@
 <p id="notice"><%= notice %></p>
 
 <% content_for :title do %>
-  &nbsp;
+  <h3> Passagem </h3>
 <% end %>
 
-<p>
-  <strong>Source city:</strong>
-  <%= @ticket.source_city.name %>
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.ticket.source_city_id')%></label> <br/>
+                        <%= @ticket.source_city.name %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.ticket.destination_city_id')%></label> <br/>
+                        <%= @ticket.destination_city.name %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.ticket.value')%></label> <br/>
+                        <%= format_currency @ticket.value %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.ticket.bus_company_id')%></label> <br/>
+                        <%= @ticket.bus_company.name %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>
-  <strong>Destination city:</strong>
-  <%= @ticket.destination_city.name %>
-</p>
+<div class="row">
+  <div class="col-lg-6 col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <%= ticket_monthly_user_chart_for @ticket %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <%= ticket_monthly_value_chart_for @ticket %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Value:</strong>
-  <%= format_currency @ticket.value %>
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+              <h4> Estatísticas Gerais </h4>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-lg-3 col-sm-6">
+                        <label style="margin-bottom: 0">Usuários totais:</label> <br/>
+                        <%= @ticket.user_tickets.map(&:user_id).uniq.count %>
+                    </div>
+                    <div class="form-group col-lg-3 col-sm-6">
+                        <label style="margin-bottom: 0">Usuários ativos (últimos 6 meses):</label> <br/>
+                        <%= @ticket.user_tickets.where(created_at: 6.months.ago..DateTime::Infinity.new).map(&:user_id).uniq.count %>
+                    </div>
+                    <div class="form-group col-lg-3 col-sm-6">
+                        <label style="margin-bottom: 0">Passagens utilizadas:</label> <br/>
+                        <%= @ticket.user_tickets.sum(&:quantity) %>
+                    </div>
+                    <div class="form-group col-lg-3 col-sm-6">
+                        <label style="margin-bottom: 0">Valor gasto total:</label> <br/>
+                        <%= format_currency @ticket.user_tickets.sum(&:total) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>
-  <strong>Bus company:</strong>
-  <%= @ticket.bus_company.name %>
-</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4> Mapa </h4>
+      </div>
+      <div class="card-body">
+        <div id="map" style="height: 400px"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% if can? :edit, @ticket %>
-  <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+  <%= link_to 'Editar', edit_ticket_path(@ticket), class:'btn btn-lg btn-danger float-right'  %>
 <% end %>
 
 <% if can? :index, Ticket %>
-  <%= link_to 'Back', tickets_path %>
+  <%= link_to 'Voltar', tickets_path, class: 'btn btn-lg btn-primary' %>
+<% end %>
+
+<% content_for :javascript do %>
+  <script>
+    document.addEventListener('gmaps:ready', () => {
+      function getBoundsZoomLevel(src_latlng, dst_latlng, mapDim) {
+        const WORLD_DIM = { height: 256, width: 256 };
+        const ZOOM_MAX = 21;
+
+        function latRad(lat) {
+            const sin = Math.sin(lat * Math.PI / 180);
+            const radX2 = Math.log((1 + sin) / (1 - sin)) / 2;
+            return Math.max(Math.min(radX2, Math.PI), -Math.PI) / 2;
+        }
+
+        function zoom(mapPx, worldPx, fraction) {
+            return Math.floor(Math.log(mapPx / worldPx / fraction) / Math.LN2);
+        }
+
+        const eastern = src_latlng.lng() < dst_latlng.lng() ? src_latlng : dst_latlng;
+        const western = src_latlng.lng() > dst_latlng.lng() ? src_latlng : dst_latlng;
+
+        const latFraction = (latRad(eastern.lat()) - latRad(western.lat())) / Math.PI;
+
+        const lngDiff = eastern.lng() - western.lng();
+        const lngFraction = ((lngDiff < 0) ? (lngDiff + 360) : lngDiff) / 360;
+
+        const latZoom = zoom(mapDim.height, WORLD_DIM.height, latFraction);
+        const lngZoom = zoom(mapDim.width, WORLD_DIM.width, lngFraction);
+
+        return Math.min(Math.max(latZoom, lngZoom), ZOOM_MAX);
+    }
+      
+      const map = new GMaps({
+        el: '#map',
+        lat: -29.295278,
+        lng: -51.501080,
+        zoom: 14
+      });
+
+      GMaps.geocode({
+        address: "<%= @ticket.source_city.name %>, <%= @ticket.source_city.state %>",
+        callback: (results, status) => {
+          if (status == 'OK') {
+            const source_latlng = results[0].geometry.location;
+
+            GMaps.geocode({
+              address: "<%= @ticket.destination_city.name %>, <%= @ticket.destination_city.state %>",
+              callback: (results, status) => {
+                if (status == 'OK') {
+                  const destination_latlng = results[0].geometry.location;
+                  
+                  map.setCenter((source_latlng.lat() + destination_latlng.lat()) / 2, (source_latlng.lng() + destination_latlng.lng()) / 2);
+                  
+                  map.drawRoute({
+                    origin: [source_latlng.lat(), source_latlng.lng()],
+                    destination: [destination_latlng.lat(), destination_latlng.lng()],
+                    travelMode: 'driving',
+                    strokeColor: '#131540',
+                    strokeOpacity: 0.6,
+                    strokeWeight: 6
+                  });
+                  var zoom = getBoundsZoomLevel(source_latlng, destination_latlng, {width: $("#map")[0].offsetWidth, height: $("#map")[0].offsetHeight})
+                  map.setZoom(zoom);
+                }
+
+              }
+            });            
+          }
+        }
+      });
+    });    
+  </script>
 <% end %>
