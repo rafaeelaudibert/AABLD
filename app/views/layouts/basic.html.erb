@@ -8,6 +8,7 @@
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/izitoast.min.css">
 
   <!-- Custom CSS -->
   <%= content_for :css %>
@@ -39,6 +40,10 @@
   <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/jquery.nicescroll.min.js"></script>
   <script src="/assets/js/moment.min.js"></script>
+  <script src="/assets/js/izitoast.min.js"></script>
+
+  <!-- Render toastr -->
+  <%= render 'layouts/dashboard/messages' %>
 
   <!-- Dashboard Library (Stisla) JS File -->
   <%= javascript_include_tag 'dashboard', 'data-turbolinks-track': 'reload' %>
