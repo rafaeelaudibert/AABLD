@@ -48,5 +48,6 @@ class Users::TransactionsController < ApplicationController
   # CanCanCan method
   def current_ability
     @current_ability = TransactionAbility.new(current_user)
+                                         .merge(SidebarAbility.new(current_user))
   end
 end
