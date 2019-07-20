@@ -1,69 +1,95 @@
 <p id="notice"><%= notice %></p>
 
 <% content_for :title do %>
-  Usuário | <%= @user.full_name %>
+  <h3> Usuário | <%= @user.full_name %> </h3>
 <% end %>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.email')%></label> <br/>
+                        <%= @user.email %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.cpf')%></label> <br/>
+                        <%= @user.cpf %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.birthdate')%></label> <br/>
+                        <%= @user.birthdate.strftime '%d-%m-%Y' %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.parents')%></label> <br/>
+                        <%= @user.parents %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.phone')%></label> <br/>
+                        <%= @user.mobile_phone || @user.phone %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.address')%></label> <br/>
+                        <%= @user.address %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.bank_information')%></label> <br/>
+                        <%= @user.bank_information %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.university_id')%></label> <br/>
+                        <%= @user.university&.abbr_and_name %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.course')%></label> <br/>
+                        <%= @user.course %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.semester')%></label> <br/>
+                        <%= @user.semester %>º
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.responsible')%></label> <br/>
+                        <%= link_to(@user.responsible.full_name, @user.responsible, class: 'btn btn-primary') unless @user.responsible.nil? %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.role')%></label> <br/>
+                        <%= enum_t(@user, :role) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>
-  <strong>CPF:</strong>
-  <%= @user.cpf %>
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+              <h4> Estatísticas Gerais </h4>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-lg-3 col-sm-6">
+                        <label style="margin-bottom: 0">Viagens totais:</label> <br/>
+                        <%= @user.user_tickets.sum(&:quantity) %>
+                    </div>
+                    <div class="form-group col-lg-3 col-sm-6">
+                        <label style="margin-bottom: 0">Valor gasto total:</label> <br/>
+                        <%= format_currency @user.user_tickets.sum(&:total) %>
+                    </div>
+                    <div class="form-group col-lg-3 col-sm-6">
+                        <label style="margin-bottom: 0">Valor ressarcido total:</label> <br/>
+                        <%= format_currency @user.user_tickets.sum(&:total) * 0.9 %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>
-  <strong>Data de Nascimento:</strong>
-  <%= @user.birthdate %>
-</p>
-
-<p>
-  <strong>Filiação:</strong>
-  <%= @user.parents %>
-</p>
-
-<p>
-  <strong>Telefone:</strong>
-  <%= @user.mobile_phone || @user.phone %>
-</p>
-
-<p>
-  <strong>Endereço:</strong>
-  <%= @user.address %>
-</p>
-
-<p>
-  <strong>Informação do Banco:</strong>
-  <%= @user.bank_information %>
-</p>
-
-<p>
-  <strong>Universidade:</strong>
-  <%= @user.university&.abbr_and_name %>
-</p>
-
-<p>
-  <strong>Curso:</strong>
-  <%= @user.course %>
-</p>
-
-<p>
-  <strong>Semester:</strong>
-  <%= @user.semester %>
-</p>
-
-<p>
-  <strong>Responsável:</strong>
-  <%= link_to(@user.responsible.full_name, @user.responsible, class: 'btn btn-primary') unless @user.responsible.nil? %>
-</p>
-
-<p>
-  <strong>Cargo:</strong>
-  <%= enum_t(@user, :role) %>
-</p>
 
 <% if can? :index, User %>
-  <%= link_to 'Back', users_path %>
+  <%= link_to 'Voltar', users_path, class: 'btn btn-lg btn-primary' %>
 <% end %>
