@@ -32,7 +32,7 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
 
   # Store uploaded files on the local file system
   config.active_storage.service = :local
-  
+
   # Care if the mailer can't send.
   config.action_mailer.perform_caching = false
 
