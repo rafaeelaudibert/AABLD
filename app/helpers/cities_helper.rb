@@ -38,7 +38,7 @@ module CitiesHelper
                      .group_by { |ut| date_hash_string ut.created_at }
                      .map { |key, value| [key, value.sum(&:total)] }
                      .to_h
-  
+
     destination_data = UserTicket.group_by_month(:created_at, last: 12).count
                                  .map { |ut| [ut[0], pre_data_d.fetch(date_hash_string(ut[0]), 0)] }
 

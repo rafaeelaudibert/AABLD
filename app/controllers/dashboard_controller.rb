@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class DashboardController < ApplicationController
+  layout 'no_card'
+
   def index; end
 
   private
