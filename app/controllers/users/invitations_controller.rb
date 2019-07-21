@@ -15,12 +15,10 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def update
-    authorize! :update, User
     super
   end
 
   def edit
-    authorize! :edit, User
     super
   end
 

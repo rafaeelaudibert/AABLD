@@ -62,22 +62,19 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # Email configuration
-  config.action_mailer.smtp_settings = {
-    address: ENV['SMTP_ADDRESS'],
-    port: 587,
-    domain: ENV['SMTP_DOMAIN'],
-    authentication: :plain,
-    enable_starttls_auto: true,
-    user_name: ENV['SMTP_USERNAME'],
-    password: ENV['SMTP_PASSWORD']
+  # ActionMailer Config
+  config.action_mailer.default_url_options = { host: 'localhost:8081' }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default charset: 'utf-8'
+
+  config.action_mailer.delivery_method = :sendgrid_actionmailer
+  config.action_mailer.sendgrid_actionmailer_settings = {
+    api_key: ENV['SENDGRID_API_KEY'],
+    raise_delivery_errors: true
   }
 
-  # ActionMailer Config
+  # ActiveJob Config
   config.active_job.queue_adapter = :sidekiq
-  config.action_mailer.default_url_options = { host: 'localhost:8081' }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.raise_delivery_errors = true
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

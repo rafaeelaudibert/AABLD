@@ -113,3 +113,6 @@ gem 'groupdate'
 
 # Chart creation
 gem 'apexcharts'
+
+# SendGrid usage helper
+gem 'sendgrid-actionmailer'
