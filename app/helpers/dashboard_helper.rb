@@ -42,6 +42,9 @@ module DashboardHelper
     data = UserTicket.group_by_month(:created_at).count
                      .map { |ut| [ut[0], pre_data.fetch(date_hash_string(ut[0]), 0)] }
 
+    # If there is no data, return earlier
+    return render(partial: 'empty_chart', locals: { chart_title: 'Valor' }) if data.length.zero?
+
     options = create_chart_options(title: 'Valor',
                                    subtitle: 'Agrupado por Mês',
                                    xtitle: 'Mês',
