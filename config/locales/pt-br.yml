@@ -115,6 +115,7 @@ pt-BR:
         total_value: "Valor total"
         total: "Valor total"
       user:
+        about: "Sobre"
         email: "E-mail"
         first_name: "Nome"
         last_name: "Sobrenome"

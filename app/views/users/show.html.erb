@@ -57,6 +57,10 @@
                         <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.role')%></label> <br/>
                         <%= enum_t(@user, :role) %>
                     </div>
+                    <div class="form-group col-lg-12 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.about')%></label> <br/>
+                        <%= @user.about %>
+                    </div>
                 </div>
             </div>
         </div>
