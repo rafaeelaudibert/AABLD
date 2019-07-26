@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+
   scope :dashboard do
     # Devise stuff
     devise_for :users, skip: %i[registrations],
@@ -35,7 +36,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :users, only: %i[index show] do
+    # User model routes
+    resources :users, except: %i[new create destroy] do
       resources :transactions, only: %i[index create], controller: 'users/transactions'
     end
 
