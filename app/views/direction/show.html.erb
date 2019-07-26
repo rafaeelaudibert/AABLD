@@ -19,7 +19,7 @@
                         <div class="author-box-job"><%= enum_t(user, :role) %></div>
                         <div class="author-box-description">
                             <p>
-                                <%= user.try(:about) %>
+                                <%= truncate user.about, length: 90 %>
                             </p>
                         </div>
                     </div>

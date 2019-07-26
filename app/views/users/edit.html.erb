@@ -4,19 +4,69 @@
 
 <%= form_with(model: @user, local: true) do |form| %>
 
-    <div class="form-row">
-        <div class="form-group col-md-5">
-            <%= form.label :first_name %>
-            <%= form.text_field :first_name, class: 'form-control', required: true %>
-        </div>
+    <% if current_user == @user %>
+      <div class="row">
+          <div class="col-12 mb-4">
+              <div class="hero align-items-center bg-warning text-white" style="padding: 2rem">
+                  <div class="hero-inner text-center">
+                    <h2>Atenção, <%= @user.name %>!</h2>
+                    <p>
+                      Alguns dados não podem ser atualizados por você. <br/>
+                      Caso deseja alterar algum valor que não encontras aqui, contate a direção da associação. <br/>
+                    </p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    <% end %>
 
-        <div class="form-group col-md-7">
-            <%= form.label :last_name %>
-            <%= form.text_field :last_name, class: 'form-control', required: true %>
-        </div>
+    <%# Data which can be edited by the user and the association direction %>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+          <%= form.label :first_name %>
+          <%= form.text_field :first_name, class: 'form-control', required: true %>
+      </div>
+
+      <div class="form-group col-md-8">
+          <%= form.label :last_name %>
+          <%= form.text_field :last_name, class: 'form-control', required: true %>
+      </div>
     </div>
 
     <div class="form-row">
+      <div class="form-group col-md-6">
+          <%= form.label :father_name %>
+          <%= form.text_field :father_name, class: 'form-control', required: true %>
+      </div>
+
+      <div class="form-group col-md-6">
+          <%= form.label :mother_name %>
+          <%= form.text_field :mother_name, class: 'form-control', required: true %>
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group col-md-12">
+          <%= form.label :address %>
+          <%= form.text_field :address, class: 'form-control', required: true %>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+          <%= form.label :phone %>
+          <%= form.text_field :phone, class: 'form-control cleave-phone-number', required: true %>
+      </div>
+
+      <div class="form-group col-md-6">
+          <%= form.label :mobile_phone %>
+          <%= form.text_field :mobile_phone, class: 'form-control cleave-mobile-phone-number', required: true %>
+      </div>
+    </div>    
+
+    <%# Data which can only be edited by the association direction %>
+    <% if current_user.on_direction? || current_user.admin? %>
+      <div class="form-row">
         <div class="form-group col-md-6">
             <%= form.label :cpf %><br />
             <%= form.text_field :cpf, class: 'form-control cleave-cpf', required: true %>
@@ -26,8 +76,94 @@
         <div class="form-group col-md-6">
             <%= form.label :rg %><br />
             <%= form.text_field :rg, class: 'form-control cleave-rg', required: true %>
+        </div>        
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <%= form.label :birthdate %>
+          <%= form.text_field :birthdate, class: 'form-control cleave-birthdate', required: true %>
+          <div class="invalid-feedback">Oops, tem certeza que essa data está com o ano correto?</div>
         </div>
-    </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-3">
+            <%= form.label :bank_account %>
+            <%= form.text_field :bank_account, class: 'form-control', required: true %>
+        </div>
+
+        <div class="form-group col-md-3">
+            <%= form.label :bank_agency %>
+            <%= form.text_field :bank_agency, class: 'form-control', required: true %>
+        </div>
+
+        <div class="form-group col-md-6">
+            <%= form.label :bank_option %>
+            <%= form.select :bank_option, enum_options_for_select(User, :bank_option), {include_blank: "Selecione a opção de conta"}, {class: 'form-control', required: true} %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-5">
+            <%= form.label :university_id %><br />
+            <%= form.select :university_id, University.all.map {|university| [university.abbr_and_name, university.id]}, {include_blank: "Selecione a universidade"}, {class: 'form-control', required: true} %>
+        </div>
+
+        <div class="form-group col-md-3">
+            <%= form.label :course %>
+            <%= form.text_field :course, class: 'form-control', required: true %>
+        </div>
+
+        <div class="form-group col-md-2">
+            <%= form.label :semester %>
+            <%= form.text_field :semester, class: 'form-control', required: true %>
+        </div>
+
+        <div class="form-group col-md-2">
+            <%= form.label :place %>
+            <%= form.text_field :place, class: 'form-control', required: true %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <%= form.label :responsible_id %><br />
+          <%= form.select :responsible_id, User.ticket_responsibles.reject { |user| @user == user }.map { |user| [user.full_name, user.id] }, { include_blank: "Responsável próprio" }, { class: 'form-control select2' } %>
+          <% pp User.ticket_responsibles %>
+          <% pp User.ticket_responsibles.select { |user| @user != user } %>
+        </div>
+
+        <div class="form-group col-md-6">
+          <div class="control-label">Responsável</div>
+          <label class="custom-switch mt-2">
+            <%= form.check_box :ticket_responsible, class: 'custom-switch-input' %>
+            <span class="custom-switch-indicator"></span>
+            <span class="custom-switch-description">Usuário pode ser responsável</span>
+          </label>
+        </div>
+      </div>
+    <% end %>
+
+    <%# Data which can only be edited by the own user %>
+    <% if current_user == @user %>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <%= form.label :about %>
+          <%= form.text_area :about, class: 'form-control', required: true %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <%= form.label :current_password %><br />
+          <%= form.password_field :current_password, class: 'form-control', required: true %>
+          <small class="form-text text-muted">
+          Precisamos da senha atual para confirmar suas alterações
+          </small>
+        </div>
+      </div>  
+    <% end %>
 
     <%= form.submit class: 'btn btn-lg btn-primary float-right' %>
 <% end %>
@@ -127,4 +263,9 @@
 
 <% content_for :extra_javascript do %>
   <script src="/assets/js/cleave.min.js"></script>
+  <script src="/assets/js/select2.full.min.js"></script>
+<% end %>
+
+<% content_for :css do %>
+  <link rel="stylesheet" href="/assets/css/select2.min.css">
 <% end %>

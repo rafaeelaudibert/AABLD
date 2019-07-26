@@ -212,8 +212,8 @@
                 </div>
 
                 <div class="form-group">
-                  <%= f.label :responsible %><br />
-                  <%= f.select :responsible, User.ticket_responsibles.map {|user| [user.full_name, user.id]}, {include_blank: "Responsável próprio"}, {class: 'form-control'} %>
+                  <%= f.label :responsible_id %><br />
+                  <%= f.select :responsible_id, User.ticket_responsibles.map { |user| [user.full_name, user.id] }, { include_blank: "Responsável próprio" }, {class: 'form-control'} %>
                 </div>  
 
                 <div class="form-group">
@@ -329,4 +329,9 @@
 
 <% content_for :extra_javascript do %>
   <script src="/assets/js/cleave.min.js"></script>
+  <script src="/assets/js/select2.full.min.js"></script>
+<% end %>
+
+<% content_for :css do %>
+  <link rel="stylesheet" href="/assets/css/select2.min.css">
 <% end %>

@@ -116,6 +116,8 @@ pt-BR:
         total: "Valor total"
       user:
         about: "Sobre"
+        current_password: "Senha atual"
+        password: "Senha"
         email: "E-mail"
         first_name: "Nome"
         last_name: "Sobrenome"
@@ -152,6 +154,7 @@ pt-BR:
         taken: "Este %{attribute} já foi utilizado(a)"
         record_invalid: "A validação falhou: %{errors}"
         not_a_number: "%{attribute} não é um número válido"
+        invalid: "%{attribute} atual não corresponde"
         restrict_dependent_destroy:
           has_one: "Não é possível excluir o registro pois existe um %{record} dependente"
           has_many: "Não é possível excluir o registro pois existem %{record} dependentes"
