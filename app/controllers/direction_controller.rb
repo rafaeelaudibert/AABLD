@@ -17,7 +17,6 @@ class DirectionController < ApplicationController
   def edit
     authorize! :edit, :direction
     @users = User.view_select
-    pp @users
   end
 
   # PATCH/PUT /direction/
