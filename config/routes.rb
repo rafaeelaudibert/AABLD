@@ -38,5 +38,8 @@ Rails.application.routes.draw do
     resources :users, only: %i[index show] do
       resources :transactions, only: %i[index create], controller: 'users/transactions'
     end
+
+    # Change direction route
+    resource :direction, only: %i[show edit update], controller: 'direction'
   end
 end

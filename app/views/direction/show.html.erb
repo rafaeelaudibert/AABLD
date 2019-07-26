@@ -1,0 +1,35 @@
+<% content_for :title do %>
+    <h3> Direção </h3>
+<% end %>
+
+<div class="row">
+    <% @users.each do |user| %>
+        <div class="col-12 col-lg-6">
+            <div class="card author-box card-primary">
+                <div class="card-body">
+                    <div class="author-box-left">
+                        <img alt="image" src="<%= user.avatar_url(100) %>" class="rounded-circle author-box-circle">
+                        <div class="clear-fix"></div>
+                        <% if can? :show, user %>
+                            <%= link_to 'Acessar', user, class: 'btn mt-3 btn-primary'%>
+                        <% end %>
+                    </div>
+                    <div class="author-box-details">
+                        <div class="author-box-name text-primary"><%= user.full_name %></div>
+                        <div class="author-box-job"><%= enum_t(user, :role) %></div>
+                        <div class="author-box-description">
+                            <p>
+                                <%= user.try(:description) %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    <% end %>
+</div>
+
+<% if can? :edit, :direction %>
+    <%= link_to 'Alterar direção', edit_direction_path, class: 'btn btn-primary float-right' %>
+<% end %>

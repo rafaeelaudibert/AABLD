@@ -64,7 +64,7 @@ pt-BR:
         bank_options:
           checking: 'Conta Corrente'
           savings: 'Conta Poupança'
-        roles:
+        roles: &user_role
           member: 'Membro'
           president: 'Presidente'
           treasurer: 'Tesoureiro'
@@ -72,7 +72,7 @@ pt-BR:
           vice_president: 'Vice-presidente'
           vice_treasurer: '2º Tesoureiro'
           vice_secretary: '2º Secetrário'
-          staff: 'Diretoria'
+          fiscal_council: 'Conselho Fiscal'
           admin: 'Administrador'
     attributes:
       bus_company:
@@ -84,6 +84,7 @@ pt-BR:
       city:
         name: "Nome"
         state: "Estado"
+      direction: *user_role
       ticket:
         source_city_id: "Cidade de Origem"
         source_city: "Cidade de Origem"
@@ -154,6 +155,8 @@ pt-BR:
           has_one: "Não é possível excluir o registro pois existe um %{record} dependente"
           has_many: "Não é possível excluir o registro pois existem %{record} dependentes"
   helpers:
+    label:
+      direction: *user_role
     submit:
       create: "Criar %{model}"
       submit: "Salvar %{model}"

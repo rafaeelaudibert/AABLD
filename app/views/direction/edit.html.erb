@@ -1,0 +1,187 @@
+<% content_for :title do %>
+    <h3> Direção | Edição </h3>
+<% end %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="row mt-4">
+            <div class="col-12 col-lg-8 offset-lg-2">
+                <div class="wizard-steps">
+                    <div class="wizard-step wizard-step-active">
+                        <div class="wizard-step-icon">
+                            <i class="fa fa-crown"></i>
+                        </div>
+                        <div class="wizard-step-label">
+                            Presidência
+                        </div>
+                    </div>
+                    <div class="wizard-step">
+                        <div class="wizard-step-icon">
+                            <i class="fa fa-dollar-sign"></i>
+                        </div>
+                        <div class="wizard-step-label">
+                            Tesouraria
+                        </div>
+                    </div>
+                    <div class="wizard-step">
+                        <div class="wizard-step-icon">
+                            <i class="fa fa-book"></i>
+                        </div>
+                        <div class="wizard-step-label">
+                            Secretaria
+                        </div>
+                    </div>
+                    <div class="wizard-step">
+                        <div class="wizard-step-icon">
+                            <i class="fa fa-money-check-alt"></i>
+                        </div>
+                        <div class="wizard-step-label">
+                            Conselho Fiscal
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-8 offset-lg-2 mt-4">
+            <%= form_for :direction, url: direction_path, method: :patch do |form| %>
+                <section id="wizard-step-1" class="form-wizard-step">
+                    <div class="form-group">
+                        <%= form.label :president %>
+                        <%= form.select :president, @users, {include_blank: "Selecione o novo presidente", required: true}, {class: 'form-control select2'} %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :vice_president %>
+                        <%= form.select :vice_president, @users, {include_blank: "Selecione o novo vice-presidente", required: true}, {class: 'form-control select2'} %>
+                    </div>
+
+                    <%= link_to 'Próxima pagina', 'javascript:void(0);', class: 'btn btn-primary float-right disabled next-page' %>
+                </section>
+                <section id="wizard-step-2" class="form-wizard-step">
+                    <div class="form-group">
+                        <%= form.label :treasurer %>
+                        <%= form.select :treasurer, @users, {include_blank: "Selecione o novo tesoureiro", required: true}, {class: 'form-control select2'} %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :vice_treasurer %>
+                        <%= form.select :vice_treasurer, @users, {include_blank: "Selecione o novo vice-tesoureiro", required: true}, {class: 'form-control select2'} %>
+                    </div>
+
+                    <%= link_to 'Próxima pagina', 'javascript:void(0);', class: 'btn btn-primary float-right disabled next-page' %>
+                    <%= link_to 'Página anterior', 'javascript:void(0);', class: 'btn btn-primary float-right mr-2 previous-page' %>
+                </section>
+                <section id="wizard-step-3" class="form-wizard-step">
+                    <div class="form-group">
+                        <%= form.label :secretary %>
+                        <%= form.select :secretary, @users, {include_blank: "Selecione o novo secretário", required: true}, {class: 'form-control select2'} %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :vice_secretary %>
+                        <%= form.select :vice_secretary, @users, {include_blank: "Selecione o novo vice-secretário", required: true}, {class: 'form-control select2'} %>
+                    </div>
+
+                    <%= link_to 'Próxima pagina', 'javascript:void(0);', class: 'btn btn-primary float-right disabled next-page' %>
+                    <%= link_to 'Página anterior', 'javascript:void(0);', class: 'btn btn-primary float-right mr-2 previous-page' %>
+                </section>
+                <section id="wizard-step-4" class="form-wizard-step">
+                    <div class="form-group">
+                        <%= form.label :fiscal_council %>
+                        <%= form.select :fiscal_council_1, @users, {include_blank: "Selecione um novo membro do conselho fiscal", required: true}, {class: 'form-control select2 mb-2'} %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.select :fiscal_council_2, @users, {include_blank: "Selecione um novo membro do conselho fiscal", required: true}, {class: 'form-control select2 mb-2'} %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.select :fiscal_council_3, @users, {include_blank: "Selecione um novo membro do conselho fiscal", required: true}, {class: 'form-control select2 mb-2'} %>
+                    </div>
+
+                    <%= form.submit 'Salvar Direção', class: 'btn btn-primary float-right disabled next-page' %>
+                    <%= link_to 'Página anterior', 'javascript:void(0);', class: 'btn btn-primary float-right mr-2 previous-page' %>
+                </section>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<% content_for :javascript do %>
+    <script>
+
+        // Disable the selected options in other select inputs
+        $('select[name*="direction"]').change(function(){
+
+            // start by setting everything to enabled
+            $('select[name*="direction"] option').prop('disabled', false);
+
+            // loop each select and set the selected value to disabled in all other selects
+            $('select[name*="direction"]').each(function(){ 
+                var $this = $(this);
+                $('select[name*="direction"]').not($this).find('option').each(function(){
+                    if($(this).attr('value') && $(this).attr('value') == $this.val()){            
+                        $(this).prop('disabled',true);               
+                    }
+                });
+            });
+
+            // Reinitialize select2
+            $('select[name*="direction"]').select2('destroy').select2();
+        });
+
+        // Verify if we should update the next page button
+        $('select[name*="direction"]').change(e => {
+            const section = $(e.target).parent().parent();
+            
+            if (section.find('select').toArray().every( s => s.value )){
+                section.find('.next-page').removeClass('disabled');
+            } else {
+                section.find('.next-page').addClass('disabled');
+            }
+        });
+
+        // Control wizard
+        $('.form-wizard-step').each((idx, thisStep) => {
+
+            // Hide pages which are not the first one
+            if (idx != 0)
+                $(thisStep).addClass('d-none');
+
+            for (link of $(thisStep).find('a')) {
+                $(link).on('click', e => {
+                    // Hide current page
+                    $(thisStep).addClass('d-none');
+
+                    // Fetch current page step in the wizard progress display
+                    const wizardStep = $('.wizard-step')[idx];
+                    
+                    // Show proper page, updating the wizard progress display
+                    if ($(e.target).hasClass('previous-page')) {
+                        $(thisStep.previousElementSibling).removeClass('d-none');
+
+                        $(wizardStep).removeClass('wizard-step-active');
+                        $(wizardStep.previousElementSibling).removeClass('wizard-step-success');
+                        $(wizardStep.previousElementSibling).addClass('wizard-step-active');
+                    } else if ($(e.target).hasClass('next-page')) {
+                        $(thisStep.nextElementSibling).removeClass('d-none'); 
+                        
+                        $(wizardStep).addClass('wizard-step-success');
+                        $(wizardStep.nextElementSibling).addClass('wizard-step-active');
+                    }   
+                    
+                    // Reinitialize select2
+                    $('select[name*="direction"]').select2('destroy').select2();
+                })                    
+            }
+        });
+
+        // Trigger select changes to verify callbacks initialized prior
+        $(document).on('ready', () => $('select[name*="direction"]').trigger('change'));
+        
+    </script>
+<% end %>
+
+<% content_for :extra_javascript do %>
+  <script src="/assets/js/select2.full.min.js"></script>
+<% end %>
+
+<% content_for :css do %>
+  <link rel="stylesheet" href="/assets/css/select2.min.css">
+<% end %>

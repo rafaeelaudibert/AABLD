@@ -35,17 +35,21 @@ class User < ApplicationRecord
   enum role: {
     member: 0,
     president: 1,
-    treasurer: 2,
-    secretary: 3,
-    vice_president: 4,
-    vice_treasurer: 5,
+    vice_president: 2,
+    treasurer: 3,
+    vice_treasurer: 4,
+    secretary: 5,
     vice_secretary: 6,
-    staff: 7,
+    fiscal_council: 7,
     admin: 8
   }
 
+  # Constants
+  DIRECTION_SIZE = 9 # Direction size, with 3 members in the Fiscal Council
+
   # Scopes
   scope :not_admin, -> { where.not(role: :admin) }
+  scope :on_direction, -> { where.not(role: %i[admin member]).order(:role) }
 
   # Returns the User instance full name, concatenating <tt>first_name</tt> and <tt>last_name</tt>
   def full_name
@@ -90,6 +94,20 @@ class User < ApplicationRecord
     where(ticket_responsible: true)
   end
 
+  # Update the users in the current direction using the ones passed as parameter
+  def self.update_direction(direction)
+    raise StandardError, 'Sem membros suficientes na diretoria' if direction.uniq
+                                                                            .length < DIRECTION_SIZE
+
+    transaction do
+      # Remove roles from older direction
+      on_direction.each(&:member!)
+
+      # Add new users to direction, assigning the right role to them
+      direction.each { |role, user| user.update! role: role.to_sym }
+    end
+  end
+
   # Returns if the user belongs to the association direction
   def on_direction?
     president? || treasurer? || secretary? || vice_president? || vice_treasurer? || vice_secretary?
@@ -102,6 +120,12 @@ class User < ApplicationRecord
     all_cities.uniq!
     all_cities.compact!
     all_cities
+  end
+
+  # Returns an array containing only the name and the id of the User
+  # to be used in selects generated on views
+  def self.view_select
+    not_admin.map { |user| [user.full_name, user.id] }
   end
 
   private
