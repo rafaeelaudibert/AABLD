@@ -15,6 +15,12 @@ class UserAbility
                                                           user&.president? ||
                                                           user&.treasurer?
 
-    can :show, User, id: user&.id # Can see and itself
+    # Can see user documents if it is on direction, is admin or is the proper user
+    can :see_documents, User if user&.admin? || user &.on_direction?
+    can :see_documents, User, id: user&.id
+
+    # Every user can see and edit itself
+    can :show, User, id: user&.id
+    can :edit, User, id: user&.id
   end
 end

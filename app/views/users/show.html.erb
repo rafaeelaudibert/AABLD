@@ -12,10 +12,16 @@
                         <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.email')%></label> <br/>
                         <%= @user.email %>
                     </div>
+                    <% if can? :see_documents, @user %>
                     <div class="form-group col-lg-4 col-sm-6">
                         <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.cpf')%></label> <br/>
                         <%= @user.cpf %>
                     </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                            <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.rg')%></label> <br/>
+                            <%= @user.rg %>
+                        </div>
+                    <% end %>
                     <div class="form-group col-lg-4 col-sm-6">
                         <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.birthdate')%></label> <br/>
                         <%= @user.birthdate.strftime '%d-%m-%Y' %>
