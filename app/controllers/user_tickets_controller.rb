@@ -7,8 +7,12 @@ class UserTicketsController < ApplicationController
   # POST /user_tickets.json
   def create
     respond_to do |format|
-      if !@user_ticket.monthly_transaction.open? # If transaction is not open, cannot create a user_ticket
-        format.json { render json: { transaction: ['Transação não está aberta'] }, status: :unprocessable_entity }
+      # If transaction is not open, cannot create a user_ticket
+      if !@user_ticket.monthly_transaction.open?
+        format.json do
+          render json: { transaction: ['Transação não está aberta'] },
+                 status: :unprocessable_entity
+        end
       elsif @user_ticket.save
         format.json { render :show, status: :ok, location: @user_ticket }
       else
