@@ -20,6 +20,7 @@ class UpdateUsers < ActiveRecord::Migration[5.2]
             t.string :place                         # Non-nullity defined on model
             t.date :semester_start                  # Non-nullity defined on model
             t.date :semester_end                    # Non-nullity defined on model
+            t.string :about, default: ''
             t.integer :responsible_id, index: true
             t.boolean :ticket_responsible, index: true, null: false, default: false
             t.integer :role, index: true, default: 0    # Non-nullity defined on model

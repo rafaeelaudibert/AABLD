@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
     t.string "first_name", null: false
     t.string "last_name", default: "", null: false
     t.string "cpf", limit: 14
-    t.string "rg", limit: 10
+    t.string "rg", limit: 15
     t.date "birthdate"
     t.string "father_name", default: "Não consta"
     t.string "mother_name"
@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_034729) do
     t.string "place"
     t.date "semester_start"
     t.date "semester_end"
+    t.string "about", default: ""
     t.integer "responsible_id"
     t.boolean "ticket_responsible", default: false, null: false
     t.integer "role", default: 0

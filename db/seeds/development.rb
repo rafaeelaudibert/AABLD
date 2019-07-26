@@ -94,6 +94,7 @@ def seed_users
         place: Faker::Address.full_address,
         semester_start: Date.today,
         semester_end: Faker::Date.forward(30 * 6),
+        about: Faker::Lorem.paragraph,
         responsible: User.all.sample,
         ticket_responsible: false,
         role: :member
