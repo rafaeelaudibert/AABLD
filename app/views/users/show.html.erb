@@ -13,11 +13,11 @@
                         <%= @user.email %>
                     </div>
                     <% if can? :see_documents, @user %>
-                    <div class="form-group col-lg-4 col-sm-6">
-                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.cpf')%></label> <br/>
-                        <%= @user.cpf %>
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6">
+                        <div class="form-group col-lg-4 col-sm-6">
+                            <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.cpf')%></label> <br/>
+                            <%= @user.cpf %>
+                        </div>
+                        <div class="form-group col-lg-4 col-sm-6">
                             <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.rg')%></label> <br/>
                             <%= @user.rg %>
                         </div>
@@ -118,4 +118,8 @@
 
 <% if can? :index, User %>
   <%= link_to 'Voltar', users_path, class: 'btn btn-lg btn-primary' %>
+<% end %>
+
+<% if can? :edit, User %>
+  <%= link_to 'Editar', edit_user_path(@user), class: 'btn btn-lg btn-success float-right' %>
 <% end %>
