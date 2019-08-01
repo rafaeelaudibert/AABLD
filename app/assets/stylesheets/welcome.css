@@ -9285,7 +9285,7 @@ html {
     .section-with-hover .project .over-area .content {
       opacity: 1;
       opacity: 0.2s;
-      filter: alpha(opacity=20s);
+      // filter: alpha(opacity=20s);
       top: 50%;
       -webkit-transform: translateY(-50%);
       -moz-transform: translateY(-50%);
