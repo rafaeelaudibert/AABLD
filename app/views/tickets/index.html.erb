@@ -61,9 +61,10 @@
         <h2>Oops, não há dados aqui!</h2>
         <p class="lead">
           Desculpe, mas não conseguimos encontrar nenhuma passagem. <br/>
-          Para se livrar dessa mensagem, adicione pelo menos uma delas.
         </p>
-        <%= link_to 'Nova Passagem', new_ticket_path, class: 'btn btn-lg btn-primary mt-4' %>
+        <% if can? :create, Ticket %>
+          <%= link_to 'Nova Passagem', new_ticket_path, class: 'btn btn-lg btn-primary mt-4' %>
+        <% end %>
       </div>
     </div>
   </div>
