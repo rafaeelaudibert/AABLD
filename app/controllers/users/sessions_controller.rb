@@ -26,4 +26,9 @@ class Users::SessionsController < Devise::SessionsController
   def configure_sign_in_params
     devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   end
+
+  # Configure the redirection path after the user sign in
+  def after_sign_in_path
+    dashboard_path
+  end
 end
