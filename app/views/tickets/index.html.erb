@@ -62,7 +62,7 @@
         <p class="lead">
           Desculpe, mas não conseguimos encontrar nenhuma passagem. <br/>
         </p>
-        <%= if can? :create, Ticket %>
+        <% if can? :create, Ticket %>
           <%= link_to 'Nova Passagem', new_ticket_path, class: 'btn btn-lg btn-primary mt-4' %>
         <% end %>
       </div>
