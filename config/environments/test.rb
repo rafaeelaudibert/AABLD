@@ -38,7 +38,8 @@ Rails.application.configure do
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
-  config.active_job.queue_adapter = :sidekiq
+  # Not using sidekiq as the right views are not being fetched
+  # config.active_job.queue_adapter = :sidekiq
   config.action_mailer.delivery_method = :test
   config.action_mailer.default_url_options = { host: 'host: localhost:8081' }
 

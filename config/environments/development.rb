@@ -51,7 +51,7 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
   config.assets.debug = true
 
   # ActionMailer Config
-  config.action_mailer.default_url_options = { host: 'localhost:8081' }
+  config.action_mailer.default_url_options = { host: ENV['HOST'] || 'localhost:8081' }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default charset: 'utf-8'
 
@@ -61,8 +61,8 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
     raise_delivery_errors: true
   }
 
-  # ActiveJob Config
-  config.active_job.queue_adapter = :sidekiq
+  # ActiveJob Config - Not using sidekiq as the right views are not being fetched
+  # config.active_job.queue_adapter = :sidekiq
 
   # Send email in development mode?
   config.action_mailer.perform_deliveries = true

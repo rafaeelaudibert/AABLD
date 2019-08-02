@@ -2,4 +2,6 @@ Olá, <%= @resource.first_name %>
 
 Agora você tem uma conta para utilizar o sistema da AABLD.
 
+<% puts 'text' + '*' * 50 %>
+
 <%= link_to "Clique aqui para informar seus dados e definir a sua senha de acesso ao sistema", accept_invitation_url(@resource, invitation_token: @token) %>

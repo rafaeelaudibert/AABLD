@@ -73,8 +73,8 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
     raise_delivery_errors: true
   }
 
-  # ActiveJob Config
-  config.active_job.queue_adapter = :sidekiq
+  # ActiveJob Config - Not using sidekiq as the right views are not being fetched
+  # config.active_job.queue_adapter = :sidekiq
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

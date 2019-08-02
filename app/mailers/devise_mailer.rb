@@ -3,6 +3,7 @@
 ##
 # This is the default mailer for the Devise gem
 class DeviseMailer < Devise::Mailer
+
   # Email which is sent when a user creates his account,
   # containing his account confirmation instructions
   #
