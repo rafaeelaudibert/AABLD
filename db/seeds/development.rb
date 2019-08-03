@@ -95,7 +95,7 @@ def seed_users
                     semester_start: Time.zone.today,
                     semester_end: Faker::Date.forward(30 * 6),
                     about: Faker::Lorem.paragraph,
-                    responsible: User.all.sample,
+                    responsible: User.not_admin.sample,
                     ticket_responsible: false,
                     role: :member)
 
