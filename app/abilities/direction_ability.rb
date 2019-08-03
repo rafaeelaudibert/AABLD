@@ -5,6 +5,6 @@ class DirectionAbility
 
   def initialize(user)
     can :manage, :direction if user.admin? || user.president?
-    can :show, :direction
+    can :read, :direction
   end
 end
