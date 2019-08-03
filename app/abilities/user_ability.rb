@@ -8,10 +8,10 @@ class UserAbility
   # rubocop:disable Metrics/PerceivedComplexity
   def initialize(user)
     can :manage, User if user&.admin?
-    can :manage, User if user&.on_direction? # Direction can manage anything
+    can :manage, User if user&.president? # President can manage anything
 
-    # Can create and read users if it is on direction
-    can %i[create read], User if user&.on_direction?
+    # Can create, read and update users if it is on direction
+    can %i[create read update], User if user&.on_direction?
 
     # Can index and create transactions if it is a high stake
     can %i[index_transaction create_transaction], User if user&.admin? ||
