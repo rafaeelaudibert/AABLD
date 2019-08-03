@@ -1,129 +1,170 @@
-# Common configuration.
+# Extra requires
+require:
+  - rubocop-rails
+  - rubocop-performance
 
+# Common configuration
 AllCops:
+  TargetRailsVersion: 5.2.2
   Exclude:
-    - 'db/**/*'
-    - 'node_modules/**/*'
-    - 'vendor/**/*'
-    - '.git/**/*'
-    - 'bin/**/*'
-    - 'lib/**/*'
+      - db/*
+      - db/seeds/*
+  
+#################### Bundler ###############################
+
+Bundler/GemComment:
+  Description: 'Add a comment describing each gem.'
+  Enabled: true
 
 #################### Layout ###########################
 
+Layout/BlockAlignment:
+  Description: 'Align block ends correctly.'
+  Enabled: true
+  VersionAdded: '0.53'
+  # The value `start_of_block` means that the `end` should be aligned with line
+  # where the `do` keyword appears.
+  # The value `start_of_line` means it should be aligned with the whole
+  # expression's starting line.
+  # The value `either` means both are allowed.
+  EnforcedStyleAlignWith: start_of_block
+  SupportedStylesAlignWith:
+    - either
+    - start_of_block
+    - start_of_line
+
+
 Layout/ClassStructure:
   Description: 'Enforces a configured order of definitions within a class body.'
+  StyleGuide: '#consistent-classes'
   Enabled: true
+  VersionAdded: '0.52'
+  Categories:
+    module_inclusion:
+      - include
+      - prepend
+      - extend
+  ExpectedOrder:
+      - module_inclusion
+      - constants
+      - initializer
+      - public_class_methods
+      - public_methods
+      - protected_methods
+      - private_methods
+
+#################### Style ###############################
+
+Style/ClassAndModuleChildren:
+  Description: 'Checks style of children classes and modules.'
+  Enabled: true
+  #
+  # Basically there are two different styles:
+  #
+  # `nested` - have each child on a separate line
+  #   class Foo
+  #     class Bar
+  #     end
+  #   end
+  #
+  # `compact` - combine definitions as much as possible
+  #   class Foo::Bar
+  #   end
+  #
+  # The compact style is only forced, for classes or modules with one child.
+  EnforcedStyle: compact
+  SupportedStyles:
+    - nested
+    - compact
 
 #################### Metrics ###############################
+
+Metrics/LineLength:
+  Description: "Line is too long"
+  Enabled: true
+  Max: 100
 
 Metrics/AbcSize:
   Description: >-
                  A calculated magnitude based on number of assignments,
                  branches, and conditions.
   Enabled: true
-  Max: 16.5
+  # The ABC size is a calculated magnitude, so this number can be an Integer or
+  # a Float.
+  Max: 17
 
-Metrics/LineLength:
-  Description: 'Limit lines to 100 characters.'
+Metrics/BlockLength:
+  Description: 'Avoid long blocks with many lines.'
   Enabled: true
-  Max: 100
-  # The IgnoreCopDirectives option causes the LineLength rule to ignore cop
-  # directives like '# rubocop: enable ...' when calculating a line's length.
-  IgnoreCopDirectives: true
+  Max: 35
+  
+# Avoid complex methods.
+Metrics/CyclomaticComplexity:
+  Description: >-
+                 A complexity metric that is strongly correlated to the number
+                 of test cases needed to validate a method.
+  Enabled: true
+  Max: 7
+
 
 Metrics/MethodLength:
-  Description: 'Avoid methods longer than 15 lines of code.'
+  Description: 'Avoid methods longer than 10 lines of code.'
   Enabled: true
   Max: 15
+  
+Metrics/PerceivedComplexity:
+  Description: >-
+                 A complexity metric geared towards measuring complexity for a
+                 human reader.
+  Enabled: true
+  VersionAdded: '0.25'
+  Max: 8
 
-#################### Performance ###########################
+#################### Rails ###############################
+
+Rails/BulkChangeTable:
+  Description: 'Check whether alter queries are combinable.'
+  Enabled: false
+  
+Rails/CreateTableWithTimestamps:
+  Description: >-
+                  Checks the migration for which timestamps are not included
+                  when creating a new table.
+  Enabled: false
+  
+Rails/Date:
+  Description: >-
+                  Checks the correct usage of date aware methods,
+                  such as Date.today, Date.current etc.
+  Enabled: true
+  # The value `strict` disallows usage of `Date.today`, `Date.current`,
+  # `Date#to_time` etc.
+  # The value `flexible` allows usage of `Date.current`, `Date.yesterday`, etc
+  # (but not `Date.today`) which are overridden by ActiveSupport to handle current
+  # time zone.
+  EnforcedStyle: strict
+  SupportedStyles:
+    - strict
+    - flexible
+
+Rails/SaveBang:
+  Description: 'Identifies possible cases where Active Record save! or related should be used.'
+  Enabled: true
+  
+Rails/TimeZone:
+  Description: 'Checks the correct usage of time zone aware methods.'
+  Enabled: true
+  # The value `strict` means that `Time` should be used with `zone`.
+  # The value `flexible` allows usage of `in_time_zone` instead of `zone`.
+  EnforcedStyle: strict
+  SupportedStyles:
+    - strict
+    - flexible
+
+#################### Peformance ###############################
 
 Performance/CaseWhenSplat:
   Description: >-
                  Reordering `when` conditions with a splat to the end
                  of the `when` branches can improve performance.
   Enabled: true
-  AutoCorrect: true
-  SafeAutoCorrect: true
-
-Performance/Casecmp:
-  Description: >-
-             Use `casecmp` rather than `downcase ==`, `upcase ==`, `== downcase`, or `== upcase`..
-  Reference: 'https://github.com/JuanitoFatas/fast-ruby#stringcasecmp-vs-stringdowncase---code'
-  Enabled: true
-  VersionAdded: '0.36'
-
-Performance/ChainArrayAllocation:
-  Description: >-
-                  Instead of chaining array methods that allocate new arrays, mutate an
-                  existing array.
-  Enabled: true
-
-Performance/DoubleStartEndWith:
-  Description: >-
-                  Use `str.{start,end}_with?(x, ..., y, ...)`
-                  instead of `str.{start,end}_with?(x, ...) || str.{start,end}_with?(y, ...)`.
-  Enabled: true
-  # Used to check for `starts_with?` and `ends_with?`.
-  # These methods are defined by `ActiveSupport`.
-  IncludeActiveSupportAliases: true
-
-#################### Rails #################################
-
-# By default, the rails cops are not run. Override in project or home
-# directory .rubocop.yml files, or by giving the -R/--rails option.
-Rails:
-  Enabled: true
-
-Rails/CreateTableWithTimestamps:
-  Description: >-
-                  Checks the migration for which timestamps are not included
-                  when creating a new table.
-  Enabled: false
-
-Rails/SafeNavigation:
-  Description: "Use Ruby's safe navigation operator (`&.`) instead of `try!`"
-  Enabled: true
-  # This will convert usages of `try` to use safe navigation as well as `try!`.
-  # `try` and `try!` work slightly differently. `try!` and safe navigation will
-  # both raise a `NoMethodError` if the receiver of the method call does not
-  # implement the intended method. `try` will not raise an exception for this.
-  ConvertTry: true
-
-Rails/SaveBang:
-  Description: 'Identifies possible cases where Active Record save! or related should be used.'
-  Enabled: true
-
-Rails/UnknownEnv:
-  Description: 'Use correct environment name.'
-  Enabled: true
-  Environments:
-    - development
-    - test
-    - staging
-    - production
-
-#################### Style ###############################
-
-Style/AutoResourceCleanup:
-  Description: 'Suggests the usage of an auto resource cleanup version of a method (if available).'
-  Enabled: true
-
-Style/ClassAndModuleChildren:
-  Description: 'Checks style of children classes and modules.'
-  Enabled: false
-
-Style/ImplicitRuntimeError:
-  Description: >-
-                 Use `raise` or `fail` with an explicit exception class and
-                 message, rather than just a message.
-  Enabled: true
-
-Style/StringLiterals:
-  Description: 'Checks if uses of quotes match the configured preference.'
-  Enabled: true
-  EnforcedStyle: single_quotes
-  # If `true`, strings which span multiple lines using `\` for continuation must
-  # use the same type of quotes on each line.
-  ConsistentQuotesInMultiline: true

@@ -74,59 +74,57 @@ def seed_users
 
   20.times do
     user = User.new(first_name: Faker::Name.first_name,
-        last_name: Faker::Name.last_name,
-        email: Faker::Internet.email,
-        password: Faker::Alphanumeric.alpha(16),
-        cpf: CPF.generate,
-        rg: Faker::Number.number(10),
-        birthdate: Faker::Date.birthday(18, 65),
-        father_name: Faker::Name.male_first_name + ' ' + Faker::Name.last_name,
-        mother_name: Faker::Name.female_first_name + ' ' + Faker::Name.last_name,
-        address: Faker::Address.full_address,
-        phone: Faker::PhoneNumber.phone_number,
-        mobile_phone: Faker::PhoneNumber.phone_number,
-        bank_account: Faker::Number.number(6),
-        bank_agency: Faker::Number.number(5),
-        bank_option: User.bank_options.values.sample,
-        university: University.all.sample,
-        course: Faker::Educator.degree,
-        semester: (1...10).to_a.sample,
-        place: Faker::Address.full_address,
-        semester_start: Date.today,
-        semester_end: Faker::Date.forward(30 * 6),
-        about: Faker::Lorem.paragraph,
-        responsible: User.all.sample,
-        ticket_responsible: false,
-        role: :member
-    )
+                    last_name: Faker::Name.last_name,
+                    email: Faker::Internet.email,
+                    password: Faker::Alphanumeric.alpha(16),
+                    cpf: CPF.generate,
+                    rg: Faker::Number.number(10),
+                    birthdate: Faker::Date.birthday(18, 65),
+                    father_name: Faker::Name.male_first_name + ' ' + Faker::Name.last_name,
+                    mother_name: Faker::Name.female_first_name + ' ' + Faker::Name.last_name,
+                    address: Faker::Address.full_address,
+                    phone: Faker::PhoneNumber.phone_number,
+                    mobile_phone: Faker::PhoneNumber.phone_number,
+                    bank_account: Faker::Number.number(6),
+                    bank_agency: Faker::Number.number(5),
+                    bank_option: User.bank_options.values.sample,
+                    university: University.all.sample,
+                    course: Faker::Educator.degree,
+                    semester: (1...10).to_a.sample,
+                    place: Faker::Address.full_address,
+                    semester_start: Time.zone.today,
+                    semester_end: Faker::Date.forward(30 * 6),
+                    about: Faker::Lorem.paragraph,
+                    responsible: User.all.sample,
+                    ticket_responsible: false,
+                    role: :member)
 
     if user.save
-        Rails.logger.debug("[DEBUG]  -- INSERTED the USER #{user.id} to the database")
+      Rails.logger.debug("[DEBUG]  -- INSERTED the USER #{user.id} to the database")
     else
-        Rails.logger.error('[ERROR]  -- ERROR inserting USER #{user.id}')
-        Rails.logger.error(user.errors.full_messages)
-        raise
+      Rails.logger.error("[ERROR]  -- ERROR inserting USER #{user.id}")
+      Rails.logger.error(user.errors.full_messages)
+      raise
     end
-
   end
   Rails.logger.info('[FINISH] -- Users insertion')
 end
 
 def seed_admin
-    Rails.logger.info('[START]  -- Admin insertion')
+  Rails.logger.info('[START]  -- Admin insertion')
 
-    admin = User.new(first_name: 'Administrator',
-        last_name: '',
-        email: 'admin@aabld.com',
-        password: 'changeme',
-        role: :admin)
-    if admin.save(validate: false)
-        Rails.logger.debug('[DEBUG]  -- INSERTED the ADMIN to the database')
-    else
-        Rails.logger.error('[ERROR]  -- ERROR inserting the ADMIN')
-        Rails.logger.error(admin.errors.full_messages)
-        raise
-    end
+  admin = User.new(first_name: 'Administrator',
+                   last_name: '',
+                   email: 'admin@aabld.com',
+                   password: 'changeme',
+                   role: :admin)
+  if admin.save(validate: false)
+    Rails.logger.debug('[DEBUG]  -- INSERTED the ADMIN to the database')
+  else
+    Rails.logger.error('[ERROR]  -- ERROR inserting the ADMIN')
+    Rails.logger.error(admin.errors.full_messages)
+    raise
+  end
   Rails.logger.info('[FINISH] -- Admin insertion')
 end
 

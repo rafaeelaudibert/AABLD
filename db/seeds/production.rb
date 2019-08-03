@@ -48,7 +48,7 @@ def seed_universities
   Rails.logger.info('[FINISH] -- Universities insertion')
 end
 
-def seed_bus_companies
+def seed_bus_companies # rubocop:disable Metrics/MethodLength
   Rails.logger.info('[START]  -- Bus Companies insertion')
 
   CSV.foreach('./db/bus_companies.csv', headers: true) do |row|

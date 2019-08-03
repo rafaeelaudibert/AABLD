@@ -3,7 +3,10 @@
 class UserAbility
   include CanCan::Ability
 
-  def initialize(user) # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/PerceivedComplexity
+  def initialize(user)
     can :manage, User if user&.admin?
     can :manage, User if user&.president? # President can manage anything
 
@@ -23,4 +26,7 @@ class UserAbility
     can :show, User, id: user&.id
     can :edit, User, id: user&.id
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/PerceivedComplexity
 end

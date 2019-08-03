@@ -3,27 +3,33 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+# Configure Ruby version
 ruby '2.6.3'
+
+# Configure Rails version
 gem 'rails', '~> 5.2.2'
 
 # Use PostgreSQL as the database for Active Record
 gem 'pg'
-gem 'sqlite3', '~> 1.3.6'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
+
 # Use SCSS for stylesheets
 gem 'sassc-rails'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'mini_racer', platforms: :ruby
+
+# Use Nokogiri on tests
 gem 'nokogiri', '1.10.1'
 
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 
@@ -36,10 +42,15 @@ group :development, :test do
 end
 
 group :development do
+  # Listen for changes in files for hot reload
   gem 'listen', '>= 3.0.5', '< 3.2'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # Allow a console on Rails error pages
   gem 'web-console', '>= 3.3.0'
+
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
@@ -47,36 +58,57 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
+
+  # Used for UI testing
   gem 'selenium-webdriver'
+
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
 end
 
 # Development + Tests only gems, related to the console
 group :development, :test do
-  gem 'awesome_rails_console'
+  # Used for better debuggin on error pages
   gem 'binding_of_caller'
+
+  # Better Rails Console than Pry
   gem 'hirb'
+
+  # Better unicode formatting on Rails Console
   gem 'hirb-unicode-steakknife', require: 'hirb-unicode'
-  gem 'pry-stack_explorer'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-# Adding devise
+# Adding devise gems
+# Default Devise
 gem 'devise'
+
+# Devise ability to send mails asynchronously
 gem 'devise-async'
+
+# Ability to invite users
 gem 'devise_invitable', '~> 1.7.0'
 
 # Adding bootstrap and jquery
+# Bootstrap SASS-like compilation
 gem 'bootstrap-sass'
+
+# Jquery
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
+
+# Rails UJS
 gem 'rails-ujs', '~> 0.1.0'
 
-# Adding some useful validators
-gem 'cpf_cnpj'
+# Better visualization of data on console
+gem 'awesome_rails_console'
+
+# Some useful validators
 gem 'validators'
+
+# CPF and CNPJ helpers (including validators)
+gem 'cpf_cnpj'
 
 # Random data generator
 gem 'faker'

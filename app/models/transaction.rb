@@ -47,12 +47,12 @@ class Transaction < ApplicationRecord
 
   # Returns the index of the month we are currently creating Transaction instances
   def self.current_month_index
-    (Time.now.utc.to_date.month - 1) % 12
+    (Time.zone.now.utc.to_date.month - 1) % 12
   end
 
   # Returns the year that we are currently creating Transaction instances
   def self.current_year
-    current_month_index == 11 ? Time.now.utc.to_date.year - 1 : Time.now.utc.to_date.year
+    current_month_index == 11 ? Time.zone.now.utc.to_date.year - 1 : Time.zone.now.utc.to_date.year
   end
 
   private

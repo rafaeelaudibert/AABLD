@@ -69,7 +69,7 @@ class User < ApplicationRecord
 
   # Returns the user age
   def age # rubocop:disable Metrics/AbcSize
-    now = Time.now.utc.to_date
+    now = Time.zone.now.utc.to_date
     gone = now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)
     now.year - birthdate.year - (!gone ? 1 : 0)
   end
