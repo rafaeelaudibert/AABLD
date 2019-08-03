@@ -23,6 +23,9 @@ class SidebarAbility
     # Everybody can access Transactions panel
     can :access, :transactions
 
+    # Everybody can access Direction panel
+    can :access, :direction
+
     # Admins and Direction can access Users panel
     can :access, :users if user.on_direction?
   end
