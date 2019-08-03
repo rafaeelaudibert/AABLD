@@ -46,7 +46,7 @@ class UsersController < ApplicationController
                                  :phone, :mobile_phone, :address, :mother_name, :father_name,
                                  :bank_account, :bank_agency, :bank_option,
                                  :university_id, :place, :course, :responsible_id, :semester,
-                                 :ticket_responsible)
+                                 :about, :ticket_responsible)
   end
 
   def update_with_password
