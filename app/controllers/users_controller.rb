@@ -20,10 +20,10 @@ class UsersController < ApplicationController
 
   # POST /user/:id/edit
   def update
-    if current_user == @user # Need to use the password to update their data
-      update_with_password
-    else # Is admin or on direction, and doesn't need password
+    if current_user.admin? || current_user.on_direction? # Is admin or on direction, and doesn't need password
       update_without_password
+    elsif current_user == @user # Need to use the password to update their data
+      update_with_password
     end
   end
 

@@ -8,7 +8,7 @@ class UserAbility
   # rubocop:disable Metrics/PerceivedComplexity
   def initialize(user)
     can :manage, User if user&.admin?
-    can :manage, User if user&.president? # President can manage anything
+    can :manage, User if user&.on_direction? # Direction can manage anything
 
     # Can create and read users if it is on direction
     can %i[create read], User if user&.on_direction?
@@ -23,8 +23,8 @@ class UserAbility
     can :see_documents, User, id: user&.id
 
     # Every user can see and edit itself
-    can :show, User, id: user&.id
-    can :edit, User, id: user&.id
+    can :read, User, id: user&.id
+    can :update, User, id: user&.id
   end
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize
