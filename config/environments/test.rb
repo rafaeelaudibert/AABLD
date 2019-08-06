@@ -41,7 +41,7 @@ Rails.application.configure do
   # Not using sidekiq as the right views are not being fetched
   # config.active_job.queue_adapter = :sidekiq
   config.action_mailer.delivery_method = :test
-  config.action_mailer.default_url_options = { host: 'host: localhost:8081' }
+  config.action_mailer.default_url_options = { host: ENV['TEST_HOST'] || 'localhost:3000' }
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

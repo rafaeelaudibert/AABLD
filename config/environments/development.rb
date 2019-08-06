@@ -51,7 +51,7 @@ Rails.application.configure do
   config.assets.debug = true
 
   # ActionMailer Config
-  config.action_mailer.default_url_options = { host: ENV['HOST'] || 'localhost:8081' }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default charset: 'utf-8'
 
