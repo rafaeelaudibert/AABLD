@@ -4,6 +4,9 @@ class UsersController < ApplicationController
   # CanCan authorization
   load_and_authorize_resource
 
+  # Configure before_action
+  before_action :set_user, only: :reinvite
+
   # Breadcrumb configuration
   breadcrumb -> { @user.full_name },
              -> { @user },
@@ -27,7 +30,24 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST :id/reinvite
+  def reinvite
+    if @user.invitation_accepted?
+      redirect_back fallback_location: dashboard_path,
+                    alert: 'Usuário já confirmou seu convite'
+    else
+      @user.invite!
+      redirect_back fallback_location: dashboard_path,
+                    notice: 'Convite reenviado com sucesso'
+    end
+  end
+
   private
+
+  # Set user
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
   def update_without_password
     respond_to do |format|

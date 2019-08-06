@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     # User model routes
     resources :users, except: %i[new create destroy] do
       resources :transactions, only: %i[index create], controller: 'users/transactions'
+      post '/reinvite', to: 'users#reinvite', as: 'reinvite'
     end
 
     # Change direction route
