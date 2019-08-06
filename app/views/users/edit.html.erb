@@ -34,9 +34,16 @@
     </div>
 
     <div class="form-row">
+      <div class="form-group col-md-12">
+          <%= form.label :email %>
+          <%= form.text_field :email, class: 'form-control', required: true %>
+      </div>
+    </div>
+
+    <div class="form-row">
       <div class="form-group col-md-6">
           <%= form.label :father_name %>
-          <%= form.text_field :father_name, class: 'form-control', required: true %>
+          <%= form.text_field :father_name, class: 'form-control' %>
       </div>
 
       <div class="form-group col-md-6">
@@ -55,7 +62,7 @@
     <div class="form-row">
       <div class="form-group col-md-6">
           <%= form.label :phone %>
-          <%= form.text_field :phone, class: 'form-control cleave-phone-number', required: true %>
+          <%= form.text_field :phone, class: 'form-control cleave-phone-number' %>
       </div>
 
       <div class="form-group col-md-6">
@@ -69,7 +76,7 @@
       <div class="form-row">
         <div class="form-group col-md-6">
             <%= form.label :cpf %><br />
-            <%= form.text_field :cpf, class: 'form-control cleave-cpf', required: true %>
+            <%= form.text_field :cpf, class: 'form-control cleave-cpf' %>
             <div class="invalid-feedback">Oops, esse CPF é inválido. Por favor, verifique!</div>
         </div>
 
@@ -122,7 +129,7 @@
 
         <div class="form-group col-md-2">
             <%= form.label :place %>
-            <%= form.text_field :place, class: 'form-control', required: true %>
+            <%= form.text_field :place, class: 'form-control' %>
         </div>
       </div>
 

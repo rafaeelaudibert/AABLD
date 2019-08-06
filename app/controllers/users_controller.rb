@@ -62,7 +62,7 @@ class UsersController < ApplicationController
   end
 
   def admin_user_params
-    params.require(:user).permit(:first_name, :last_name, :cpf, :rg, :birthdate,
+    params.require(:user).permit(:first_name, :last_name, :email, :cpf, :rg, :birthdate,
                                  :phone, :mobile_phone, :address, :mother_name, :father_name,
                                  :bank_account, :bank_agency, :bank_option,
                                  :university_id, :place, :course, :responsible_id, :semester,
@@ -82,7 +82,7 @@ class UsersController < ApplicationController
   end
 
   def with_password_user_params
-    params.require(:user).permit(:first_name, :last_name, :cpf, :rg, :birthdate,
+    params.require(:user).permit(:first_name, :last_name, :email, :cpf, :rg, :birthdate,
                                  :phone, :mobile_phone, :address, :mother_name, :father_name,
                                  :about, :current_password)
   end
