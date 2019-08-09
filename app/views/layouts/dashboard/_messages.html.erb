@@ -4,13 +4,13 @@
       <% if name.to_s == 'notice' %>
         iziToast.success({
           title: 'Info',
-          message: '<%= msg %>',
+          message: '<%= msg.html_safe %>',
           position: 'bottomRight'
         });
       <% elsif %>
         iziToast.error({
           title: 'Erro',
-          message: '<%= msg %>',
+          message: '<%= msg.html_safe %>',
           position: 'bottomRight'
         });
       <% end %>
