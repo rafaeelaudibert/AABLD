@@ -89,7 +89,7 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <%= form.label :birthdate %>
-          <%= form.text_field :birthdate, class: 'form-control cleave-birthdate', required: true, value: form.object.birthdate.try(:strftime, "%m/%d/%Y") %>
+          <%= form.text_field :birthdate, class: 'form-control cleave-birthdate', required: true, value: form.object.birthdate.try(:strftime, "%d/%m/%Y") %>
           <div class="invalid-feedback">Oops, tem certeza que essa data está com o ano correto?</div>
         </div>
       </div>
