@@ -155,6 +155,7 @@ pt-BR:
         record_invalid: "A validação falhou: %{errors}"
         not_a_number: "%{attribute} não é um número válido"
         invalid: "%{attribute} atual não corresponde"
+        too_long: "Campo com texto maior do que o permitido (%{count})"
         restrict_dependent_destroy:
           has_one: "Não é possível excluir o registro pois existe um %{record} dependente"
           has_many: "Não é possível excluir o registro pois existem %{record} dependentes"

@@ -30,6 +30,7 @@ class User < ApplicationRecord
   validates :bank_agency, presence: true
   validates :course, presence: true
   validates :semester, presence: true
+  validates :about, length: { maximum: 200 }
 
   enum bank_option: %i[checking savings]
   enum role: {
