@@ -11,7 +11,7 @@
           <th>Email</th>
           <th>CPF</th>
           <th>Universidade</th>
-          <%= "<th>Ações</th>".html_safe if can?(:index_transaction, @users) || can?(:create_transaction, @users) || (@users.invitation_not_accepted.count.positive? && can?(:create, user)) %>          
+          <%= "<th>Ações</th>".html_safe if can?(:index_transaction, @users) || can?(:create_transaction, @users) || (@users.invitation_not_accepted.count.positive? && can?(:create, User)) %>          
         </tr>
         <% @users.each do |user| %>
           <tr>
@@ -30,9 +30,9 @@
             <td><%= user.email %></td>
             <td><%= user.cpf %></td>
             <td><%= user.university&.abbreviation %></td>
-            <% if can?(:index_transaction, user) ||
-              can?(:create_transaction, user) ||
-              (!user.invitation_accepted? && can?(:create, user)) %>
+            <% if can?(:index_transaction, @users) ||
+		  can?(:create_transaction, @users) ||
+                  (@users.invitation_not_accepted.count.positive? && can?(:create, User)) %>
               <td>
                 <% if can? :index_transaction, user %>
                   <%= link_to('Visualizar Transações', user_transactions_path(user), class: 'btn btn-primary w-100') %>

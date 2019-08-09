@@ -11,7 +11,7 @@ class UserAbility
     can :manage, User if user&.president? # President can manage anything
 
     # Can create, read and update users if it is on direction
-    can %i[create read update], User if user&.on_direction?
+    can %i[create read update reinvite], User if user&.on_direction?
 
     # Can index and create transactions if it is a high stake
     can %i[index_transaction create_transaction], User if user&.admin? ||
