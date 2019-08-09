@@ -145,12 +145,12 @@
                                             <div class="card card-member">
                                                 <div class="content">
                                                     <div class="avatar avatar-danger">
-                                                        <img alt="image-circle" src="<%= @president.avatar_url(100) %>" class="rounded-circle author-box-circle">
+                                                        <img alt="image-circle" src="<%= @president&.avatar_url(100) %>" class="rounded-circle author-box-circle">
                                                     </div>
                                                     <div class="description">
-                                                        <h3 class="title"><%= @president.name %></h3>
+                                                        <h3 class="title"><%= @president&.name %></h3>
                                                         <p class="small-text">Presidente</p>
-                                                        <p class="description"><%= @president.about %></p>
+                                                        <p class="description"><%= @president&.about %></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,12 +159,12 @@
                                             <div class="card card-member">
                                                 <div class="content">
                                                     <div class="avatar avatar-danger">
-                                                            <img alt="image-circle" src="<%= @treasurer.avatar_url(100) %>" class="rounded-circle author-box-circle">
+                                                            <img alt="image-circle" src="<%= @treasurer&.avatar_url(100) %>" class="rounded-circle author-box-circle">
                                                     </div>
                                                     <div class="description">
-                                                        <h3 class="title">Andrei</h3>
+                                                        <h3 class="title"><%= @tresasurer&.name %></h3>
                                                         <p class="small-text">Tesoureiro</p>
-                                                        <p class="description"><%= @treasurer.about %></p>
+                                                        <p class="description"><%= @treasurer&.about %></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -173,12 +173,12 @@
                                             <div class="card card-member">
                                                 <div class="content">
                                                     <div class="avatar avatar-danger">
-                                                        <img alt="image-circle" src="<%= @secretary.avatar_url(100) %>" class="rounded-circle author-box-circle">
+                                                        <img alt="image-circle" src="<%= @secretary&.avatar_url(100) %>" class="rounded-circle author-box-circle">
                                                     </div>
                                                     <div class="description">
-                                                        <h3 class="title"><%= @secretary.name %></h3>
-                                                        <p class="small-text">Marketing Hacker</p>
-                                                        <p class="description"><%= @secretary.about %></p>
+                                                        <h3 class="title"><%= @secretary&.name %></h3>
+                                                        <p class="small-text">Secretário</p>
+                                                        <p class="description"><%= @secretary&.about %></p>
                                                     </div>
                                                 </div>
                                             </div>
