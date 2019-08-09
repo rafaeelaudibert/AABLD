@@ -18,6 +18,9 @@ class Transaction < ApplicationRecord
   enum month: MONTH_LIST.each_with_index.to_h { |month, idx| [month, idx + 1] }
   enum status: { open: 0, finish: 1, close: 2 }
 
+  # Scopes
+  scope :from_current_month, -> { where(month: current_month_index, year: current_year) }
+
   # Returns a beautified string for the Transaction breadcrumb
   def breadcrumb
     "Transação de #{enum_t(self, :month)}-#{year}"

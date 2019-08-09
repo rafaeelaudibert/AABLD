@@ -1,5 +1,5 @@
 <% content_for :title do %>
-    Edição | Transação
+    Transação | <%= @transaction.user.full_name %>
 <% end %>
 
 <% @transaction.user_tickets.each do |user_ticket| %>
@@ -83,7 +83,8 @@
 <% end %>
 
 <% if can? :finish, @transaction %>
-    <%= link_to 'Finalizar Transação', finish_transactions_path(@transaction), class: 'btn btn-lg btn-primary float-right' %>
+    <%= link_to 'Finalizar Transação e ir para próximo usuário', finish_transactions_path(@transaction, next_transaction: true), class: 'btn btn-lg btn-primary float-right' %>
+    <%= link_to 'Finalizar Transação', finish_transactions_path(@transaction), class: 'btn btn-lg btn-primary float-right mr-2' %>
 <% end %>
 
 <% content_for :javascript do %>

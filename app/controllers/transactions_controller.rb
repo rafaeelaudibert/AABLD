@@ -51,7 +51,12 @@ class TransactionsController < ApplicationController
   def finish
     if @transaction.open?
       @transaction.finish!
-      redirect_back fallback_location: root_path, notice: 'Transação finalizada com sucesso.'
+
+      if should_go_to_next_transaction?
+        redirect_to_next_transaction
+      else
+        redirect_back fallback_location: root_path, notice: 'Transação finalizada com sucesso.'
+      end
     else
       redirect_back fallback_location: root_path,
                     alert: 'Transação não foi finalizada, pois não estava aberta.'
@@ -62,7 +67,13 @@ class TransactionsController < ApplicationController
   def close
     if @transaction.finish?
       @transaction.close!
-      redirect_back fallback_location: root_path, notice: 'Transação concluída com sucesso.'
+
+      if should_go_to_next_transaction?
+        redirect_to_next_finished_transaction
+      else
+        redirect_to transactions_path,
+                    notice: 'Fechamendo de transações concluído com sucesso.'
+      end
     else
       redirect_back fallback_location: root_path,
                     alert: 'Transação não foi concluída, pois não estava finalizada.'
@@ -75,5 +86,40 @@ class TransactionsController < ApplicationController
   def current_ability
     @current_ability ||= TransactionAbility.new(current_user)
                                            .merge(SidebarAbility.new(current_user))
+  end
+
+  # Params used in the transaction creation
+  def transaction_params
+    {
+      month: Transaction.current_month_index,
+      year: Transaction.current_year,
+      user_id: User.not_did_monthly_transaction.first.id
+    }
+  end
+
+  # Function which returns if it was asked to go to the next_user
+  def should_go_to_next_transaction?
+    params[:next_transaction].try(:eql?, 'true')
+  end
+
+  # Handle redirection to the next user
+  def redirect_to_next_transaction
+    if User.not_did_monthly_transaction.count.positive?
+      redirect_to Transaction.new(transaction_params).tap(&:save!),
+                  notice: 'Transação finalizada com sucesso. <br/> Avançando para próxima transação'
+    else
+      redirect_to transactions_path, notice: 'Transações mensais finalizadas'
+    end
+  end
+
+  # Handle redirection to the next transaction which is not finished yet
+  def redirect_to_next_finished_transaction
+    if Transaction.finish.from_current_month.count.positive?
+      redirect_to Transaction.finish.from_current_month.first,
+                  notice: 'Transação fechada com sucesso. <br/>' \
+                          'Avançando para próxima transação ainda não finalizada'
+    else
+      redirect_to transactions_path, notice: 'Fechamento das transações mensais finalizadas'
+    end
   end
 end

@@ -1,5 +1,5 @@
 <% content_for :title do %>
-    <h3> Transação </h3>
+    <h3> Transação | <%= @transaction.user.full_name %> </h3>
 <% end %>
 
 <% unless @transaction.close? %>
@@ -96,6 +96,7 @@
 
 <% if !@transaction.close? && can?(:close, @transaction) %>
     <%= link_to 'Fechar Transação', close_transactions_path(@transaction), class: 'btn btn-lg btn-primary float-right' %>
+    <%= link_to 'Fechar Transação e avançar para próxima', close_transactions_path(@transaction, next_transaction: true), class: 'btn btn-lg btn-primary float-right mr-2' %>
 <% end %>
 <% if !@transaction.open? && can?(:open, @transaction) %>
     <%= link_to 'Reabrir Transação', open_transactions_path(@transaction), class: 'btn btn-lg btn-success float-right mr-2' %>
