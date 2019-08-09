@@ -39,7 +39,7 @@ pt-BR:
       no_token: "Você não pode acessar esta página para redefinição, por favor tenha certeza de que usou a URL completa recebida."
       send_instructions: "Você receberá, em breve, um email com instruções de como redefinir sua senha."
       send_paranoid_instructions: "Se seu endereço de email existir em nosso banco de dados, você receberá um link de redefinição de senha em alguns minutos."
-      updated: "Sua senha foi atualizada com sucesso. Você agora está logado."
+      updated: "Sua senha foi atualizada com sucesso. Você entrou no sistema automaticamente."
       updated_not_active: "Sua senha foi atualizada com sucesso."
     registrations:
       destroyed: "Tchau! Sua conta foi cancelada com êxito. Esperamos ver você de novo em breve!"

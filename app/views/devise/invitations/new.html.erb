@@ -13,8 +13,6 @@
             <div class="card-body">
               <p class="text-muted">Enviar convite para participar da AABLD</p>
               <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f| %>
-                <%= devise_error_messages! %>
-
                 <div class="form-group">
                   <%= f.label :email %><br />
 
@@ -213,7 +211,7 @@
 
                 <div class="form-group">
                   <%= f.label :responsible_id %><br />
-                  <%= f.select :responsible_id, User.not_admin.ticket_responsibles.map { |user| [user.full_name, user.id] }, { include_blank: "Responsável próprio" }, {class: 'form-control'} %>
+                  <%= f.select :responsible_id, User.not_admin.ticket_responsibles.map { |user| [user.full_name, user.id] }, { include_blank: "Responsável próprio" }, {class: 'form-control select2'} %>
                 </div>  
 
                 <div class="form-group">
