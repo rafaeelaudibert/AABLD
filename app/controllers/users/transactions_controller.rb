@@ -22,13 +22,9 @@ class Users::TransactionsController < ApplicationController
   # POST /users/:user_id/transactions.json
   def create
     respond_to do |format|
-      if @transaction.save
-        format.html { redirect_to @transaction, notice: 'Transação criada com sucesso.' }
-        format.json { render :show, status: :created, location: @transaction }
-      else
-        format.html { render :new }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
-      end
+      @transaction.save!
+      format.html { redirect_to @transaction, notice: 'Transação criada com sucesso.' }
+      format.json { render :show, status: :created, location: @transaction }
     end
   end
 
