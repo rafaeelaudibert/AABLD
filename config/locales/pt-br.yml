@@ -118,6 +118,7 @@ pt-BR:
         about: "Sobre"
         current_password: "Senha atual"
         password: "Senha"
+        password_confirmation: "Confirmação de senha"
         email: "E-mail"
         first_name: "Nome"
         last_name: "Sobrenome"
@@ -146,6 +147,7 @@ pt-BR:
         role: "Função"
     errors:
       messages:
+        confirmation: "Você precisa confirmar o valor inserido no campo %{attribute}"
         greater_than_or_equal_to: "precisa ser maior do que %{count}"
         invalid_cpf: "Oops, esse CPF é inválido. Por favor, verifique!"
         invalid_cnpj: "Oops, esse CNPJ é inválido. Por favor, verifique!"

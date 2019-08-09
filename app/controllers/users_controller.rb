@@ -72,6 +72,7 @@ class UsersController < ApplicationController
   def update_with_password
     respond_to do |format|
       if @user.update_with_password(with_password_user_params)
+        bypass_sign_in(@user)
         format.html { redirect_to @user, notice: 'Usuário atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -84,7 +85,7 @@ class UsersController < ApplicationController
   def with_password_user_params
     params.require(:user).permit(:first_name, :last_name, :email, :cpf, :rg, :birthdate,
                                  :phone, :mobile_phone, :address, :mother_name, :father_name,
-                                 :about, :current_password)
+                                 :about, :password, :password_confirmation, :current_password)
   end
 
   def current_ability
