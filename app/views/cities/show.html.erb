@@ -50,13 +50,17 @@
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-lg-6 col-sm-12">
+                    <div class="form-group col-lg-4 col-sm-12">
                         <label style="margin-bottom: 0">Viagens totais:</label> <br/>
                         <%= @city.user_tickets.values.map(&:count).sum %>
                     </div>
-                    <div class="form-group col-lg-6 col-sm-12">
+                    <div class="form-group col-lg-4 col-sm-12">
                         <label style="margin-bottom: 0">Valor total:</label> <br/>
                         <%= format_currency(@city.user_tickets.values.map { |uts| uts.map(&:total) }.map(&:sum).sum) %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-12">
+                        <label style="margin-bottom: 0">Valor ressarcido:</label> <br/>
+                        <%= format_currency(@city.user_tickets.values.map { |uts| uts.map(&:total) }.map(&:sum).sum * Ticket::TRANSFER_RATE) %>
                     </div>
                 </div>
             </div>

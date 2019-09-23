@@ -28,11 +28,24 @@ module BusCompaniesHelper
     data = UserTicket.group_by_month(:created_at, last: 12).count
                      .map { |ut| [ut[0], pre_data.fetch(date_hash_string(ut[0]), 0)] }
 
+    transfered_data = data.map { |ut| [ut[0], ut[1] * Ticket::TRANSFER_RATE] }
+
     options = create_chart_options(title: 'Valor',
                                    subtitle: 'Agrupado por Mês',
                                    xtitle: 'Mês',
-                                   ytitle: 'Valor')
+                                   ytitle: 'Valor',
+                                   stacked: false)
 
-    area_chart({ name: 'Valor', data: data }, options)
+    area_chart([
+                 {
+                   name: 'Valor total',
+                   data: data
+                 },
+                 {
+                   name: 'Valor ressarcido',
+                   data: transfered_data
+                 }
+               ],
+               options)
   end
 end

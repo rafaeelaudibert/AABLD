@@ -58,17 +58,21 @@
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="form-group col-lg-4 col-sm-12">
+                    <div class="form-group col-lg-3 col-sm-12">
                         <label style="margin-bottom: 0">Usuários totais:</label> <br/>
                         <%= @university.user_tickets.map(&:user_id).uniq.count %>
                     </div>
-                    <div class="form-group col-lg-4 col-sm-12">
+                    <div class="form-group col-lg-3 col-sm-12">
                         <label style="margin-bottom: 0">Usuários ativos (últimos 6 meses):</label> <br/>
                         <%= @university.user_tickets.where(created_at: 6.months.ago..DateTime::Infinity.new).map(&:user_id).uniq.count %>
                     </div>
-                    <div class="form-group col-lg-4 col-sm-12">
+                    <div class="form-group col-lg-3 col-sm-12">
                         <label style="margin-bottom: 0">Valor arrecadado total:</label> <br/>
                         <%= format_currency @university.user_tickets.sum(&:total) %>
+                    </div>
+                    <div class="form-group col-lg-3 col-sm-12">
+                        <label style="margin-bottom: 0">Valor ressarcido total:</label> <br/>
+                        <%= format_currency @university.user_tickets.sum(&:total) * Ticket::TRANSFER_RATE %>
                     </div>
                 </div>
             </div>
