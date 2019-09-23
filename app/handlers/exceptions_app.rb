@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExceptionsApp < Rambulance::ExceptionsApp
   def bad_request; end
 
