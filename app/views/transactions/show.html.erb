@@ -83,6 +83,10 @@
                         <label style="margin-bottom: 0">Valor total:</label> <br/>
                         <%= format_currency @transaction.user_tickets.sum(&:total) %>
                     </div>
+                    <div class="form-group col-sm-3">
+                        <label style="margin-bottom: 0"> <%= @transaction.close? ? "Valor repassado:" : "Valor a ser repassado:" %> </label> <br/>
+                        <%= format_currency @transaction.user_tickets.sum(&:total) * Ticket::TRANSFER_RATE %>
+                    </div>
                 </div>
             </div>
         </div>

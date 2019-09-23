@@ -8,6 +8,9 @@ class Ticket < ApplicationRecord
 
   validate :not_duplicated
 
+  # The associations transfers 90% of the value of the ticket
+  TRANSFER_RATE = 0.9
+
   def itinerary
     "#{source_city.name} -> #{destination_city.name}"
   end
