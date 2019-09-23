@@ -51,6 +51,7 @@ class TransactionsController < ApplicationController
   def finish
     if @transaction.open?
       @transaction.finish!
+      TransactionMailer.finish_transaction(@transaction.id).deliver_later
 
       if should_go_to_next_transaction?
         redirect_to_next_transaction
@@ -67,6 +68,7 @@ class TransactionsController < ApplicationController
   def close
     if @transaction.finish?
       @transaction.close!
+      TransactionMailer.close_transaction(@transaction.id).deliver_later
 
       if should_go_to_next_transaction?
         redirect_to_next_finished_transaction

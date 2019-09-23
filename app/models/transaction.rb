@@ -23,7 +23,12 @@ class Transaction < ApplicationRecord
 
   # Returns a beautified string for the Transaction breadcrumb
   def breadcrumb
-    "Transação de #{enum_t(self, :month)}-#{year}"
+    "Transação de #{beautified_date}"
+  end
+
+  # Returns the year and month of the transaction
+  def beautified_date
+    "#{enum_t(self, :month)}-#{year}"
   end
 
   # Returns a string containing the type of badge, according to the Transaction status

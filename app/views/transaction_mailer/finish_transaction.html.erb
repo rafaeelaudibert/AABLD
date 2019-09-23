@@ -1,0 +1,24 @@
+<div style="text-align: center;background-color: #FFFFFF; width: 80%; box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.2); padding:1rem 1rem; margin: 2.5rem auto">
+  <div style="width: 100%; height: 4rem; background-color: #444444; vertical-align: middle; border-top:1rem; margin-bottom: 1rem">
+    <h1 style="font-size: 3rem;color: #ffffff;">AABLD</h1>
+  </div>
+
+  <p>
+    <span style="font-size: 2rem">Olá,
+      <b style="color: #007bff"><%= @user.name %>!</b>
+    </span>
+  </p>
+
+  <p>
+    A checagem das passagens referente à <%= @transaction.beautified_date %> foi realizado com sucesso!
+  </p>
+
+  <p>
+    O dinheiro deverá entrar em sua conta em até 5 dias. Um e-mail será enviado quando o dinheiro for transferido.
+  </p>
+
+  <p>
+    Você pode conferir mais informações sobre os valores clicando <%= link_to 'aqui', transaction_url(@transaction) %>.
+  </p>
+
+</div>
