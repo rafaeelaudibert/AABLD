@@ -44,36 +44,36 @@ pt-BR:
     enums:
       transaction:
         months:
-          january: 'Janeiro'
-          february: 'Fevereiro'
-          march: 'Março'
-          april: 'Abril'
-          may: 'Maio'
-          june: 'Junho'
-          july: 'Julho'
-          august: 'Agosto'
-          september: 'Setembro'
-          october: 'Outubro'
-          november: 'Novembro'
-          december: 'Dezembro'
+          january: "Janeiro"
+          february: "Fevereiro"
+          march: "Março"
+          april: "Abril"
+          may: "Maio"
+          june: "Junho"
+          july: "Julho"
+          august: "Agosto"
+          september: "Setembro"
+          october: "Outubro"
+          november: "Novembro"
+          december: "Dezembro"
         statuses:
-          open: 'Aberto'
-          finish: 'Aguardando depósito'
-          close: 'Concluído'
+          open: "Aberto"
+          finish: "Aguardando depósito"
+          close: "Concluído"
       user:
         bank_options:
-          checking: 'Conta Corrente'
-          savings: 'Conta Poupança'
+          checking: "Conta Corrente"
+          savings: "Conta Poupança"
         roles: &user_role
-          member: 'Membro'
-          president: 'Presidente'
-          treasurer: 'Tesoureiro'
-          secretary: 'Secretário'
-          vice_president: 'Vice-presidente'
-          vice_treasurer: '2º Tesoureiro'
-          vice_secretary: '2º Secetrário'
-          fiscal_council: 'Conselho Fiscal'
-          admin: 'Administrador'
+          member: "Membro"
+          president: "Presidente"
+          treasurer: "Tesoureiro"
+          secretary: "Secretário"
+          vice_president: "Vice-presidente"
+          vice_treasurer: "2º Tesoureiro"
+          vice_secretary: "2º Secetrário"
+          fiscal_council: "Conselho Fiscal"
+          admin: "Administrador"
     attributes:
       bus_company:
         name: "Nome"
@@ -93,6 +93,9 @@ pt-BR:
         bus_company_id: "Empresa de Ônibus"
         bus_company: "Empresa de Ônibus"
         value: "Valor"
+        total_value: "Valor total"
+        itinerary: "Itinerário"
+        quantity: "Quantidade"
       transaction:
         user_id: "Usuário"
         month: "Mês"

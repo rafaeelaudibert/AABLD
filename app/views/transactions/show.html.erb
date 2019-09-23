@@ -36,24 +36,24 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group" style="margin-bottom: 0.7rem">
-                        <label style="margin-bottom: 0"><%= t('activerecord.models.ticket.itinerary')%>:</label> <br/>
+                        <label style="margin-bottom: 0"><%= t('activerecord.attributes.ticket.itinerary')%>:</label> <br/>
                         <%= user_ticket.ticket.itinerary %>
                     </div>
                     <div class="form-group" style="margin-bottom: 0.7rem">
-                        <label style="margin-bottom: 0"><%= t('activerecord.models.bus_company.name')%>:</label> <br/>
+                        <label style="margin-bottom: 0"><%= t('activerecord.attributes.bus_company.name')%>:</label> <br/>
                         <%= user_ticket.ticket.bus_company.name %>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-4">
-                            <label style="margin-bottom: 0"><%= t('activerecord.models.ticket.quantity')%>:</label> <br/>
+                            <label style="margin-bottom: 0"><%= t('activerecord.attributes.ticket.quantity')%>:</label> <br/>
                             <%= user_ticket.quantity %>
                         </div>
                         <div class="form-group col-4">
-                            <label style="margin-bottom: 0"><%= t('activerecord.models.ticket.value')%>:</label> <br/>
+                            <label style="margin-bottom: 0"><%= t('activerecord.attributes.ticket.value')%>:</label> <br/>
                             <%= format_currency user_ticket.original_value %>
                         </div>
                         <div class="form-group col-4">
-                            <label style="margin-bottom: 0"><%= t('activerecord.models.ticket.total_value')%>:</label> <br/>
+                            <label style="margin-bottom: 0"><%= t('activerecord.attributes.ticket.total_value')%>:</label> <br/>
                             <%= format_currency user_ticket.original_value * user_ticket.quantity %>
                         </div>
                     </div>
