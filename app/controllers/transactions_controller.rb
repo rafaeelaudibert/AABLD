@@ -121,7 +121,11 @@ class TransactionsController < ApplicationController
   # Handle redirection to the next transaction which is not finished yet
   def redirect_to_next_finished_transaction
     if Transaction.finish.from_current_month.count.positive?
-      redirect_to Transaction.finish.from_current_month.first,
+      redirect_to Transaction.finish
+                             .from_current_month
+                             .joins(:user)
+                             .order('users.first_name', 'users.last_name')
+                             .first,
                   notice: 'Transação fechada com sucesso. <br/>' \
                           'Avançando para próxima transação ainda não finalizada'
     else
