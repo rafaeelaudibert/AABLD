@@ -50,7 +50,7 @@ class Transaction < ApplicationRecord
 
   # Computes the total transfered value in the transaction
   def transfered_value
-    value * Ticket::TRANSFER_RATE
+    user_tickets.sum(&:transfered_total)
   end
 
   # All transactions from a given user

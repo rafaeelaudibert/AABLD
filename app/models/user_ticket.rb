@@ -15,4 +15,8 @@ class UserTicket < ApplicationRecord
   def total
     quantity * original_value
   end
+
+  def transfered_total
+    total * Ticket::TRANSFER_RATE
+  end
 end

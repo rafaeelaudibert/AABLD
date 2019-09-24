@@ -35,8 +35,8 @@ module DashboardHelper
 
   def dashboard_monthly_value_chart
     pre_data = UserTicket.all
-                         .group_by { |ut| date_hash_string ut.created_at }                         
-                         .transform_values { |val| val.sum(&:total) }
+                         .group_by { |ut| date_hash_string ut.created_at }
+                         .transform_values { |val| val.sum(&:transfered_total) }
 
     data = UserTicket.group_by_month(:created_at)
                      .count
@@ -45,7 +45,7 @@ module DashboardHelper
     # If there is no data, return earlier
     return render(partial: 'empty_chart', locals: { chart_title: 'Valor' }) if data.length.zero?
 
-    options = create_chart_options(title: 'Valor',
+    options = create_chart_options(title: 'Valor Repassado',
                                    subtitle: 'Agrupado por Mês',
                                    xtitle: 'Mês',
                                    ytitle: 'Valor',

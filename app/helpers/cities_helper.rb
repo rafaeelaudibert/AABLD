@@ -28,7 +28,7 @@ module CitiesHelper
   def city_monthly_value_chart_for(city)
     pre_data_s = city.user_tickets_as_source
                      .group_by { |ut| date_hash_string ut.created_at }
-                     .transform_values { |val| val.sum(&:total) }
+                     .transform_values { |val| val.sum(&:transfered_total) }
 
     source_data = UserTicket.group_by_month(:created_at, last: 12)
                             .count
@@ -36,13 +36,13 @@ module CitiesHelper
 
     pre_data_d = city.user_tickets_as_destination
                      .group_by { |ut| date_hash_string ut.created_at }
-                     .transform_values { |val| val.sum(&:total) }
+                     .transform_values { |val| val.sum(&:transfered_total) }
 
     destination_data = UserTicket.group_by_month(:created_at, last: 12)
                                  .count
                                  .map { |ut| [ut[0], pre_data_d.fetch(date_hash_string(ut[0]), 0)] }
 
-    options = create_chart_options(title: 'Valor total',
+    options = create_chart_options(title: 'Valor repassado',
                                    subtitle: 'Agrupado por Mês',
                                    xtitle: 'Mês',
                                    ytitle: 'Valor',
