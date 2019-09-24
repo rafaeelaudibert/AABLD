@@ -2,7 +2,7 @@
 
 module DashboardHelper
   def dashboard_monthly_user_chart
-    data = Transaction.group_by_month(:created_at, last: 12).count
+    data = Transaction.joins(:user_tickets).group_by_month(:created_at, last: 12).count
 
     options = create_chart_options(title: 'Usuários',
                                    subtitle: 'Agrupado por Mês',
