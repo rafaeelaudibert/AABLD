@@ -96,7 +96,7 @@ class TransactionsController < ApplicationController
     {
       month: Transaction.current_month_index,
       year: Transaction.current_year,
-      user_id: User.not_did_monthly_transaction.first.id
+      user_id: User.order(:place).not_did_monthly_transaction.first.id
     }
   end
 
