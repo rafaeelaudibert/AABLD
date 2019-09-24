@@ -9,7 +9,6 @@
         <th class="d-none d-md-table-cell">#</th>
         <th>Nome</th>
         <th class="d-none d-md-table-cell">Estado</th>
-        <th class="d-none d-md-table-cell">Ativa?</th>
         <th>Estudantes</th>
       </tr>
       <% @cities.each do |city| %>
@@ -24,7 +23,6 @@
             </div>
           </td>
           <td class="d-none d-md-table-cell"><%= city.state %></td>
-          <td class="d-none d-md-table-cell"><%== city.students_count > 0 ? '<div class="badge badge-success">Ativa</div></td>' : '<div class="badge badge-danger">Inativa</div></td>' %>
           <td><%= city.students_count %>
         </tr>
       <% end %> 
