@@ -2,7 +2,10 @@
 
 module UsersHelper
   def user_monthly_travel_chart_for(user)
-    data = user.user_tickets.group_by_month(:created_at, last: 12).count
+    data = user.user_tickets
+               .flat_map { |ut| [ut] * ut.quantity }
+               .group_by { |ut| date_hash_string ut.created_at }
+               .transform_values(&:count)
 
     options = create_chart_options(title: 'Viagens',
                                    subtitle: 'Agrupado por Mês',
@@ -17,8 +20,7 @@ module UsersHelper
   def user_monthly_value_chart_for(user)
     pre_data = user.user_tickets
                    .group_by { |ut| date_hash_string ut.created_at }
-                   .map { |key, value| [key, value.sum(&:total)] }
-                   .to_h
+                   .transform_values { |val| val.sum(&:total) }
 
     data = UserTicket.group_by_month(:created_at, last: 12).count
                      .map { |ut| [ut[0], pre_data.fetch(date_hash_string(ut[0]), 0)] }
