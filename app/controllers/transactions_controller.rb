@@ -51,7 +51,8 @@ class TransactionsController < ApplicationController
   def finish
     if @transaction.open?
       @transaction.finish!
-      TransactionMailer.finish_transaction(@transaction.id).deliver_later
+
+      TransactionMailer.finish_transaction(@transaction.id).deliver_later unless @transaction.user_tickets.length.zero?
 
       if should_go_to_next_transaction?
         redirect_to_next_transaction
@@ -68,13 +69,13 @@ class TransactionsController < ApplicationController
   def close
     if @transaction.finish?
       @transaction.close!
-      TransactionMailer.close_transaction(@transaction.id).deliver_later
+      TransactionMailer.close_transaction(@transaction.id).deliver_later unless @transaction.user_tickets.length.zero?
 
       if should_go_to_next_transaction?
         redirect_to_next_finished_transaction
       else
-        redirect_to transactions_path,
-                    notice: 'Fechamendo de transações concluído com sucesso.'
+        redirect_back fallback_location: root_path,
+                      notice: 'Fechamendo de transações concluído com sucesso.'
       end
     else
       redirect_back fallback_location: root_path,
