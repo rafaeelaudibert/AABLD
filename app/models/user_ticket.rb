@@ -17,6 +17,6 @@ class UserTicket < ApplicationRecord
   end
 
   def transfered_total
-    total * Ticket::TRANSFER_RATE
+    (total * Ticket::TRANSFER_RATE).round 2
   end
 end
