@@ -12,8 +12,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable,
          :timeoutable, :async
 
-  has_many :transactions, dependent: :restrict_with_error
-  has_many :user_tickets, dependent: :restrict_with_error
+  has_many :transactions, -> { order(:created_at) }, dependent: :restrict_with_error
+  has_many :user_tickets, -> { order(:created_at) }, dependent: :restrict_with_error
   belongs_to :responsible, optional: true, class_name: 'User'
   belongs_to :university
   has_one :city, through: :university
