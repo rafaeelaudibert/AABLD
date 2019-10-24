@@ -11,7 +11,9 @@
           <th>Email</th>
           <th>CPF</th>
           <th>Universidade</th>
-          <%= "<th>Ações</th>".html_safe if can?(:index_transaction, @users) || can?(:create_transaction, @users) || (@users.invitation_not_accepted.count.positive? && can?(:create, User)) %>          
+          <%= "<th>Ações</th>".html_safe if @users.map { |user| can?(:index_transaction, user) }.any? ||
+                                            @users.map { |user| can?(:create_transaction, user) } ||
+                                            (@users.invitation_not_accepted.count.positive? && can?(:create, User)) %>          
         </tr>
         <% @users.each do |user| %>
           <tr>
@@ -30,8 +32,8 @@
             <td><%= user.email %></td>
             <td><%= user.cpf %></td>
             <td><%= user.university&.abbreviation %></td>
-            <% if can?(:index_transaction, @users) ||
-		  can?(:create_transaction, @users) ||
+            <% if can?(:index_transaction, user) ||
+		              can?(:create_transaction, user) ||
                   (@users.invitation_not_accepted.count.positive? && can?(:create, User)) %>
               <td>
                 <% if can? :index_transaction, user %>
