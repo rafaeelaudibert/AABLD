@@ -6,6 +6,6 @@ class BusCompanyAbility
   def initialize(user)
     can :manage, BusCompany if user.admin?
     can :manage, BusCompany if user.president?
-    can :read, BusCompany if user.on_direction?
+    can :read, BusCompany
   end
 end

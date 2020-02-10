@@ -52,7 +52,8 @@ class City < ApplicationRecord
                     .joins(:source_city)
                     .joins(:destination_city)
                     .flat_map { |t| [t.source_city, t.destination_city] }
-    tickets.uniq!
+
+    tickets.uniq
   end
 
   # Returns an array containing only the name and the id of the City

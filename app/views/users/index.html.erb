@@ -12,7 +12,7 @@
           <th>CPF</th>
           <th>Universidade</th>
           <%= "<th>Ações</th>".html_safe if @users.map { |user| can?(:index_transaction, user) }.any? ||
-                                            @users.map { |user| can?(:create_transaction, user) } ||
+                                            @users.map { |user| can?(:create_transaction, user) }.any? ||
                                             (@users.invitation_not_accepted.count.positive? && can?(:create, User)) %>          
         </tr>
         <% @users.each do |user| %>

@@ -75,14 +75,18 @@
 <div class="row">
   <div class="col-lg-6 col-sm-12">
     <div class="card">
-      <div class="card-body">
-        <%= user_monthly_travel_chart_for @user %>
+      <div class="card-body text-center" style="height: 440px">
+          <div class="row align-items-center h-100">
+            <div class="col-12 mx-auto">
+              <%= user_monthly_travel_chart_for @user %>
+            </div>
+          </div>
       </div>
     </div>
   </div>
   <div class="col-lg-6 col-sm-12">
     <div class="card">
-      <div class="card-body">
+      <div class="card-body text-center" style="height: 440px">
         <%= user_monthly_value_chart_for @user %>
       </div>
     </div>

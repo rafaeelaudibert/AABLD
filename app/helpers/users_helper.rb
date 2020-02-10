@@ -14,6 +14,8 @@ module UsersHelper
                                    palette: 'palette7',
                                    stacked: false)
 
+    return '<h3>Sem dados<br/>para gráfico de viagens</h3>'.html_safe if data.length.zero?
+
     column_chart({ name: 'Viagens', data: data }, options)
   end
 
@@ -35,14 +37,8 @@ module UsersHelper
                                    stacked: false)
 
     area_chart([
-                 {
-                   name: 'Valor total',
-                   data: data
-                 },
-                 {
-                   name: 'Valor ressarcido',
-                   data: transfered_data
-                 }
+                 { name: 'Valor total', data: data },
+                 { name: 'Valor ressarcido', data: transfered_data }
                ],
                options)
   end

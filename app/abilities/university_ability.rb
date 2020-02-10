@@ -6,6 +6,6 @@ class UniversityAbility
   def initialize(user)
     can :manage, University if user.admin?
     can :manage, University if user.president?
-    can :read, University if user.on_direction?
+    can :read, University
   end
 end

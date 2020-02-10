@@ -19,28 +19,28 @@ class SidebarAbility
 
   private
 
-  def can_general(user)
+  def can_general(_user)
     # Everybody can access Transactions panel
     can :access, :transactions
 
     # Everybody can access Direction panel
     can :access, :direction
 
-    # Admins and Direction can access Users panel
-    can :access, :users if user.on_direction?
+    # Everybody can access Users panel
+    can :access, :users
   end
 
-  def can_administrative(user)
+  def can_administrative(_user)
     # Everybody can access Tickets panel
     can :access, :tickets
 
-    # Admins and Direction can access BusCompanies panel
-    can :access, :bus_companies if user.on_direction?
+    # Everybody can access BusCompanies panel
+    can :access, :bus_companies
 
-    # Admins and Direction can access Cities panel
-    can :access, :cities if user.on_direction?
+    # Everybody can access Cities panel
+    can :access, :cities
 
-    # Admins and Direction can access Universities panel
-    can :access, :universities if user.on_direction?
+    # Everybody can access Universities panel
+    can :access, :universities
   end
 end

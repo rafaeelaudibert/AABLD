@@ -22,9 +22,11 @@ class UserAbility
     can :see_documents, User if user&.admin? || user &.on_direction?
     can :see_documents, User, id: user&.id
 
-    # Every user can see and edit itself
-    can :read, User, id: user&.id
+    # Every user can update itself
     can :update, User, id: user&.id
+
+    # Every user has access to see other User profiles
+    can :read, User
   end
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/AbcSize
