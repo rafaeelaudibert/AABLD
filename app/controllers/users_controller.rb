@@ -66,7 +66,7 @@ class UsersController < ApplicationController
                                  :phone, :mobile_phone, :address, :mother_name, :father_name,
                                  :bank_account, :bank_agency, :bank_option,
                                  :university_id, :place, :course, :responsible_id, :semester,
-                                 :about, :ticket_responsible)
+                                 :about, :ticket_responsible, :semester_start, :semester_end)
   end
 
   def update_with_password
@@ -85,7 +85,8 @@ class UsersController < ApplicationController
   def with_password_user_params
     params.require(:user).permit(:first_name, :last_name, :email, :cpf, :rg, :birthdate,
                                  :phone, :mobile_phone, :address, :mother_name, :father_name,
-                                 :about, :password, :password_confirmation, :current_password)
+                                 :about, :password, :password_confirmation, :current_password,
+                                 :semester_start, :semester_end)
   end
 
   def current_ability

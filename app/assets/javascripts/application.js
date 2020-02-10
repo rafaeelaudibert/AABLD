@@ -18,8 +18,19 @@
 //= _require jquery_ujs 
 //= _require bootstrap-sprockets 
 //= require best_in_place
+//= require pickadate/picker
+//= require pickadate/picker.date
+//= require pickadate/picker.time
+//= require pickadate/translations/pt_BR
 
 $(document).ready(function() {
   /* Activating Best In Place */
   jQuery(".best_in_place").best_in_place();
+
+  /* Activating the PickADate datepicker*/
+  $('.datepicker').pickadate({
+    formatSubmit: 'yyyy-mm-dd',
+    selectMonths: true,
+    hiddenName: true
+  });
 });

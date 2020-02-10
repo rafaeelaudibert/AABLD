@@ -32,6 +32,15 @@ class Users::InvitationsController < Devise::InvitationsController
 
   private
 
+  # Configure Strong params
+  def invite_params
+    params.require(:user).permit(:first_name, :last_name, :email, :cpf, :rg, :birthdate,
+                                 :phone, :mobile_phone, :address, :mother_name, :father_name,
+                                 :bank_account, :bank_agency, :bank_option,
+                                 :university_id, :place, :course, :responsible_id, :semester,
+                                 :about, :ticket_responsible, :semester_start, :semester_end)
+  end
+
   # Configure CanCan Ability
   def current_ability
     @current_abiliy = UserAbility.new(current_user)

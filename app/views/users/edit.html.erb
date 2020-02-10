@@ -129,7 +129,19 @@
 
         <div class="form-group col-md-2">
             <%= form.label :place %>
-            <%= form.text_field :place, class: 'form-control' %>
+            <%= form.text_field :place, class: 'form-control', required: true %>
+        </div>             
+      </div>
+    
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <%= form.label :semester_start %>
+          <%= form.text_field :semester_start, class: 'form-control datepicker', 'data-value': form.object.semester_start.try(:strftime, "%Y/%m/%d"), required: true %>
+        </div>
+
+        <div class="form-group col-md-6">
+          <%= form.label :semester_end %>
+          <%= form.text_field :semester_end, class: 'form-control datepicker', 'data-value': form.object.semester_end.try(:strftime, "%Y/%m/%d"), required: true %>
         </div>
       </div>
 
@@ -137,7 +149,7 @@
         <div class="form-group col-md-6">
           <%= form.label :responsible_id %><br />
           <%= form.select :responsible_id, User.not_admin.ticket_responsibles.reject { |user| @user == user }.map { |user| [user.full_name, user.id] }, { include_blank: "Responsável próprio" }, { class: 'form-control select2' } %>
-      </div>
+        </div>
 
         <div class="form-group col-md-6">
           <div class="control-label">Responsável</div>

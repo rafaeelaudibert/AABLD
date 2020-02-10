@@ -148,3 +148,6 @@ gem 'apexcharts'
 
 # SendGrid usage helper
 gem 'sendgrid-actionmailer'
+
+# Calendar picker
+gem 'pickadate-rails'

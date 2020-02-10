@@ -2,6 +2,25 @@
     Transação | <%= @transaction.user.full_name %>
 <% end %>
 
+<%# If I am paying the first or last month, show info %>
+<% if Date.today.month <= (@transaction.user.semester_start.month + 1) || Date.today.month >= (@transaction.user.semester_end.month - 1) %>
+  <div class="row">
+    <div class="col-12 mb-4">
+      <div class="hero align-items-center bg-info text-white" style="padding: 2rem">
+        <div class="hero-inner text-center">
+          <h2>Atenção,</h2>
+          <p>
+            note que esse associado somente pode receber passagens utilizadas
+            no período compreendido entre <br/>
+            <b style="font-size: 1.2em"><%= @transaction.user.semester_start.strftime '%d-%m-%Y'%></b> e
+            <b style="font-size: 1.2em"><%= @transaction.user.semester_end.strftime '%d-%m-%Y'%></b>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <% @transaction.user_tickets.each do |user_ticket| %>
     <div class="form-row">
         <div class="form-group col-md-5 col-sm-6">

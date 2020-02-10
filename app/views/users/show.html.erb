@@ -62,7 +62,15 @@
                         <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.role')%></label> <br/>
                         <%= enum_t(@user, :role) %>
                     </div>
-                    <div class="form-group col-lg-12 col-sm-6">
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.semester_start')%></label> <br/>
+                        <%= @user.semester_start.strftime '%d-%m-%Y' %>
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6">
+                        <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.semester_end')%></label> <br/>
+                        <%= @user.semester_end.strftime '%d-%m-%Y' %>
+                    </div>
+                    <div class="form-group col-12">
                         <label style="margin-bottom: 0"> <%= t('activerecord.attributes.user.about')%></label> <br/>
                         <%= @user.about %>
                     </div>
