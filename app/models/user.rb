@@ -73,10 +73,10 @@ class User < ApplicationRecord
   end
 
   # Returns the user age
-  def age # rubocop:disable Metrics/AbcSize
-    now = Time.zone.now.utc.to_date
-    gone = now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)
-    now.year - birthdate.year - (!gone ? 1 : 0)
+  def age 
+    now = Time.zone.now
+    birthdate_time = birthdate.to_time # rubocop:disable Rails/Date
+    ActiveSupport::Duration.build(now - birthdate_time).parts[:years]
   end
 
   # Returns true if there already exists a Transaction created in this month for the User
