@@ -2,6 +2,18 @@
   Usuários
 <% end %>
 
+<%= form_tag users_path, method: :get do %>
+  <div class="form-row mr-2 pr-1">
+    <div class="form-group col-sm-4 offset-sm-6">
+      <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: "Pesquise por um associado aqui" %>
+    </div>  
+
+    <div class="form-group col-sm-2">
+      <%= submit_tag "Pesquisar", name: nil, class: 'btn btn-lg btn-primary w-100' %>
+    </div>   
+  </div>    
+<% end %>
+
 <% if @users.count > 0 %>
   <div class="table-responsive">
     <table class="table table-bordered table-md table-striped">
@@ -22,6 +34,10 @@
               <div class="table-links">
                 <% if can? :show, user %>
                   <%= link_to 'Mostrar', user %>
+                <% end %>
+                <% if can? :edit, user %>
+                  <div class="bullet"></div>  
+                  <%= link_to 'Editar', edit_user_path(user), class: 'text-info' %>
                 <% end %>
                 <% if can? :destroy, user %>
                   <div class="bullet"></div>

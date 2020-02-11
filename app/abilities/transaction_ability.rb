@@ -14,6 +14,6 @@ class TransactionAbility
     can :read, Transaction if user.president?
 
     # Can read own transactions
-    can :read, Transaction, user_id: user.id 
+    can :read, Transaction, user_id: user.id
   end
 end

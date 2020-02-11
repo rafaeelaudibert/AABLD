@@ -12,8 +12,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable,
          :timeoutable, :async
 
-  has_many :transactions, -> { order(:created_at) }, dependent: :restrict_with_error
-  has_many :user_tickets, -> { order(:created_at) }, dependent: :restrict_with_error
+  has_many :transactions, -> { order(:created_at) },
+           dependent: :restrict_with_error,
+           inverse_of: :user
+  has_many :user_tickets, -> { order(:created_at) },
+           dependent: :restrict_with_error,
+           inverse_of: :user
   belongs_to :responsible, optional: true, class_name: 'User'
   belongs_to :university
   has_one :city, through: :university
@@ -107,6 +111,13 @@ class User < ApplicationRecord
       # Add new users to direction, assigning the right role to them
       direction.each { |role, user| user.update! role: role.to_sym }
     end
+  end
+
+  # Search the user where the name or first name match any of the query
+  def self.search(query)
+    return all if query == '' || query.nil?
+
+    where('concat(first_name, last_name, email) ILIKE ?', "%#{query}%")
   end
 
   # Returns if the user belongs to the association direction

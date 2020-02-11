@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   breadcrumb 'Edição', only: :show
 
   def index
-    @pagy, @users = pagy User.where.not(role: :admin)
+    @pagy, @users = pagy User.where.not(role: :admin).search(params[:search])
   end
 
   def show; end
