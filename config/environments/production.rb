@@ -63,7 +63,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # ActionMailer Config
-  config.action_mailer.default_url_options = { host: ENV['HOST'] || 'aabld.tk' }
+  config.action_mailer.default_url_options = { host: ENV['HOST'] || 'portal.aabld.com.br' }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default charset: 'utf-8'
 
