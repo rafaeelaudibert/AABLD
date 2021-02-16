@@ -73,7 +73,7 @@ class User < ApplicationRecord
   end
 
   # Returns the user age
-  def age 
+  def age
     now = Time.zone.now
     birthdate_time = birthdate.to_time # rubocop:disable Rails/Date
     ActiveSupport::Duration.build(now - birthdate_time).parts[:years]
@@ -104,13 +104,11 @@ class User < ApplicationRecord
     raise StandardError, 'Sem membros suficientes na diretoria' if direction.uniq
                                                                             .length < DIRECTION_SIZE
 
-    transaction do
-      # Remove roles from older direction
-      on_direction.each(&:member!)
+    # Remove roles from older direction
+    on_direction.each(&:member!)
 
-      # Add new users to direction, assigning the right role to them
-      direction.each { |role, user| user.update! role: role.to_sym }
-    end
+    # Add new users to direction, assigning the right role to them
+    direction.each { |role, user| user.update! role: role.to_sym }
   end
 
   # Search the user where the name or first name match any of the query
