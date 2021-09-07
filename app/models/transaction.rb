@@ -19,6 +19,7 @@ class Transaction < ApplicationRecord
   enum status: { open: 0, finish: 1, close: 2 }
 
   # Scopes
+  default_scope { order(status: :asc, year: :desc, month: :desc) }
   scope :from_current_month, -> { where(month: current_month_index, year: current_year) }
 
   # Returns a beautified string for the Transaction breadcrumb
@@ -70,13 +71,10 @@ class Transaction < ApplicationRecord
 
   private
 
-  # rubocop:disable Style/GuardClause
   def not_duplicated
     same_transactions = Transaction.where(user: user, month: month, year: year)
-
-    unless same_transactions.count.zero? || same_transactions.first == self
-      errors.add(:user, 'já possui uma transação nesse mês e ano')
-    end
+    return if same_transactions.count.zero? || same_transactions.first == self
+    
+    errors.add(:user, 'já possui uma transação nesse mês e ano')
   end
-  # rubocop:enable all
 end
