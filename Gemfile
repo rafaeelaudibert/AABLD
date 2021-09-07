@@ -9,6 +9,10 @@ ruby '2.6.3'
 # Configure Rails version
 gem 'rails', '~> 5.2.2'
 
+# Fix problem with Rails depending on broken mimemagic version
+# See: https://github.com/rails/rails/issues/41750
+gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
+
 # Use PostgreSQL as the database for Active Record
 gem 'pg'
 
