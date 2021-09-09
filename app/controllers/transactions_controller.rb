@@ -16,7 +16,7 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @pagy, @transactions = pagy Transaction.accessible_by(current_ability)
+    @pagy, @transactions = pagy Transaction.order(status: :asc, year: :desc, month: :desc).accessible_by(current_ability)
   end
 
   # GET transactions/:id

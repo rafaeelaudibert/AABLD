@@ -19,7 +19,6 @@ class Transaction < ApplicationRecord
   enum status: { open: 0, finish: 1, close: 2 }
 
   # Scopes
-  default_scope { order(status: :asc, year: :desc, month: :desc) }
   scope :from_current_month, -> { where(month: current_month_index, year: current_year) }
 
   # Returns a beautified string for the Transaction breadcrumb

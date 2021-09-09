@@ -15,7 +15,7 @@ class Users::TransactionsController < ApplicationController
   # GET /users/:user_id/transactions
   # GET /users/:user_id/transactions.json
   def index
-    @pagy, @transactions = pagy Transaction.accessible_by(current_ability).from_user @user
+    @pagy, @transactions = pagy Transaction.order(status: :asc, year: :desc, month: :desc).accessible_by(current_ability).from_user @user
   end
 
   # POST /users/:user_id/transactions
