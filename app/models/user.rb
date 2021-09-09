@@ -81,7 +81,8 @@ class User < ApplicationRecord
 
   # Returns true if there already exists a Transaction created in this month for the User
   def did_monthly_transaction?
-    transactions.last&.month_before_type_cast == Transaction.current_month_index
+    last_transaction = transactions.last
+    last_transaction&.month_before_type_cast == Transaction.current_month_index && last_transaction.year == Transaction.current_year
   end
 
   # Returns true, if the user is a Ticket Responsible
