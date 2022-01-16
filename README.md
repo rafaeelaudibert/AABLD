@@ -6,6 +6,8 @@ This repository is meant to create the platform to handle the administrative ope
 for the Associação dos Acadêmicos Barbosenses de Longa Distância (AABLD), but, in the
 future, will be able to be expanded to handle other associations administrative tasks.
 
+> NOTE: There is a new and updated version available at https://github.com/rafaeelaudibert/AABLD-2.0, using TailwindCSS and a newer Rails version.
+
 ### :floppy_disk: Prerequisites
 To have this running your local machine, you only must have a Ruby version >= 2.6.1. Everything else is covered by Docker, which are used to keep your envinroment safe.
 
